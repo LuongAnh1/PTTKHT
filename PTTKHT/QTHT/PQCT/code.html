@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Phân quyền chi tiết</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Roboto", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem", // 8px
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 bg-[#111827] text-gray-300 flex flex-col flex-shrink-0">
+<div class="p-6">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-3xl text-white">settings</span>
+<h1 class="text-xl font-bold text-white">Admin</h1>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">home</span> Trang chủ
+            </a>
+<a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
+<span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
+            </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
+            </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
+            </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
+            </a>
+</nav>
+<div class="p-4">
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">account_circle</span> admin
+            </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
+            </a>
+</div>
+</aside>
+<main class="flex-1 p-8 overflow-hidden flex flex-col h-screen">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full overflow-hidden">
+<div class="p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+<div class="mb-6">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quản trị Hệ thống</h2>
+<p class="text-gray-500 dark:text-gray-400">Cấu hình người dùng và phân quyền truy cập chi tiết cho hệ thống.</p>
+</div>
+<div>
+<nav aria-label="Tabs" class="flex space-x-2 border-b border-gray-200 dark:border-gray-700">
+<button class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 px-4 py-3 font-medium text-sm flex items-center gap-2 focus:outline-none transition-colors">
+<span class="material-symbols-outlined text-lg">group</span>
+                            Quản lý Người dùng
+                        </button>
+<button class="border-b-2 border-primary text-primary px-4 py-3 font-medium text-sm flex items-center gap-2 focus:outline-none">
+<span class="material-symbols-outlined text-lg">admin_panel_settings</span>
+                            Phân quyền chi tiết
+                        </button>
+</nav>
+</div>
+</div>
+<div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 overflow-hidden">
+<div class="flex flex-col lg:flex-row gap-6 h-full">
+<div class="w-full lg:w-80 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col h-full">
+<div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50 rounded-t-lg">
+<h3 class="font-bold text-base text-gray-900 dark:text-white">Vai trò / Nhóm</h3>
+<button class="text-primary hover:text-blue-600 text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">add</span> Mới
+                            </button>
+</div>
+<div class="flex-1 overflow-y-auto p-3 space-y-2">
+<button class="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">shield_person</span>
+</div>
+<div>
+<div class="font-medium text-gray-900 dark:text-white text-sm">Quản trị viên</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">Toàn quyền hệ thống</div>
+</div>
+</div>
+</button>
+<button class="w-full text-left p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 flex items-center justify-between relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-lg"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">warehouse</span>
+</div>
+<div>
+<div class="font-medium text-blue-700 dark:text-blue-300 text-sm">Thủ kho</div>
+<div class="text-xs text-blue-500 dark:text-blue-400">Quản lý kho hàng</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-lg">chevron_right</span>
+</button>
+<button class="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">point_of_sale</span>
+</div>
+<div>
+<div class="font-medium text-gray-900 dark:text-white text-sm">Nhân viên bán hàng</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">Tạo đơn, xem khách hàng</div>
+</div>
+</div>
+</button>
+<button class="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">account_balance</span>
+</div>
+<div>
+<div class="font-medium text-gray-900 dark:text-white text-sm">Kế toán</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">Thu chi, báo cáo tài chính</div>
+</div>
+</div>
+</button>
+</div>
+</div>
+<div class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col h-full overflow-hidden">
+<div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 z-10 flex-shrink-0">
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white flex items-center gap-2">
+                                    Cấu hình quyền: <span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-base">Thủ kho</span>
+</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Thiết lập các chức năng được phép truy cập cho vai trò này.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-gray-700 dark:text-gray-200 bg-white border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 font-medium text-sm transition-colors shadow-sm">
+                                    Khôi phục mặc định
+                                </button>
+<button class="px-4 py-2 text-white bg-primary rounded-lg hover:bg-blue-600 font-medium text-sm shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                                    Lưu thay đổi
+                                </button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<div class="border border-gray-100 dark:border-gray-700/50 rounded-xl p-5 bg-gray-50/50 dark:bg-gray-800/50">
+<div class="flex items-center gap-2 mb-5">
+<span class="material-symbols-outlined text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-1.5 rounded-lg">warehouse</span>
+<h4 class="font-bold text-gray-800 dark:text-gray-200 uppercase text-sm tracking-wider">Quản lý Kho hàng</h4>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<div class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Xem danh sách hàng hóa</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Cho phép xem danh sách và chi tiết sản phẩm</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Tạo phiếu nhập kho</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Cho phép tạo và lưu phiếu nhập hàng mới</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Xuất kho / Điều chuyển</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Cho phép tạo phiếu xuất hoặc chuyển kho</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Xem giá vốn nhập vào</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Hiển thị giá vốn trong danh sách và phiếu</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="border border-gray-100 dark:border-gray-700/50 rounded-xl p-5 bg-gray-50/50 dark:bg-gray-800/50">
+<div class="flex items-center gap-2 mb-5">
+<span class="material-symbols-outlined text-purple-500 bg-purple-100 dark:bg-purple-900/30 p-1.5 rounded-lg">bar_chart</span>
+<h4 class="font-bold text-gray-800 dark:text-gray-200 uppercase text-sm tracking-wider">Báo cáo &amp; Thống kê</h4>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<div class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Xem báo cáo tồn kho</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Truy cập các biểu đồ và số liệu tồn kho</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Xuất dữ liệu Excel</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Cho phép tải xuống các báo cáo dạng file</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="border border-red-100 dark:border-red-900/30 rounded-xl p-5 bg-red-50/30 dark:bg-red-900/10">
+<div class="flex items-center gap-2 mb-5">
+<span class="material-symbols-outlined text-red-500 bg-red-100 dark:bg-red-900/30 p-1.5 rounded-lg">dangerous</span>
+<h4 class="font-bold text-gray-800 dark:text-gray-200 uppercase text-sm tracking-wider">Thao tác nâng cao (Nguy hiểm)</h4>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<div class="flex items-center justify-between py-2 border-b border-dashed border-red-200 dark:border-red-800/30 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Xóa hàng hóa</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Xóa vĩnh viễn thông tin sản phẩm khỏi hệ thống</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-dashed border-red-200 dark:border-red-800/30 md:border-none">
+<div class="pr-4">
+<div class="text-sm font-medium text-gray-900 dark:text-white">Sửa phiếu nhập đã hoàn thành</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Cho phép chỉnh sửa phiếu sau khi đã nhập kho</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

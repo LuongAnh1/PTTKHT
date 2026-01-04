@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Sản phẩm &amp; Biến thể</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Roboto", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem", // 8px
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }.toggle-checkbox:checked {
+            right: 0;
+            border-color: #3B82F6;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #3B82F6;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 bg-[#111827] text-gray-300 flex flex-col">
+<div class="p-6">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-3xl text-white">settings</span>
+<h1 class="text-xl font-bold text-white">Admin</h1>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">home</span> Trang chủ
+                </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
+                </a>
+<a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
+<span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
+                </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
+                </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
+                </a>
+</nav>
+<div class="p-4">
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">account_circle</span> admin
+                </a>
+<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
+                </a>
+</div>
+</aside>
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow">
+<div class="p-6">
+<div class="mb-6">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quản lý Sản phẩm &amp; Biến thể</h2>
+<p class="text-gray-500 dark:text-gray-400">Quản lý danh sách sản phẩm, biến thể, tồn kho và trạng thái kinh doanh.</p>
+</div>
+<div>
+<nav aria-label="Tabs" class="flex space-x-2 overflow-x-auto pb-2 sm:pb-0">
+<a class="text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap" href="#">Quản lý Nhóm/Bộ sưu tập</a>
+<a aria-current="page" class="bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap" href="#">Quản lý Sản phẩm &amp; Biến thể</a>
+<a class="text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap" href="#">Quản lý Giá &amp; Khuyến mãi</a>
+<a class="text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap" href="#">Quản lý Nhà cung cấp</a>
+</nav>
+</div>
+</div>
+<div class="p-6 pt-0 space-y-6">
+<div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+<div class="lg:col-span-12">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent text-sm shadow-sm" placeholder="Tìm kiếm theo Tên sản phẩm, Mã SKU, Mã vạch..." type="text"/>
+</div>
+</div>
+<div class="lg:col-span-3">
+<select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+<option value="">Trạng thái kinh doanh</option>
+<option value="active">Đang bán</option>
+<option value="inactive">Ngừng kinh doanh</option>
+<option value="out_stock">Hết hàng</option>
+</select>
+</div>
+<div class="lg:col-span-3">
+<select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+<option value="">Nhóm hàng</option>
+<option value="ao">Thời trang Nam</option>
+<option value="quan">Thời trang Nữ</option>
+<option value="pk">Phụ kiện</option>
+</select>
+</div>
+<div class="lg:col-span-3">
+<select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+<option value="">Thương hiệu/Nhà cung cấp</option>
+<option value="nike">Nike Official</option>
+<option value="adidas">Adidas VN</option>
+<option value="local">Local Brand</option>
+</select>
+</div>
+<div class="lg:col-span-3">
+<select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+<option value="">Trạng thái Tồn kho</option>
+<option value="all">Tất cả</option>
+<option value="available">Còn hàng</option>
+<option value="low">Sắp hết hàng (Low Stock)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="relative group">
+<button class="flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">checklist</span>
+                                    Thao tác hàng loạt
+                                    <span class="material-symbols-outlined text-[18px]">arrow_drop_down</span>
+</button>
+<div class="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden group-hover:block z-10">
+<a class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[16px]">print</span> In mã vạch
+                                    </a>
+<a class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[16px]">price_change</span> Cập nhật giá
+                                    </a>
+<a class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[16px]">delete</span> Xóa đã chọn
+                                    </a>
+</div>
+</div>
+<span class="text-sm text-gray-500 dark:text-gray-400 hidden sm:inline-block">Đã chọn: 0</span>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[20px] text-green-600 dark:text-green-400">file_present</span>
+                                Nhập/Xuất Excel
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-blue-600 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                Thêm mới
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+<table class="w-full text-sm text-left">
+<thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700">
+<tr>
+<th class="px-4 py-3 w-4">
+<input class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" type="checkbox"/>
+</th>
+<th class="px-4 py-3 w-16">Hình ảnh</th>
+<th class="px-4 py-3 min-w-[200px] font-semibold">Tên sản phẩm &amp; SKU</th>
+<th class="px-4 py-3 whitespace-nowrap font-semibold">Phân loại</th>
+<th class="px-4 py-3 whitespace-nowrap font-semibold">Giá bán</th>
+<th class="px-4 py-3 whitespace-nowrap font-semibold">Tổng tồn kho</th>
+<th class="px-4 py-3 whitespace-nowrap font-semibold">Ngày tạo</th>
+<th class="px-4 py-3 text-center font-semibold">Trạng thái</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
+<td class="px-4 py-4">
+<input class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-4">
+<div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden">
+<img alt="T-Shirt" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtJxb20nS1JpeCVwU1eD03EFxMYpH9eR8VF2r703C2CAHo3M8UfH2kerlBhb4foNxwp3b7-01a0avYPIBM2Uh67G1ZkOkaOmOvQ9YF6s7zNj8GGo2ctk6ZXttjbRyL2A3Q2etyW4eo8s8RZjNB9WSTIChTeuHzazzeGO5qo7fiaRAyYAjOTUHFcjz1Ize2nFnU6NSptdjwLk4uC987dkY4wpFj0yis10oOc7Bky4yuRTdY0yAVTu-D8-SN2_nGmu3w7vsvP0CZU5k"/>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="font-medium text-gray-900 dark:text-white text-base">Áo Thun Cotton Premium</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">SKU: AT-001</span>
+<span class="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">style</span> 4 biến thể
+                                            </span>
+</div>
+</td>
+<td class="px-4 py-4 text-gray-600 dark:text-gray-300">Thời trang Nam</td>
+<td class="px-4 py-4 font-medium text-gray-900 dark:text-white">150.000₫ - 180.000₫</td>
+<td class="px-4 py-4">
+<button class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
+<span class="font-bold">1,250</span>
+<span class="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary">expand_circle_down</span>
+</button>
+<div class="text-xs text-green-600 mt-0.5">Sẵn hàng</div>
+</td>
+<td class="px-4 py-4 text-gray-500 text-xs">
+<div>20/10/2023</div>
+<div>14:30</div>
+</td>
+<td class="px-4 py-4 text-center">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer checked:bg-primary" for="toggle1"></label>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
+<td class="px-4 py-4">
+<input class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-4">
+<div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden">
+<img alt="Shoes" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpGHX7VEqu7qiHFcRPzCS-2PHRGy899pWGfT3eS3EI7JDtrXR7Ic5vmic91Hme-bqlZTotfzD-9k-cZgx0mGS2wdtkN57pOQZvnPAYxwpZnScAiWBuV6oPgz3cI-Cu3HAboD1OPZfbOXSrScf4-y-_sfFmzVYdou4Hgxk6lU-d3KErSt0cRzoBRL4_6f_0InzsV_Dq4m4B-AQMy5bckncQkYynxygss5lmLddtpLGLTmKnS1_5KZLMdk3fKGxZva8DpqKLokjAMsA"/>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="font-medium text-gray-900 dark:text-white text-base">Giày Sneaker Nike Air</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">SKU: SNK-992</span>
+<span class="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">style</span> 8 biến thể
+                                            </span>
+</div>
+</td>
+<td class="px-4 py-4 text-gray-600 dark:text-gray-300">Giày dép</td>
+<td class="px-4 py-4 font-medium text-gray-900 dark:text-white">2.500.000₫</td>
+<td class="px-4 py-4">
+<button class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
+<span class="font-bold text-orange-500">12</span>
+<span class="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary">expand_circle_down</span>
+</button>
+<div class="text-xs text-orange-500 mt-0.5">Sắp hết</div>
+</td>
+<td class="px-4 py-4 text-gray-500 text-xs">
+<div>18/10/2023</div>
+<div>09:15</div>
+</td>
+<td class="px-4 py-4 text-center">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer checked:bg-primary" for="toggle2"></label>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group bg-red-50/30 dark:bg-red-900/10">
+<td class="px-4 py-4">
+<input class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-4">
+<div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined">image_not_supported</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="font-medium text-gray-900 dark:text-white text-base">Quần Jeans Slimfit Cũ</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">SKU: QJ-OLD</span>
+<span class="text-xs text-gray-500 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">style</span> 1 biến thể
+                                            </span>
+</div>
+</td>
+<td class="px-4 py-4 text-gray-600 dark:text-gray-300">Thời trang Nam</td>
+<td class="px-4 py-4 font-medium text-gray-900 dark:text-white">450.000₫</td>
+<td class="px-4 py-4">
+<button class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
+<span class="font-bold text-red-600">0</span>
+<span class="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary">expand_circle_down</span>
+</button>
+<div class="text-xs text-red-600 mt-0.5">Hết hàng</div>
+</td>
+<td class="px-4 py-4 text-gray-500 text-xs">
+<div>01/05/2023</div>
+<div>10:00</div>
+</td>
+<td class="px-4 py-4 text-center">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in opacity-50">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300" id="toggle3" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" for="toggle3"></label>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
+<div class="text-sm text-gray-500 dark:text-gray-400">
+                            Hiển thị <span class="font-medium">1</span> đến <span class="font-medium">3</span> trong số <span class="font-medium">450</span> sản phẩm
+                        </div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md text-sm disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300" disabled="">Trước</button>
+<button class="px-3 py-1.5 bg-primary text-white border border-primary rounded-md text-sm hover:bg-blue-600">1</button>
+<button class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">2</button>
+<button class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">3</button>
+<span class="px-2 py-1.5 text-gray-500">...</span>
+<button class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">Sau</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
