@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Fashion Store Manager Login</title>
+    <title>Forgot Password - Fashion Store Manager</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
@@ -51,67 +51,105 @@
                 <div class="absolute w-48 h-48 bg-blue-400/20 rounded-full blur-3xl"></div>
                 <div class="relative">
                     <span
-                        class="material-symbols-outlined text-[120px] lg:text-[150px] text-blue-100 drop-shadow-2xl">checkroom</span>
+                        class="material-symbols-outlined text-[120px] lg:text-[150px] text-blue-100 drop-shadow-2xl">lock_reset</span>
                     <span
                         class="material-symbols-outlined text-[40px] text-blue-300 absolute -top-2 -right-6 animate-bounce"
-                        style="animation-duration: 3s;">inventory_2</span>
+                        style="animation-duration: 3s;">mail</span>
                     <span
                         class="material-symbols-outlined text-[32px] text-blue-300/80 absolute -bottom-2 -left-4 animate-bounce"
-                        style="animation-duration: 4s;">shopping_bag</span>
+                        style="animation-duration: 4s;">check_circle</span>
                 </div>
             </div>
             <div>
-                <h2 class="text-2xl lg:text-3xl font-bold mb-3 leading-tight">Quản lý cửa hàng hiệu quả</h2>
+                <h2 class="text-2xl lg:text-3xl font-bold mb-3 leading-tight">Khôi phục quyền truy cập</h2>
                 <p class="text-blue-100/90 text-sm lg:text-base leading-relaxed">
-                    Tối ưu hóa hàng tồn kho, quản lý nhân viên và theo dõi xu hướng thời trang tất cả trong một nơi.
+                    Xác minh danh tính của bạn qua email để thiết lập lại mật khẩu.
                 </p>
             </div>
         </div>
         <div class="w-full lg:w-1/2 bg-white p-8 lg:p-12 flex flex-col relative">
-
+            <a href="../DN/code.html"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100 flex items-center gap-1 text-sm font-medium">
+                Về đăng nhập <span class="material-symbols-outlined text-[24px]">login</span>
+            </a>
             <div class="my-auto w-full max-w-sm mx-auto">
-                <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-8">Đăng nhập</h1>
-                <form id="loginForm" class="flex flex-col gap-5">
+                <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Quên mật khẩu?</h1>
+                <p class="text-sm text-gray-500 mb-8">Nhập thông tin để đặt lại mật khẩu của bạn.</p>
+                <form id="forgotPasswordForm" class="flex flex-col gap-5">
                     <div class="flex flex-col gap-2">
                         <label class="text-sm font-semibold text-gray-700" for="username">
                             Tên đăng nhập
                         </label>
                         <input
                             class="form-input w-full rounded-lg border border-gray-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-gray-400 h-11 px-4 text-sm transition-all shadow-sm"
-                            id="username" name="username" placeholder="Tên đăng nhập" type="text" required />
+                            id="username" name="username" placeholder="Nhập tên đăng nhập" type="text" required />
                     </div>
+
                     <div class="flex flex-col gap-2">
-                        <label class="text-sm font-semibold text-gray-700" for="password">
-                            Mật khẩu
+                        <label class="text-sm font-semibold text-gray-700" for="email">
+                            Email xác nhận
+                        </label>
+                        <input
+                            class="form-input w-full rounded-lg border border-gray-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-gray-400 h-11 px-4 text-sm transition-all shadow-sm"
+                            id="email" name="email" placeholder="Nhập email của bạn" type="email" required />
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700" for="new-password">
+                            Mật khẩu mới
                         </label>
                         <div class="relative w-full">
                             <input
                                 class="form-input w-full rounded-lg border border-gray-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-gray-400 h-11 pl-4 pr-10 text-sm transition-all shadow-sm"
-                                id="password" name="password" placeholder="Mật khẩu" type="password" required />
+                                id="new-password" name="newPassword" placeholder="Nhập mật khẩu mới" type="password"
+                                required />
                             <button
                                 class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 cursor-pointer"
                                 type="button"
-                                onclick="const p = document.getElementById('password'); p.type = p.type === 'password' ? 'text' : 'password';">
+                                onclick="const p = document.getElementById('new-password'); p.type = p.type === 'password' ? 'text' : 'password';">
                                 <span class="material-symbols-outlined text-[20px]">visibility_off</span>
                             </button>
                         </div>
-                        <div class="mt-1">
-                            <a class="text-sm font-medium text-gray-500 hover:text-primary transition-colors"
-                                href="../DMK/QuenMatKhau.html">Quên mật khẩu?</a>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700" for="confirm-password">
+                            Nhập lại mật khẩu mới
+                        </label>
+                        <div class="relative w-full">
+                            <input
+                                class="form-input w-full rounded-lg border border-gray-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-gray-400 h-11 pl-4 pr-10 text-sm transition-all shadow-sm"
+                                id="confirm-password" name="confirmPassword" placeholder="Nhập lại mật khẩu mới"
+                                type="password" required />
+                            <button
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 cursor-pointer"
+                                type="button"
+                                onclick="const p = document.getElementById('confirm-password'); p.type = p.type === 'password' ? 'text' : 'password';">
+                                <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                            </button>
                         </div>
                     </div>
+
                     <button type="submit"
                         class="w-full rounded-full bg-primary hover:bg-blue-600 text-white font-bold h-11 mt-4 shadow-md hover:shadow-lg transition-all transform active:scale-[0.98]">
-                        Đăng nhập
+                        Đặt lại mật khẩu
                     </button>
                 </form>
 
                 <script>
-                    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+                    document.getElementById('forgotPasswordForm').addEventListener('submit', async function (e) {
                         e.preventDefault();
 
                         const username = document.getElementById('username').value;
-                        const password = document.getElementById('password').value;
+                        const email = document.getElementById('email').value;
+                        const newPassword = document.getElementById('new-password').value;
+                        const confirmPassword = document.getElementById('confirm-password').value;
+
+                        if (newPassword !== confirmPassword) {
+                            alert('Mật khẩu nhập lại không trùng khớp!');
+                            return;
+                        }
+
                         const btn = this.querySelector('button[type="submit"]');
                         const originalText = btn.innerHTML;
 
@@ -120,27 +158,27 @@
                         btn.innerHTML = '<span class="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full mr-2"></span> Đang xử lý...';
 
                         try {
-                            const response = await fetch('/api/login', {
+                            const response = await fetch('/api/forget-password', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ username, password })
+                                body: JSON.stringify({
+                                    username: username,
+                                    email: email,
+                                    newPassword: newPassword
+                                })
                             });
 
                             const data = await response.json();
 
                             if (data.success) {
-                                // Save user info
-                                localStorage.setItem('user', JSON.stringify(data.user));
-                                alert('Đăng nhập thành công! Xin chào ' + data.user.fullName);
-                                // Redirect to dashboard
-                                window.location.href = '../../TC/code.html';
-                                console.log('User logged in:', data.user);
+                                alert('Đặt lại mật khẩu thành công! Vui lòng đăng nhập.');
+                                window.location.href = '../DN/code.html';
                             } else {
-                                alert(data.message || 'Đăng nhập thất bại');
+                                alert(data.message || 'Đặt lại mật khẩu thất bại.');
                             }
                         } catch (error) {
                             console.error('Error:', error);
-                            alert('Có lỗi xảy ra khi kết nối server.');
+                            alert('Lỗi kết nối server.');
                         } finally {
                             btn.disabled = false;
                             btn.innerHTML = originalText;
@@ -153,7 +191,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
