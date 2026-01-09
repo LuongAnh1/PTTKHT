@@ -9,7 +9,7 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME,
     ssl: {
         minVersion: 'TLSv1.2',
-        rejectUnauthorized: true
+        rejectUnauthorized: false // <--- QUAN TRỌNG: Đổi thành false để chấp nhận chứng chỉ tự ký
     },
     waitForConnections: true,
     connectionLimit: 10,

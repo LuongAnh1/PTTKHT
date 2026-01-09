@@ -88,10 +88,12 @@
                             <input
                                 class="form-input w-full rounded-lg border border-gray-300 bg-white focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-gray-400 h-11 pl-4 pr-10 text-sm transition-all shadow-sm"
                                 id="password" name="password" placeholder="Mật khẩu" type="password" required />
+                            
+                            <!-- Đã cập nhật onclick gọi hàm togglePassword -->
                             <button
                                 class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 cursor-pointer"
                                 type="button"
-                                onclick="const p = document.getElementById('password'); p.type = p.type === 'password' ? 'text' : 'password';">
+                                onclick="togglePassword('password', this)">
                                 <span class="material-symbols-outlined text-[20px]">visibility_off</span>
                             </button>
                         </div>
@@ -107,6 +109,21 @@
                 </form>
 
                 <script>
+                    // 1. HÀM XỬ LÝ ẨN/HIỆN MẬT KHẨU
+                    function togglePassword(inputId, btn) {
+                        const input = document.getElementById(inputId);
+                        const icon = btn.querySelector('span');
+
+                        if (input.type === "password") {
+                            input.type = "text";
+                            icon.innerText = "visibility"; // Mắt mở
+                        } else {
+                            input.type = "password";
+                            icon.innerText = "visibility_off"; // Mắt gạch chéo
+                        }
+                    }
+
+                    // 2. XỬ LÝ ĐĂNG NHẬP
                     document.getElementById('loginForm').addEventListener('submit', async function (e) {
                         e.preventDefault();
 
@@ -131,10 +148,9 @@
                             if (data.success) {
                                 // Save user info
                                 localStorage.setItem('user', JSON.stringify(data.user));
-                                alert('Đăng nhập thành công! Xin chào ' + data.user.fullName);
+                                alert('Đăng nhập thành công! Xin chào ' + data.user.HoTen); // Sửa fullName thành HoTen cho khớp DB
                                 // Redirect to dashboard
                                 window.location.href = '../../TC/code.html';
-                                console.log('User logged in:', data.user);
                             } else {
                                 alert(data.message || 'Đăng nhập thất bại');
                             }

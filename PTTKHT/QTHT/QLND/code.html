@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Quản trị Hệ thống</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Quản lý Người dùng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -16,249 +17,400 @@
                         "background-light": "#F3F4F6",
                         "background-dark": "#111827",
                     },
-                    fontFamily: {
-                        display: ["Roboto", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem", // 8px
-                    },
+                    fontFamily: { display: ["Roboto", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
                 },
             },
         };
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
-        }
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #4b5563; }
     </style>
 </head>
-<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200"> 
+
 <div class="flex h-screen">
-<aside class="w-64 bg-[#111827] text-gray-300 flex flex-col">
-<div class="p-6">
-<div class="flex items-center space-x-3">
-<span class="material-symbols-outlined text-3xl text-white">settings</span>
-<h1 class="text-xl font-bold text-white">Admin</h1>
-</div>
-</div>
-<nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">home</span> Trang chủ
+    <!-- SIDEBAR (Cấu trúc mới giống PQCT) -->
+    <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col flex-shrink-0 transition-all duration-300">
+        <div class="p-6">
+            <div class="flex items-center space-x-3">
+                <span class="material-symbols-outlined text-3xl text-white">settings</span>
+                <h1 class="text-xl font-bold text-white">Admin</h1>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700 overflow-y-auto">
+            
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/TC/code.html">
+                <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
-<a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
-<span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
+
+            <!-- Menu đang Active -->
+            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold shadow-md" href="#">
+                <span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
+
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
+                <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLK/NK/code.html">
+                <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/BCTK/BCTK/code.html">
+                <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
             </a>
-</nav>
-<div class="p-4">
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">account_circle</span> admin
+        </nav>
+        <div class="p-4 border-t border-gray-700">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">account_circle</span> admin
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/DN/code.html">
+                <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
-</div>
-</aside>
-<main class="flex-1 p-8 overflow-y-auto">
-<div class="bg-white dark:bg-gray-800 rounded-lg shadow h-full flex flex-col">
-<div class="p-6 border-b border-gray-200 dark:border-gray-700">
-<div class="mb-6">
-<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quản trị Hệ thống</h2>
-<p class="text-gray-500 dark:text-gray-400">Cấu hình người dùng và phân quyền truy cập chi tiết cho hệ thống.</p>
-</div>
-<div>
-<nav aria-label="Tabs" class="flex space-x-2 border-b border-gray-200 dark:border-gray-700">
-<button class="border-b-2 border-primary text-primary px-4 py-3 font-medium text-sm flex items-center gap-2 focus:outline-none">
-<span class="material-symbols-outlined text-lg">group</span>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT (Cấu trúc mới: padding 8, khung trắng bo góc) -->
+    <main class="flex-1 p-8 overflow-hidden flex flex-col h-screen">
+        
+        <!-- WRAPPER: Khung trắng nổi (Giống PQCT) -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full overflow-hidden">
+            
+            <!-- Header Section -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quản trị Hệ thống</h2>
+                    <p class="text-gray-500 dark:text-gray-400">Cấu hình người dùng và phân quyền truy cập chi tiết cho hệ thống.</p>
+                </div>
+                <div>
+                    <nav aria-label="Tabs" class="flex space-x-2 border-b border-gray-200 dark:border-gray-700">
+                        <div class="border-b-2 border-primary text-primary px-4 py-3 font-medium text-sm flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">group</span>
                             Quản lý Người dùng
-                        </button>
-<button class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 px-4 py-3 font-medium text-sm flex items-center gap-2 focus:outline-none transition-colors">
-<span class="material-symbols-outlined text-lg">admin_panel_settings</span>
+                        </div>
+
+                        <a href="../PQCT/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 px-4 py-3 font-medium text-sm flex items-center gap-2 transition-colors">
+                            <span class="material-symbols-outlined text-lg">admin_panel_settings</span>
                             Phân quyền chi tiết
-                        </button>
-</nav>
-</div>
-</div>
-<div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30">
-<div class="space-y-6">
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-<div class="relative w-full sm:w-96">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-<input class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm kiếm theo tên, email, vai trò..." type="text"/>
-</div>
-<div class="flex gap-3 w-full sm:w-auto">
-<button class="flex-1 sm:flex-none justify-center bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm text-sm">
-<span class="material-symbols-outlined text-[20px]">filter_list</span> Bộ lọc
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content Section (Nội dung cũ của bạn đặt vào đây) -->
+            <div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 overflow-hidden flex flex-col">
+                <div class="space-y-6 h-full flex flex-col">
+                    
+                    <!-- THANH CÔNG CỤ -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-none">
+                        <div class="relative w-full sm:w-96">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                            <input id="searchInput" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all" placeholder="Tìm kiếm theo tên, email..." type="text"/>
+                        </div>
+                        <div class="flex gap-3 w-full sm:w-auto">
+                            <button onclick="openModal()" class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
+                                <span class="material-symbols-outlined text-[20px]">person_add</span>
+                                <span>Thêm người dùng</span>
                             </button>
-<button class="flex-1 sm:flex-none justify-center bg-primary text-white font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors shadow-sm text-sm">
-<span class="material-symbols-outlined text-[20px]">person_add</span> Thêm người dùng
-                            </button>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-<div class="overflow-x-auto">
-<table class="w-full text-sm text-left">
-<thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700">
-<tr>
-<th class="px-6 py-3 font-semibold w-16 text-center">
-<input class="rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
-</th>
-<th class="px-6 py-3 font-semibold">Thông tin người dùng</th>
-<th class="px-6 py-3 font-semibold">Vai trò</th>
-<th class="px-6 py-3 font-semibold">Trạng thái</th>
-<th class="px-6 py-3 font-semibold">Ngày tạo</th>
-<th class="px-6 py-3 font-semibold text-right">Hành động</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-<td class="px-6 py-4 text-center">
-<input class="rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold">
-                                                    AD
-                                                </div>
-<div>
-<div class="font-medium text-gray-900 dark:text-white">Nguyễn Văn Admin</div>
-<div class="text-xs text-gray-500 dark:text-gray-400">admin@system.com</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
-                                                Quản trị viên
-                                            </span>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-2">
-<div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-<span class="text-gray-700 dark:text-gray-300">Hoạt động</span>
-</div>
-</td>
-<td class="px-6 py-4 text-gray-600 dark:text-gray-400">
-                                            12/01/2023
-                                        </td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="text-gray-400 hover:text-primary p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="text-gray-400 hover:text-red-500 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-<td class="px-6 py-4 text-center">
-<input class="rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-600 dark:text-emerald-300 font-bold">
-                                                    TK
-                                                </div>
-<div>
-<div class="font-medium text-gray-900 dark:text-white">Trần Thủ Kho</div>
-<div class="text-xs text-gray-500 dark:text-gray-400">kho.tran@system.com</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                                                Thủ kho
-                                            </span>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-2">
-<div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-<span class="text-gray-700 dark:text-gray-300">Hoạt động</span>
-</div>
-</td>
-<td class="px-6 py-4 text-gray-600 dark:text-gray-400">
-                                            15/03/2023
-                                        </td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="text-gray-400 hover:text-primary p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="text-gray-400 hover:text-red-500 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-<td class="px-6 py-4 text-center">
-<input class="rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center text-orange-600 dark:text-orange-300 font-bold">
-                                                    NV
-                                                </div>
-<div>
-<div class="font-medium text-gray-900 dark:text-white">Lê Nhân Viên</div>
-<div class="text-xs text-gray-500 dark:text-gray-400">nhanvien@system.com</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
-                                                Nhân viên
-                                            </span>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-2">
-<div class="w-2.5 h-2.5 rounded-full bg-gray-400"></div>
-<span class="text-gray-700 dark:text-gray-300">Tạm khóa</span>
-</div>
-</td>
-<td class="px-6 py-4 text-gray-600 dark:text-gray-400">
-                                            20/05/2023
-                                        </td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="text-gray-400 hover:text-primary p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="text-gray-400 hover:text-red-500 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-<div class="text-sm text-gray-500 dark:text-gray-400">
-                                Hiển thị <span class="font-medium">1</span> đến <span class="font-medium">3</span> trong số <span class="font-medium">12</span> tài khoản
-                            </div>
-<div class="flex gap-2">
-<button class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm disabled:opacity-50 hover:bg-white dark:hover:bg-gray-800 transition-colors" disabled="">Trước</button>
-<button class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm hover:bg-white dark:hover:bg-gray-800 transition-colors">Sau</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
+                        </div>
+                    </div>
+
+                    <!-- Table Container -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-1 overflow-hidden flex flex-col">
+                        <div class="overflow-y-auto custom-scrollbar flex-1 relative"> 
+                            <table class="w-full text-sm text-left border-collapse">
+                                <thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+                                <tr>
+                                    <th class="px-6 py-3 font-semibold">Thông tin người dùng</th>
+                                    <th class="px-6 py-3 font-semibold">Tên đăng nhập</th>
+                                    <th class="px-6 py-3 font-semibold">Mật khẩu</th>
+                                    <th class="px-6 py-3 font-semibold">Vai trò</th>
+                                    <th class="px-6 py-3 font-semibold">Trạng thái</th>
+                                    <th class="px-6 py-3 font-semibold">Ngày tạo</th>
+                                    <th class="px-6 py-3 font-semibold text-right">Hành động</th>
+                                </tr>
+                                </thead>
+                                <tbody id="user-table-body" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr>
+                                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">Đang tải dữ liệu...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="flex-none flex items-center justify-between px-6 py-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-500 dark:text-gray-400">
+                            <div id="total-users">Tổng số: 0 người dùng</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
-</body></html>
+<!-- MODAL THÊM/SỬA NGƯỜI DÙNG -->
+<div id="editModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white">Thông tin người dùng</h3>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <form id="editForm" onsubmit="handleUpdate(event)">
+            <input type="hidden" id="edit-id"> 
+            
+            <!-- 1. Tên đăng nhập -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tên đăng nhập</label>
+                <!-- Thêm placeholder -->
+                <input type="text" id="edit-username" placeholder="Tên đăng nhập" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm" required>
+            </div>
+
+            <!-- 2. Mật khẩu -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Mật khẩu <span class="text-xs text-gray-500 font-normal"></span>
+                </label>
+                <input type="password" id="edit-password" placeholder="Nhập mật khẩu..." class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm">
+            </div>
+
+            <!-- 3. Họ tên -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Họ và tên</label>
+                <!-- Thêm placeholder -->
+                <input type="text" id="edit-name" placeholder="Họ và tên" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm" required>
+            </div>
+
+            <!-- 4. Email -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <!-- Thêm placeholder -->
+                <input type="email" id="edit-email" placeholder="email@example.com" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm" required>
+            </div>
+
+            <!-- 5. Vai trò & Trạng thái -->
+            <div class="mb-4 grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vai trò</label>
+                    <select id="edit-role" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-blue-500 focus:ring-blue-500 text-sm">
+                        <option value="1">Quản trị viên</option>
+                        <option value="0">Nhân viên</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Trạng thái</label>
+                    <select id="edit-status" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:border-blue-500 focus:ring-blue-500 text-sm">
+                        <option value="1">Hoạt động</option>
+                        <option value="0">Đã khóa</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Nút bấm -->
+            <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">Hủy bỏ</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm text-sm font-medium">Lưu thay đổi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let allUsers = [];
+
+    // --- CÁC HÀM TIỆN ÍCH ---
+    function getInitials(name) {
+        if (!name) return 'US';
+        const parts = name.split(' ');
+        if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return '';
+        return new Date(dateString).toLocaleDateString('vi-VN');
+    }
+
+    function getRoleBadge(role) {
+        const roleId = Number(role);
+        if (roleId === 1) return `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 border border-purple-200">Quản trị viên</span>`;
+        if (roleId === 0) return `<span class="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">Nhân viên</span>`;
+        return `<span>${role}</span>`;
+    }
+
+    function getStatusBadge(status) {
+        return Number(status) === 1 
+            ? `<div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-green-500"></div><span>Hoạt động</span></div>`
+            : `<div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500"></div><span>Đã khóa</span></div>`;
+    }
+
+    // --- 1. TẢI DỮ LIỆU ---
+    async function loadUsers() {
+        try {
+            const response = await fetch('/api/users');
+            const result = await response.json();
+            if (result.success) {
+                allUsers = result.data;
+                renderTable(allUsers);
+            }
+        } catch (error) { console.error(error); }
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById('user-table-body');
+        const totalSpan = document.getElementById('total-users');
+        tbody.innerHTML = '';
+        totalSpan.innerHTML = `Tổng số: <span class="font-medium">${data.length}</span> người dùng`;
+
+        if (data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-4 text-center">Không tìm thấy kết quả</td></tr>`;
+            return;
+        }
+
+        data.forEach(user => {
+            const row = `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b dark:border-gray-700">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">${getInitials(user.HoTen)}</div>
+                            <div>
+                                <div class="font-medium text-gray-900 dark:text-white">${user.HoTen || 'Chưa đặt tên'}</div>
+                                <div class="text-xs text-gray-500">${user.Email || ''}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-medium">${user.TenDangNhap || ''}</td>
+                    <td class="px-6 py-4"><span class="text-gray-400 text-lg tracking-widest">••••••</span></td>
+                    <td class="px-6 py-4">${getRoleBadge(user.QuyenHan)}</td>
+                    <td class="px-6 py-4">${getStatusBadge(user.TrangThai)}</td>
+                    <td class="px-6 py-4 text-gray-500">${formatDate(user.NgayTao)}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <button onclick="openModal('${user.MaNV}')" class="text-gray-400 hover:text-primary p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+                            <button onclick="deleteUser('${user.MaNV}', '${user.HoTen}')" class="text-gray-400 hover:text-red-500 p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+                        </div>
+                    </td>
+                </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+
+    // --- 2. TÌM KIẾM ---
+    document.addEventListener('DOMContentLoaded', () => {
+        loadUsers();
+        const searchInput = document.getElementById('searchInput');
+        if(searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = allUsers.filter(user => 
+                    (user.HoTen && user.HoTen.toLowerCase().includes(term)) ||
+                    (user.Email && user.Email.toLowerCase().includes(term)) ||
+                    (user.TenDangNhap && user.TenDangNhap.toLowerCase().includes(term))
+                );
+                renderTable(filtered);
+            });
+        }
+    });
+
+    // --- 3. XÓA ---
+    async function deleteUser(id, name) {
+        if (confirm(`Xóa người dùng "${name}"?`)) {
+            try {
+                const res = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+                const result = await res.json();
+                if (result.success) { alert(result.message); loadUsers(); }
+                else { alert('Lỗi: ' + result.message); }
+            } catch (err) { alert('Lỗi kết nối server!'); }
+        }
+    }
+
+    // --- 4. MODAL (THÊM & SỬA) ---
+    function openModal(id = null) {
+        const formTitle = document.getElementById('modal-title');
+        const idInput = document.getElementById('edit-id');
+        
+        if (id) {
+            const user = allUsers.find(u => String(u.MaNV) === String(id));
+            if (!user) return;
+
+            formTitle.innerText = "Cập nhật người dùng";
+            idInput.value = user.MaNV;
+            document.getElementById('edit-username').value = user.TenDangNhap;
+            document.getElementById('edit-username').readOnly = true; 
+            document.getElementById('edit-password').value = '';            
+            document.getElementById('edit-name').value = user.HoTen;
+            document.getElementById('edit-email').value = user.Email;
+            document.getElementById('edit-role').value = user.QuyenHan;
+            document.getElementById('edit-status').value = user.TrangThai;
+        } else {
+            formTitle.innerText = "Thêm người dùng mới";
+            idInput.value = ""; 
+            document.getElementById('editForm').reset(); 
+            document.getElementById('edit-username').readOnly = false;
+            document.getElementById('edit-password').placeholder = "Mật khẩu mới";
+        }
+
+        document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('editModal').classList.add('hidden');
+    }
+
+    // --- 5. XỬ LÝ LƯU ---
+    async function handleUpdate(event) {
+        event.preventDefault(); 
+        const id = document.getElementById('edit-id').value;
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `/api/users/${id}` : '/api/users';
+
+        const data = {
+            TenDangNhap: document.getElementById('edit-username').value,
+            MatKhau: document.getElementById('edit-password').value,
+            HoTen: document.getElementById('edit-name').value,
+            Email: document.getElementById('edit-email').value,
+            QuyenHan: document.getElementById('edit-role').value,
+            TrangThai: document.getElementById('edit-status').value
+        };
+
+        if (!id && !data.MatKhau) {
+            alert("Vui lòng nhập mật khẩu cho người dùng mới!");
+            return;
+        }
+
+        try {
+            const res = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(errorText); 
+            }
+
+            const result = await res.json();
+            if (result.success) {
+                alert(id ? 'Cập nhật thành công!' : 'Thêm mới thành công!');
+                closeModal();
+                loadUsers(); 
+            } else {
+                alert('Thất bại: ' + result.message);
+            }
+        } catch (err) {
+            try {
+                const jsonErr = JSON.parse(err.message);
+                alert('Lỗi: ' + jsonErr.message);
+            } catch {
+                alert('Lỗi: ' + err.message);
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Báo cáo &amp; Thống kê</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Báo cáo &amp; Thống kê</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -26,7 +27,7 @@
             },
         };
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0,
             'wght' 400,
@@ -37,305 +38,304 @@
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="flex h-screen">
-<aside class="w-64 bg-[#111827] text-gray-300 flex flex-col">
-<div class="p-6">
-<div class="flex items-center space-x-3">
-<span class="material-symbols-outlined text-3xl text-white">settings</span>
-<h1 class="text-xl font-bold text-white">Admin</h1>
-</div>
-</div>
-<nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">home</span> Trang chủ
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col shrink-0">
+        <div class="p-6">
+            <div class="flex items-center space-x-3">
+                <span class="material-symbols-outlined text-3xl text-white">settings</span>
+                <h1 class="text-xl font-bold text-white">Admin</h1>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
-<a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
-<span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
+            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
+                <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
             </a>
-</nav>
-<div class="p-4">
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">account_circle</span> admin
+        </nav>
+        <div class="p-4">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">account_circle</span> admin
             </a>
-<a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
-</div>
-</aside>
-<main class="flex-1 p-8 overflow-y-auto">
-<div class="bg-white dark:bg-gray-800 rounded-lg shadow min-h-[calc(100vh-4rem)]">
-<div class="p-6 pb-0">
-<div class="mb-6">
-<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Báo cáo &amp; Thống kê</h2>
-<p class="text-gray-500 dark:text-gray-400">Phân tích hiệu quả hoạt động kinh doanh và chất lượng hàng hóa.</p>
-</div>
-<div class="border-b border-gray-200 dark:border-gray-700">
-<nav aria-label="Tabs" class="flex space-x-6">
-<a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow min-h-[calc(100vh-4rem)]">
+            <div class="p-6 pb-0">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Báo cáo &amp; Thống kê</h2>
+                    <p class="text-gray-500 dark:text-gray-400">Phân tích hiệu quả hoạt động kinh doanh và chất lượng hàng hóa.</p>
+                </div>
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav aria-label="Tabs" class="flex space-x-6">
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
                             Báo cáo Tồn kho
                         </a>
-<a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
                             Thẻ kho
                         </a>
-<a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" href="#">
+                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" href="#">
                             Hiệu quả kinh doanh
                         </a>
-</nav>
-</div>
-</div>
-<div class="p-6 space-y-8">
-<section>
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-yellow-500">trophy</span>
-<h3 class="text-lg font-bold text-gray-900 dark:text-white">Top hàng bán chạy nhất (Best Sellers)</h3>
-</div>
-<div class="flex items-center gap-2">
-<select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm focus:ring-primary focus:border-primary">
-<option>Tháng này</option>
-<option>Quý này</option>
-<option>Năm nay</option>
-</select>
-<button class="text-sm text-primary hover:underline">Xem tất cả</button>
-</div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-<div class="lg:col-span-1 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-<h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Theo số lượng bán ra</h4>
-<div class="space-y-3">
-<div class="relative">
-<div class="flex justify-between text-xs mb-1">
-<span class="font-medium">Áo Thun Basic (Trắng)</span>
-<span class="text-gray-500">1,200 cái</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-<div class="bg-blue-600 h-2 rounded-full" style="width: 90%"></div>
-</div>
-</div>
-<div class="relative">
-<div class="flex justify-between text-xs mb-1">
-<span class="font-medium">Quần Jeans Slimfit</span>
-<span class="text-gray-500">980 cái</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-<div class="bg-blue-500 h-2 rounded-full" style="width: 75%"></div>
-</div>
-</div>
-<div class="relative">
-<div class="flex justify-between text-xs mb-1">
-<span class="font-medium">Váy Hoa Nhí Vintage</span>
-<span class="text-gray-500">850 cái</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-<div class="bg-blue-400 h-2 rounded-full" style="width: 65%"></div>
-</div>
-</div>
-<div class="relative">
-<div class="flex justify-between text-xs mb-1">
-<span class="font-medium">Áo Khoác Bomber</span>
-<span class="text-gray-500">620 cái</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-<div class="bg-blue-300 h-2 rounded-full" style="width: 48%"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="lg:col-span-2 overflow-hidden border border-gray-200 dark:border-gray-700 rounded-xl">
-<table class="w-full text-sm text-left">
-<thead class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-xs font-semibold">
-<tr>
-<th class="px-4 py-3">Top</th>
-<th class="px-4 py-3">Sản phẩm</th>
-<th class="px-4 py-3 text-right">Đã bán</th>
-<th class="px-4 py-3 text-right">Doanh thu</th>
-<th class="px-4 py-3 text-right">Tăng trưởng</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
-<td class="px-4 py-3 font-bold text-gray-500">#1</td>
-<td class="px-4 py-3 font-medium text-gray-900 dark:text-white">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded bg-gray-200 flex-shrink-0"></div>
-                                                Áo Khoác Bomber Da (Đen)
-                                            </div>
-</td>
-<td class="px-4 py-3 text-right">620</td>
-<td class="px-4 py-3 text-right font-bold text-green-600 dark:text-green-400">450.000.000 đ</td>
-<td class="px-4 py-3 text-right text-green-500 flex items-center justify-end gap-1">
-<span class="material-symbols-outlined text-sm">trending_up</span> 12%
-                                        </td>
-</tr>
-<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
-<td class="px-4 py-3 font-bold text-gray-500">#2</td>
-<td class="px-4 py-3 font-medium text-gray-900 dark:text-white">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded bg-gray-200 flex-shrink-0"></div>
-                                                Quần Jeans Slimfit (Xanh)
-                                            </div>
-</td>
-<td class="px-4 py-3 text-right">980</td>
-<td class="px-4 py-3 text-right font-bold text-green-600 dark:text-green-400">392.000.000 đ</td>
-<td class="px-4 py-3 text-right text-green-500 flex items-center justify-end gap-1">
-<span class="material-symbols-outlined text-sm">trending_up</span> 5%
-                                        </td>
-</tr>
-<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
-<td class="px-4 py-3 font-bold text-gray-500">#3</td>
-<td class="px-4 py-3 font-medium text-gray-900 dark:text-white">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded bg-gray-200 flex-shrink-0"></div>
-                                                Áo Thun Basic Cotton
-                                            </div>
-</td>
-<td class="px-4 py-3 text-right">1,200</td>
-<td class="px-4 py-3 text-right font-bold text-green-600 dark:text-green-400">180.000.000 đ</td>
-<td class="px-4 py-3 text-right text-red-500 flex items-center justify-end gap-1">
-<span class="material-symbols-outlined text-sm">trending_down</span> 2%
-                                        </td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-<section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-<div class="flex items-center justify-between mb-6">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-green-600">attach_money</span>
-<h3 class="text-lg font-bold text-gray-900 dark:text-white">Phân tích Lợi nhuận gộp</h3>
-</div>
-<select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm">
-<option>Theo nhóm hàng</option>
-<option>Theo từng sản phẩm</option>
-</select>
-</div>
-<div class="space-y-4">
-<div class="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
-<div class="flex justify-between items-center mb-2">
-<span class="font-semibold text-gray-700 dark:text-gray-200">Áo khoác &amp; Vest</span>
-<span class="text-sm font-bold text-green-700 dark:text-green-400">Biên LN: 45%</span>
-</div>
-<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-<span>Doanh thu: 1.2 tỷ</span>
-<span>Giá vốn: 660tr</span>
-<span class="font-bold text-gray-800 dark:text-gray-200">Lợi nhuận: 540tr</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 dark:bg-gray-700">
-<div class="bg-green-500 h-1.5 rounded-full" style="width: 45%"></div>
-</div>
-</div>
-<div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-<div class="flex justify-between items-center mb-2">
-<span class="font-semibold text-gray-700 dark:text-gray-200">Quần Jeans &amp; Kaki</span>
-<span class="text-sm font-bold text-blue-700 dark:text-blue-400">Biên LN: 38%</span>
-</div>
-<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-<span>Doanh thu: 850tr</span>
-<span>Giá vốn: 527tr</span>
-<span class="font-bold text-gray-800 dark:text-gray-200">Lợi nhuận: 323tr</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 dark:bg-gray-700">
-<div class="bg-blue-500 h-1.5 rounded-full" style="width: 38%"></div>
-</div>
-</div>
-<div class="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-100 dark:border-orange-800">
-<div class="flex justify-between items-center mb-2">
-<span class="font-semibold text-gray-700 dark:text-gray-200">Phụ kiện</span>
-<span class="text-sm font-bold text-orange-700 dark:text-orange-400">Biên LN: 60%</span>
-</div>
-<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-<span>Doanh thu: 200tr</span>
-<span>Giá vốn: 80tr</span>
-<span class="font-bold text-gray-800 dark:text-gray-200">Lợi nhuận: 120tr</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 dark:bg-gray-700">
-<div class="bg-orange-500 h-1.5 rounded-full" style="width: 60%"></div>
-</div>
-</div>
-</div>
-</section>
-<section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-<div class="flex items-center justify-between mb-6">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-red-600">assignment_return</span>
-<h3 class="text-lg font-bold text-gray-900 dark:text-white">Tỷ lệ đổi trả hàng</h3>
-</div>
-<div class="flex gap-2">
-<button class="text-xs font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300">Theo lý do</button>
-<button class="text-xs font-medium px-2 py-1 text-gray-400 hover:text-gray-600">Theo sản phẩm</button>
-</div>
-</div>
-<div class="flex flex-col md:flex-row gap-6 items-center">
-<div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
-<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-<path class="text-gray-200 dark:text-gray-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.8"></path>
-<path class="text-red-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="8, 100" stroke-width="3.8"></path>
-</svg>
-<div class="absolute text-center">
-<span class="text-2xl font-bold text-gray-900 dark:text-white">8%</span>
-<p class="text-[10px] text-gray-500">Tổng tỉ lệ</p>
-</div>
-</div>
-<div class="flex-1 w-full">
-<div class="space-y-3">
-<div>
-<div class="flex justify-between text-xs mb-1">
-<span class="text-gray-600 dark:text-gray-400">Lỗi nhà sản xuất (45%)</span>
-<span class="font-medium text-gray-900 dark:text-white">120 SP</span>
-</div>
-<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
-<div class="bg-red-500 h-1.5 rounded-full" style="width: 45%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-xs mb-1">
-<span class="text-gray-600 dark:text-gray-400">Không vừa size (30%)</span>
-<span class="font-medium text-gray-900 dark:text-white">80 SP</span>
-</div>
-<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
-<div class="bg-orange-400 h-1.5 rounded-full" style="width: 30%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-xs mb-1">
-<span class="text-gray-600 dark:text-gray-400">Khách đổi ý (15%)</span>
-<span class="font-medium text-gray-900 dark:text-white">40 SP</span>
-</div>
-<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
-<div class="bg-yellow-400 h-1.5 rounded-full" style="width: 15%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-xs mb-1">
-<span class="text-gray-600 dark:text-gray-400">Giao sai hàng (10%)</span>
-<span class="font-medium text-gray-900 dark:text-white">26 SP</span>
-</div>
-<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
-<div class="bg-blue-400 h-1.5 rounded-full" style="width: 10%"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 text-center">
-<p class="text-xs text-gray-500 italic">Dữ liệu được cập nhật lần cuối: 15 phút trước</p>
-</div>
-</section>
-</div>
-</div>
-</div>
-</main>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="p-6 space-y-8">
+                <!-- SECTION 1: TOP SẢN PHẨM BÁN CHẠY -->
+                <section>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-yellow-500">trophy</span>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Top hàng bán chạy nhất (Best Sellers)</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm focus:ring-primary focus:border-primary">
+                                <option>Tháng này</option>
+                                <option>Quý này</option>
+                                <option>Năm nay</option>
+                            </select>
+                            <button class="text-sm text-primary hover:underline">Xem tất cả</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- BIỂU ĐỒ THANH NGANG (Đã thêm ID) -->
+                        <div class="lg:col-span-1 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Theo số lượng bán ra</h4>
+                            <div class="space-y-3" id="list-top-chart">
+                                <!-- JS sẽ vẽ biểu đồ vào đây -->
+                                <p class="text-center text-xs text-gray-500 mt-4">Đang tải dữ liệu...</p>
+                            </div>
+                        </div>
+
+                        <!-- BẢNG CHI TIẾT (Đã thêm ID) -->
+                        <div class="lg:col-span-2 overflow-hidden border border-gray-200 dark:border-gray-700 rounded-xl">
+                            <table class="w-full text-sm text-left">
+                                <thead class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-xs font-semibold">
+                                <tr>
+                                    <th class="px-4 py-3">Top</th>
+                                    <th class="px-4 py-3">Sản phẩm</th>
+                                    <th class="px-4 py-3 text-right">Đã bán</th>
+                                    <th class="px-4 py-3 text-right">Doanh thu</th>
+                                    <th class="px-4 py-3 text-right">Tăng trưởng</th>
+                                </tr>
+                                </thead>
+                                <tbody id="table-top-products" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    <!-- JS sẽ đổ dữ liệu vào đây -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: LỢI NHUẬN GỘP (Giữ nguyên tĩnh hoặc làm API sau) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-green-600">attach_money</span>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Phân tích Lợi nhuận gộp</h3>
+                            </div>
+                            <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm">
+                                <option>Theo nhóm hàng</option>
+                                <option>Theo từng sản phẩm</option>
+                            </select>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-gray-700 dark:text-gray-200">Áo khoác &amp; Vest</span>
+                                    <span class="text-sm font-bold text-green-700 dark:text-green-400">Biên LN: 45%</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                    <span>Doanh thu: 1.2 tỷ</span>
+                                    <span>Giá vốn: 660tr</span>
+                                    <span class="font-bold text-gray-800 dark:text-gray-200">Lợi nhuận: 540tr</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 dark:bg-gray-700">
+                                    <div class="bg-green-500 h-1.5 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <!-- Các item khác giữ nguyên -->
+                            <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-gray-700 dark:text-gray-200">Quần Jeans &amp; Kaki</span>
+                                    <span class="text-sm font-bold text-blue-700 dark:text-blue-400">Biên LN: 38%</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                    <span>Doanh thu: 850tr</span>
+                                    <span>Giá vốn: 527tr</span>
+                                    <span class="font-bold text-gray-800 dark:text-gray-200">Lợi nhuận: 323tr</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 dark:bg-gray-700">
+                                    <div class="bg-blue-500 h-1.5 rounded-full" style="width: 38%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 3: TỶ LỆ ĐỔI TRẢ (Giữ nguyên tĩnh) -->
+                    <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-red-600">assignment_return</span>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Tỷ lệ đổi trả hàng</h3>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="text-xs font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300">Theo lý do</button>
+                                <button class="text-xs font-medium px-2 py-1 text-gray-400 hover:text-gray-600">Theo sản phẩm</button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            <div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                    <path class="text-gray-200 dark:text-gray-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.8"></path>
+                                    <path class="text-red-500" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="8, 100" stroke-width="3.8"></path>
+                                </svg>
+                                <div class="absolute text-center">
+                                    <span class="text-2xl font-bold text-gray-900 dark:text-white">8%</span>
+                                    <p class="text-[10px] text-gray-500">Tổng tỉ lệ</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 w-full">
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-600 dark:text-gray-400">Lỗi nhà sản xuất (45%)</span>
+                                            <span class="font-medium text-gray-900 dark:text-white">120 SP</span>
+                                        </div>
+                                        <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
+                                            <div class="bg-red-500 h-1.5 rounded-full" style="width: 45%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-600 dark:text-gray-400">Không vừa size (30%)</span>
+                                            <span class="font-medium text-gray-900 dark:text-white">80 SP</span>
+                                        </div>
+                                        <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
+                                            <div class="bg-orange-400 h-1.5 rounded-full" style="width: 30%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 text-center">
+                            <p class="text-xs text-gray-500 italic">Dữ liệu được cập nhật lần cuối: 15 phút trước</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
-</body></html>
+<!-- ============================================= -->
+<!-- SCRIPT: KẾT NỐI VỚI SERVER ĐỂ LẤY DỮ LIỆU THẬT -->
+<!-- ============================================= -->
+<script>
+    // Hàm định dạng tiền tệ (VND)
+    const formatMoney = (amount) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    };
+
+    async function loadTopBanChay() {
+        try {
+            // Gọi API (Server phải chạy và có file routes/baocao.js như mình hướng dẫn)
+            const res = await fetch('/api/bao-cao/top-ban-chay');
+            
+            if(!res.ok) {
+                console.error("Không kết nối được API");
+                return;
+            }
+
+            const result = await res.json();
+
+            if (result.success && result.data.length > 0) {
+                const data = result.data;
+                const maxSoLuong = data[0].TongSoLuong; // Lấy số lớn nhất để tính % width
+
+                // 1. Vẽ biểu đồ thanh ngang (Bên trái)
+                const chartContainer = document.getElementById('list-top-chart');
+                let chartHTML = '';
+                
+                data.forEach(item => {
+                    // Tính phần trăm để vẽ độ dài thanh màu xanh
+                    const phanTram = (item.TongSoLuong / maxSoLuong) * 100;
+                    
+                    chartHTML += `
+                        <div class="relative">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="font-medium text-gray-800 dark:text-gray-200">${item.TenHang}</span>
+                                <span class="text-gray-500">${item.TongSoLuong} cái</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: ${phanTram}%"></div>
+                            </div>
+                        </div>
+                    `;
+                });
+                chartContainer.innerHTML = chartHTML;
+
+                // 2. Vẽ bảng chi tiết (Bên phải)
+                const tableContainer = document.getElementById('table-top-products');
+                let tableHTML = '';
+
+                data.forEach((item, index) => {
+                    // Tạo chữ cái đầu tên sản phẩm làm Avatar giả
+                    const avatarText = item.TenHang ? item.TenHang.substring(0,2).toUpperCase() : 'SP';
+
+                    tableHTML += `
+                        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                            <td class="px-4 py-3 font-bold text-gray-500">#${index + 1}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-500 font-bold text-xs">
+                                        ${avatarText}
+                                    </div>
+                                    ${item.TenHang}
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 text-right">${item.TongSoLuong}</td>
+                            <td class="px-4 py-3 text-right font-bold text-green-600 dark:text-green-400">
+                                ${formatMoney(item.TongDoanhThu)}
+                            </td>
+                            <td class="px-4 py-3 text-right text-gray-400 flex items-center justify-end gap-1">
+                                <span class="material-symbols-outlined text-sm">remove</span> ---
+                            </td>
+                        </tr>
+                    `;
+                });
+                tableContainer.innerHTML = tableHTML;
+            } else {
+                document.getElementById('list-top-chart').innerHTML = '<p class="text-sm text-center py-4 text-gray-500">Chưa có dữ liệu bán hàng</p>';
+                document.getElementById('table-top-products').innerHTML = '<tr><td colspan="5" class="text-center py-4 text-gray-500">Không có dữ liệu</td></tr>';
+            }
+
+        } catch (error) {
+            console.error("Lỗi tải báo cáo:", error);
+            document.getElementById('list-top-chart').innerHTML = '<p class="text-sm text-center text-red-500 mt-2">Lỗi kết nối Server!</p>';
+        }
+    }
+
+    // Chạy hàm này ngay khi trang tải xong
+    document.addEventListener('DOMContentLoaded', loadTopBanChay);
+</script>
+
+</body>
+</html>
