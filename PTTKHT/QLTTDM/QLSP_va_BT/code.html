@@ -21,31 +21,19 @@
                         display: ["Roboto", "sans-serif"],
                     },
                     borderRadius: {
-                        DEFAULT: "0.5rem", // 8px
+                        DEFAULT: "0.5rem",
                     },
                 },
             },
         };
     </script>
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
-        }
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #3B82F6;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #3B82F6;
-        }
-        /* CSS thanh cuộn tùy chỉnh */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+        .toggle-checkbox:checked { right: 0; border-color: #3B82F6; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #3B82F6; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
     </style>
 </head>
@@ -61,7 +49,7 @@
             </div>
         </div>
         <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700 overflow-y-auto custom-scrollbar">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/TC/code.html">
                 <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
@@ -125,14 +113,12 @@
                         <div class="lg:col-span-12">
                             <div class="relative">
                                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                                <!-- Thêm id="filter-search" -->
                                 <input id="filter-search" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent text-sm shadow-sm" placeholder="Tìm kiếm..." type="text"/>
                             </div>
                         </div>
                         
                         <!-- 2. Trạng thái -->
                         <div class="lg:col-span-3">
-                            <!-- Thêm id="filter-status" -->
                             <select id="filter-status" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
                                 <option value="">Trạng thái kinh doanh</option>
                                 <option value="active">Đang bán</option>
@@ -142,14 +128,12 @@
 
                         <!-- 3. Nhóm hàng -->
                         <div class="lg:col-span-3">
-                            <!-- Thêm id="filter-cate" -->
                             <select id="filter-cate" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
                                 <option value="">Tất cả nhóm hàng</option>
-                                <!-- JS sẽ tự đổ dữ liệu vào đây -->
                             </select>
                         </div>
 
-                        <!-- 4. Thương hiệu (Tạm thời disable vì DB chưa có) -->
+                        <!-- 4. Thương hiệu -->
                         <div class="lg:col-span-3">
                             <select disabled class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-400 text-sm cursor-not-allowed">
                                 <option value="">Thương hiệu (Chưa hỗ trợ)</option>
@@ -158,7 +142,6 @@
 
                         <!-- 5. Tồn kho -->
                         <div class="lg:col-span-3">
-                            <!-- Thêm id="filter-stock" -->
                             <select id="filter-stock" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
                                 <option value="">Trạng thái Tồn kho</option>
                                 <option value="available">Sẵn hàng (>10)</option>
@@ -171,16 +154,14 @@
 
                 <!-- Action Bar -->
                 <div class="flex justify-end items-center gap-4 flex-shrink-0">
-                    <button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-blue-600 shadow-sm transition-colors">
+                    <a href="add.html" class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-blue-600 shadow-sm transition-colors">
                         <span class="material-symbols-outlined text-[20px]">add</span>
                         Thêm mới
-                    </button>
+                    </a>
                 </div>
 
-                <!-- TABLE CONTAINER (Scrollable) -->
+                <!-- TABLE CONTAINER -->
                 <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden flex flex-col flex-1 shadow-sm bg-white dark:bg-gray-800">
-                    
-                    <!-- Scrollable Area -->
                     <div class="overflow-y-auto overflow-x-auto custom-scrollbar flex-1">
                         <table class="w-full text-sm text-left">
                             <thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
@@ -192,101 +173,79 @@
                                     <th class="px-4 py-3 whitespace-nowrap font-semibold">Tổng tồn kho</th>
                                     <th class="px-4 py-3 whitespace-nowrap font-semibold">Ngày tạo</th>
                                     <th class="px-4 py-3 text-center font-semibold">Trạng thái</th>
-                                    <!-- CỘT HÀNH ĐỘNG - CĂN GIỮA -->
                                     <th class="px-4 py-3 text-center font-semibold">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <!-- Dữ liệu sản phẩm sẽ được JS đổ vào đây -->
+                                <!-- JS Render -->
                             </tbody>
                         </table>
                     </div>
-
-                    <!-- Footer -->
                     <div class="flex-none flex items-center justify-between px-6 py-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-500 dark:text-gray-400">
-                        <div>Tổng số: 450 sản phẩm</div>
+                        <div id="table-footer">Tổng số: 0 sản phẩm</div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
 </div>
-<!-- === MODAL THÊM/SỬA SẢN PHẨM === -->
+
+<!-- === MODAL CHỈNH SỬA NHANH SẢN PHẨM === -->
 <div id="productModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50 overflow-y-auto">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6 my-8">
         <div class="flex justify-between items-center mb-5 border-b border-gray-100 dark:border-gray-700 pb-3">
-            <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white">Thêm sản phẩm mới</h3>
+            <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white">Cập nhật sản phẩm</h3>
             <button onclick="closeModal()" class="text-gray-500 hover:text-red-500">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
         
         <form id="productForm" onsubmit="handleSave(event)">
-            <input type="hidden" id="is-edit-mode"> <!-- Đánh dấu đang sửa hay thêm -->
+            <!-- Input ẩn để lưu ID khi sửa -->
+            <input type="hidden" id="is-edit-mode"> 
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- 1. Mã hàng (SKU) -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mã hàng (SKU) <span class="text-red-500">*</span></label>
-                    <input type="text" id="prod-sku" placeholder="VD: AT-01-M" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm" required>
+                    <input type="text" id="prod-sku" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm" required>
                 </div>
-
-                <!-- 2. Tên hàng -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tên hàng hóa <span class="text-red-500">*</span></label>
-                    <input type="text" id="prod-name" placeholder="VD: Áo Thun Basic" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm" required>
+                    <input type="text" id="prod-name" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm" required>
                 </div>
-
-                <!-- 3. Loại hàng -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Loại hàng</label>
                     <select id="prod-cate" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                         <option value="">-- Chọn loại --</option>
-                        <!-- Dữ liệu sẽ được JS đổ vào đây -->
                     </select>
                 </div>
-
-                <!-- 4. Đơn vị tính -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Đơn vị tính</label>
-                    <input type="text" id="prod-unit" value="Cái" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
+                    <input type="text" id="prod-unit" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
-
-                <!-- 5. Size -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Size</label>
-                    <input type="text" id="prod-size" placeholder="S, M, L, 29, 30..." class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
+                    <input type="text" id="prod-size" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
-
-                <!-- 6. Màu sắc -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Màu sắc</label>
-                    <input type="text" id="prod-color" placeholder="Xanh, Đỏ, Trắng..." class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
+                    <input type="text" id="prod-color" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
-
-                <!-- 7. Giá nhập -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Đơn giá nhập</label>
                     <input type="number" id="prod-price-in" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
-
-                <!-- 8. Giá bán -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Đơn giá bán</label>
                     <input type="number" id="prod-price-out" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
-
-                <!-- 9. Số lượng tồn -->
                 <div class="mb-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Số lượng tồn</label>
-                    <input type="number" id="prod-stock" value="0" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
+                    <input type="number" id="prod-stock" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
-
-                <!-- 10. Link ảnh -->
                 <div class="mb-2 md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ảnh minh họa (Link URL)</label>
-                    <input type="text" id="prod-img" placeholder="https://..." class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
+                    <input type="text" id="prod-img" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white text-sm">
                 </div>
             </div>
 
@@ -311,18 +270,14 @@
             const res = await fetch(CATE_API_URL);
             const json = await res.json();
             if (json.success) {
-                // Đổ vào ô lọc trên Toolbar
                 const filterSelect = document.getElementById('filter-cate');
-                filterSelect.innerHTML = '<option value="">Tất cả nhóm hàng</option>';
-                
-                // Đổ vào ô chọn trong Modal
                 const modalSelect = document.getElementById('prod-cate');
+                
+                filterSelect.innerHTML = '<option value="">Tất cả nhóm hàng</option>';
                 modalSelect.innerHTML = '<option value="">-- Chọn loại --</option>';
 
                 json.data.forEach(c => {
-                    // Thêm vào Filter
                     filterSelect.innerHTML += `<option value="${c.MaLoai}">${c.TenLoai}</option>`;
-                    // Thêm vào Modal
                     modalSelect.innerHTML += `<option value="${c.MaLoai}">${c.TenLoai}</option>`;
                 });
             }
@@ -332,14 +287,11 @@
     // 2. Tải sản phẩm (Xử lý đa bộ lọc)
     async function loadProducts() {
         try {
-            // Lấy giá trị từ các ô input
             const keyword = document.getElementById('filter-search').value;
             const status = document.getElementById('filter-status').value;
             const cate = document.getElementById('filter-cate').value;
             const stock = document.getElementById('filter-stock').value;
 
-            // Tạo URL với query params
-            // URL sẽ dạng: /api/products?q=ao&status=active&cate=1&stock=low
             const params = new URLSearchParams({
                 q: keyword,
                 status: status,
@@ -357,14 +309,21 @@
         } catch (error) { console.error(error); }
     }
 
-    // 3. Render Bảng (Giữ nguyên)
+    // Hàm định dạng ngày
+    function formatDate(dateString) {
+        if (!dateString) return 'Vừa xong';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('vi-VN') + ' ' + date.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+    }
+
+    // 3. Render Bảng
     function renderTable(list) {
         const tbody = document.querySelector('tbody');
         tbody.innerHTML = '';
 
         if (!list || list.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-gray-500">Không tìm thấy sản phẩm phù hợp</td></tr>`;
-            document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: 0 sản phẩm`;
+            tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-gray-500">Không tìm thấy sản phẩm</td></tr>`;
+            document.getElementById('table-footer').innerText = `Tổng số: 0 sản phẩm`;
             return;
         }
 
@@ -378,7 +337,7 @@
             else stockStatus = `<div class="text-xs text-red-600 mt-0.5">Hết hàng</div>`;
 
             const isChecked = item.TrangThai == 1 ? 'checked' : '';
-            const ngayTao = '14/01/2025';
+            const ngayTao = formatDate(item.NgayTao);
 
             const row = `
                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b dark:border-gray-700">
@@ -403,46 +362,133 @@
                 </tr>`;
             tbody.innerHTML += row;
         });
-        document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: ${list.length} sản phẩm`;
+        document.getElementById('table-footer').innerText = `Tổng số: ${list.length} sản phẩm`;
     }
 
-    // --- CÁC HÀM XỬ LÝ KHÁC (Status, Modal, Delete) GIỮ NGUYÊN ---
-    // (Copy lại các hàm toggleStatus, deleteProduct, handleSave, openModal, closeModal từ bài trước vào đây)
-    // ...
-    // ... 
-    
-    // --- GẮN SỰ KIỆN LỌC (QUAN TRỌNG) ---
-    // Tìm kiếm (Debounce 0.5s)
+    // 4. Toggle Status
+    async function toggleStatus(sku, checkbox) {
+        const newStatus = checkbox.checked ? 1 : 0;
+        try {
+            const res = await fetch(`${API_URL}/${sku}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ trangThai: newStatus })
+            });
+            if (!(await res.json()).success) {
+                checkbox.checked = !checkbox.checked;
+                alert('Lỗi cập nhật');
+            }
+        } catch (e) {
+            checkbox.checked = !checkbox.checked;
+            alert('Lỗi kết nối server');
+        }
+    }
+
+    // 5. Modal Logic (Chỉ dùng cho Sửa nhanh)
+    async function openModal(mode, sku = null) {
+        const modal = document.getElementById('productModal');
+        const form = document.getElementById('productForm');
+        form.reset();
+
+        const skuInput = document.getElementById('prod-sku');
+        const isEditInput = document.getElementById('is-edit-mode');
+        document.getElementById('modal-title').innerText = "Cập nhật sản phẩm";
+
+        // Ở đây chỉ hỗ trợ mode EDIT (vì Add đã có trang riêng)
+        skuInput.disabled = true;
+        skuInput.classList.add('bg-gray-100');
+        isEditInput.value = 'true';
+        
+        const item = currentDataList.find(x => x.MaHang == sku);
+        if (item) {
+            skuInput.value = item.MaHang;
+            document.getElementById('prod-name').value = item.TenHang;
+            document.getElementById('prod-cate').value = item.MaLoai;
+            document.getElementById('prod-unit').value = item.DonViTinh;
+            document.getElementById('prod-size').value = item.Size;
+            document.getElementById('prod-color').value = item.MauSac;
+            document.getElementById('prod-price-in').value = item.DonGiaNhap;
+            document.getElementById('prod-price-out').value = item.DonGiaBan;
+            document.getElementById('prod-stock').value = item.SoLuongTon;
+            document.getElementById('prod-img').value = item.AnhMinhHoa;
+        }
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal() { document.getElementById('productModal').classList.add('hidden'); }
+
+    // 6. Xử lý Lưu (Edit)
+    async function handleSave(e) {
+        e.preventDefault();
+        
+        // Validate loại hàng
+        const cateId = document.getElementById('prod-cate').value;
+        if (!cateId) { alert("Vui lòng chọn Loại hàng!"); return; }
+
+        const payload = {
+            maHang: document.getElementById('prod-sku').value,
+            tenHang: document.getElementById('prod-name').value,
+            maLoai: cateId,
+            donViTinh: document.getElementById('prod-unit').value,
+            size: document.getElementById('prod-size').value,
+            mauSac: document.getElementById('prod-color').value,
+            donGiaNhap: parseFloat(document.getElementById('prod-price-in').value) || 0,
+            donGiaBan: parseFloat(document.getElementById('prod-price-out').value) || 0,
+            soLuongTon: parseInt(document.getElementById('prod-stock').value) || 0,
+            anhMinhHoa: document.getElementById('prod-img').value
+        };
+
+        try {
+            const res = await fetch(`${API_URL}/${payload.maHang}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const json = await res.json();
+            
+            if (json.success) {
+                alert(json.message);
+                closeModal();
+                loadProducts();
+            } else {
+                alert('Lỗi: ' + json.message);
+            }
+        } catch (err) { console.error(err); alert('Lỗi kết nối'); }
+    }
+
+    // 7. Xóa
+    async function deleteProduct(sku) {
+        if (!confirm(`Bạn có chắc chắn muốn xóa sản phẩm có mã: ${sku}? \nHành động này không thể hoàn tác.`)) {
+            return;
+        }
+        try {
+            const res = await fetch(`${API_URL}/${sku}`, { method: 'DELETE' });
+            const json = await res.json();
+            if (json.success) {
+                alert(json.message);
+                loadProducts();
+            } else {
+                alert('Lỗi: ' + json.message);
+            }
+        } catch (e) { console.error(e); alert('Lỗi kết nối'); }
+    }
+
+    // Setup Event Listeners
     let timeout = null;
     document.getElementById('filter-search').addEventListener('input', () => {
         clearTimeout(timeout);
         timeout = setTimeout(loadProducts, 500);
     });
 
-    // Các ô Select: Cứ đổi là load lại ngay
     document.getElementById('filter-status').addEventListener('change', loadProducts);
     document.getElementById('filter-cate').addEventListener('change', loadProducts);
     document.getElementById('filter-stock').addEventListener('change', loadProducts);
 
-    // Nút Thêm mới
-    document.querySelector('button.bg-primary').onclick = () => openModal('add');
-
-    // Khởi chạy
+    // Chạy khi load
     document.addEventListener('DOMContentLoaded', async () => {
-        document.querySelector('tbody').innerHTML = '';
-        await loadCategories(); // Load danh mục vào Filter trước
-        loadProducts();         // Sau đó load sản phẩm
+        await loadCategories();
+        loadProducts();
     });
-    
-    // Copy lại các hàm logic Modal, Delete, ToggleStatus, HandleSave ở đây...
-    // (Bạn dùng lại code JS của câu trả lời trước, chỉ thay thế đoạn loadData và Event Listener như trên)
-    
-    async function toggleStatus(sku, checkbox) { /* ...Code cũ... */ }
-    async function openModal(mode, sku) { /* ...Code cũ... */ }
-    function closeModal() { document.getElementById('productModal').classList.add('hidden'); }
-    async function handleSave(e) { /* ...Code cũ... */ }
-    async function deleteProduct(sku) { /* ...Code cũ... */ }
-
 </script>
 </body>
 </html>

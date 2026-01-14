@@ -89,18 +89,18 @@
 <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-20 sticky top-0">
 <div class="px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
 <div class="flex items-center gap-4">
-<button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
+<a href="code.html" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+    <span class="material-symbols-outlined">arrow_back</span>
+</a>
 <div>
 <h2 class="text-xl font-bold text-gray-900 dark:text-white uppercase">Thêm Sản phẩm mới</h2>
 <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Điền thông tin chi tiết sản phẩm để nhập kho</p>
 </div>
 </div>
 <div class="flex gap-3">
-<button class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                            Hủy bỏ
-                        </button>
+<a href="code.html" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
+    Hủy bỏ
+</a>
 <button class="px-4 py-2 border border-primary text-primary rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                             Lưu &amp; Thêm mới
                         </button>
@@ -128,12 +128,12 @@
 <input class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-primary focus:border-primary sm:text-sm" id="product_name" placeholder="VD: Áo Thun Nam Cotton..." type="text"/>
 </div>
 <div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mã sản phẩm (Parent SKU)</label>
-<input class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm" placeholder="Nhập mã SKU..." type="text"/>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mã sản phẩm (Parent SKU)</label>
+    <input id="product_sku" class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm" placeholder="Nhập mã SKU..." type="text"/>
 </div>
 <div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nhóm hàng / Danh mục</label>
-<select class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm">
+<label  class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nhóm hàng / Danh mục</label>
+<select id="product_cate" class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm">
 <option>-- Chọn danh mục --</option>
 <option>Thời trang Nam</option>
 <option>Thời trang Nữ</option>
@@ -151,7 +151,7 @@
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nhà cung cấp</label>
-<select class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm">
+<select id="product_supplier" class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm">
 <option>-- Chọn nhà cung cấp --</option>
 <option>NCC A</option>
 <option>NCC B</option>
@@ -177,7 +177,7 @@
 <div class="h-4 w-px bg-gray-300 dark:bg-gray-600 mx-1"></div>
 <button class="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300" type="button"><span class="material-symbols-outlined text-[20px]">format_list_bulleted</span></button>
 </div>
-<textarea class="w-full border-none p-4 bg-transparent text-gray-900 dark:text-white focus:ring-0 sm:text-sm" placeholder="Mô tả chi tiết sản phẩm..." rows="5"></textarea>
+<textarea id="product_desc" class="w-full border-none p-4 bg-transparent text-gray-900 dark:text-white focus:ring-0 sm:text-sm" placeholder="Mô tả chi tiết sản phẩm..." rows="5"></textarea>
 </div>
 </div>
 </div>
@@ -188,7 +188,7 @@
 <label class="block text-xs font-medium text-gray-500 mb-2">Ảnh đại diện</label>
 <div class="aspect-square rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors bg-gray-50 dark:bg-gray-800">
 <span class="material-symbols-outlined text-4xl text-gray-400">add_photo_alternate</span>
-<span class="text-xs text-gray-500 mt-1">Tải ảnh</span>
+<span id="product_img" class="text-xs text-gray-500 mt-1">Tải ảnh</span>
 </div>
 </div>
 <div>
@@ -203,7 +203,7 @@
 <h4 class="text-sm font-bold text-gray-900 dark:text-white uppercase border-b border-gray-200 pb-2">Vận chuyển &amp; Kho</h4>
 <div>
 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Đơn vị tính</label>
-<select class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm">
+<select id="product_unit" class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-primary focus:border-primary sm:text-sm">
 <option>Cái</option>
 <option>Bộ</option>
 <option>Đôi</option>
@@ -274,74 +274,53 @@
 </div>
 <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-lg">
 <table class="w-full text-sm text-left whitespace-nowrap">
-<thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 uppercase text-xs font-semibold">
-<tr>
-<th class="px-4 py-3 text-center w-10"><input class="rounded text-primary border-gray-300 focus:ring-primary" type="checkbox"/></th>
-<th class="px-4 py-3">Biến thể</th>
-<th class="px-4 py-3 w-48">Mã SKU</th>
-<th class="px-4 py-3 w-32">Giá bán</th>
-<th class="px-4 py-3 w-32">Giá vốn</th>
-<th class="px-4 py-3 text-center">Ảnh</th>
-<th class="px-4 py-3 text-center">Tồn kho</th>
-<th class="px-4 py-3 w-10"></th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
-<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-<td class="px-4 py-3 text-center"><input class="rounded text-primary border-gray-300 focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Xanh - S</td>
-<td class="px-4 py-3">
-<div class="flex">
-<input class="w-full text-xs rounded-l border-gray-300 py-1.5 focus:ring-primary focus:border-primary" placeholder="SKU" type="text"/>
-<button class="px-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r hover:bg-gray-200" title="Sinh mã" type="button"><span class="material-symbols-outlined text-[16px]">autorenew</span></button>
-</div>
-</td>
-<td class="px-4 py-3">
-<input class="w-full text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-right" type="text" value="0"/>
-</td>
-<td class="px-4 py-3">
-<input class="w-full text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-right" type="text" value="0"/>
-</td>
-<td class="px-4 py-3 text-center">
-<div class="h-8 w-8 mx-auto bg-gray-50 border rounded flex items-center justify-center cursor-pointer hover:border-primary text-gray-400">
-<span class="material-symbols-outlined text-[18px]">image</span>
-</div>
-</td>
-<td class="px-4 py-3 text-center">
-<input class="w-16 text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-center" type="number" value="0"/>
-</td>
-<td class="px-4 py-3 text-center">
-<button class="text-gray-400 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-</td>
-</tr>
-<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-<td class="px-4 py-3 text-center"><input class="rounded text-primary border-gray-300 focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Xanh - M</td>
-<td class="px-4 py-3">
-<div class="flex">
-<input class="w-full text-xs rounded-l border-gray-300 py-1.5 focus:ring-primary focus:border-primary" placeholder="SKU" type="text"/>
-<button class="px-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r hover:bg-gray-200" title="Sinh mã" type="button"><span class="material-symbols-outlined text-[16px]">autorenew</span></button>
-</div>
-</td>
-<td class="px-4 py-3">
-<input class="w-full text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-right" type="text" value="0"/>
-</td>
-<td class="px-4 py-3">
-<input class="w-full text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-right" type="text" value="0"/>
-</td>
-<td class="px-4 py-3 text-center">
-<div class="h-8 w-8 mx-auto bg-gray-50 border rounded flex items-center justify-center cursor-pointer hover:border-primary text-gray-400">
-<span class="material-symbols-outlined text-[18px]">image</span>
-</div>
-</td>
-<td class="px-4 py-3 text-center">
-<input class="w-16 text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-center" type="number" value="0"/>
-</td>
-<td class="px-4 py-3 text-center">
-<button class="text-gray-400 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-</td>
-</tr>
-</tbody>
+    <thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 uppercase text-xs font-semibold">
+        <tr>
+            <!-- XÓA CÁC ID Ở THẺ TH ĐI -->
+            <th class="px-4 py-3 text-center w-10"><input class="rounded text-primary border-gray-300 focus:ring-primary" type="checkbox"/></th>
+            <th class="px-4 py-3">Biến thể</th>
+            <th class="px-4 py-3 w-48">Mã SKU</th>
+            <th class="px-4 py-3 w-32">Giá bán</th>
+            <th class="px-4 py-3 w-32">Giá vốn</th>
+            <th class="px-4 py-3 text-center">Ảnh</th>
+            <th class="px-4 py-3 text-center">Tồn kho</th>
+            <th class="px-4 py-3 w-10"></th>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
+        <!-- DÒNG ĐẦU TIÊN: GẮN ID VÀO CÁC Ô INPUT Ở ĐÂY -->
+        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+            <td class="px-4 py-3 text-center"><input class="rounded text-primary border-gray-300 focus:ring-primary" type="checkbox"/></td>
+            <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Mặc định</td>
+            <td class="px-4 py-3">
+                <div class="flex">
+                    <!-- Ô SKU con (không cần ID vì mình lấy Parent SKU ở trên rồi, hoặc có thể bỏ qua) -->
+                    <input class="w-full text-xs rounded-l border-gray-300 py-1.5 focus:ring-primary focus:border-primary" placeholder="SKU" type="text"/>
+                    <button class="px-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r hover:bg-gray-200" title="Sinh mã" type="button"><span class="material-symbols-outlined text-[16px]">autorenew</span></button>
+                </div>
+            </td>
+            <td class="px-4 py-3">
+                <!-- GẮN ID GIÁ BÁN -->
+                <input id="product_price" class="w-full text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-right" type="number" placeholder="0"/>
+            </td>
+            <td class="px-4 py-3">
+                <!-- GẮN ID GIÁ VỐN -->
+                <input id="product_cost" class="w-full text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-right" type="number" placeholder="0"/>
+            </td>
+            <td class="px-4 py-3 text-center">
+                <div class="h-8 w-8 mx-auto bg-gray-50 border rounded flex items-center justify-center cursor-pointer hover:border-primary text-gray-400">
+                    <span class="material-symbols-outlined text-[18px]">image</span>
+                </div>
+            </td>
+            <td class="px-4 py-3 text-center">
+                <!-- GẮN ID TỒN KHO -->
+                <input id="product_stock" class="w-16 text-sm rounded border-gray-300 py-1.5 focus:ring-primary focus:border-primary text-center" type="number" value="0"/>
+            </td>
+            <td class="px-4 py-3 text-center">
+                <button class="text-gray-400 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            </td>
+        </tr>
+    </tbody>
 </table>
 </div>
 </div>
@@ -378,5 +357,119 @@
 </div>
 </main>
 </div>
+<script>
+    // URL API
+    const API_CATE = '/api/categories';
+    const API_SUPPLIER = '/api/suppliers';
+    const API_PRODUCT = '/api/products';
 
+    // 1. Load dữ liệu ban đầu (Danh mục & NCC)
+    async function loadInitData() {
+        try {
+            // Load Danh mục
+            const resCate = await fetch(API_CATE);
+            const jsonCate = await resCate.json();
+            const selCate = document.getElementById('product_cate');
+            selCate.innerHTML = '<option value="">-- Chọn danh mục --</option>';
+            if(jsonCate.success) {
+                jsonCate.data.forEach(c => {
+                    selCate.innerHTML += `<option value="${c.MaLoai}">${c.TenLoai}</option>`;
+                });
+            }
+
+            // Load Nhà cung cấp
+            const resSup = await fetch(API_SUPPLIER);
+            const jsonSup = await resSup.json();
+            const selSup = document.getElementById('product_supplier');
+            selSup.innerHTML = '<option value="">-- Chọn nhà cung cấp --</option>';
+            if(jsonSup.success) {
+                jsonSup.data.forEach(s => {
+                    selSup.innerHTML += `<option value="${s.MaNCC}">${s.TenNCC}</option>`;
+                });
+            }
+
+        } catch (e) { console.error('Lỗi load data:', e); }
+    }
+
+    // 2. Xử lý Lưu sản phẩm
+    async function saveProduct() {
+        // Lấy giá trị từ DOM
+        const name = document.getElementById('product_name').value;
+        const sku = document.getElementById('product_sku').value;
+        const cate = document.getElementById('product_cate').value;
+        const supplier = document.getElementById('product_supplier').value;
+        const desc = document.querySelector('textarea').value; // Lấy thẻ textarea đầu tiên
+        const unit = document.querySelector('select[id="product_unit"]')?.value || 'Cái';
+        
+        const priceOut = document.getElementById('product_price').value;
+        const priceIn = document.getElementById('product_cost').value;
+        const stock = document.getElementById('product_stock').value;
+
+        // Validate cơ bản
+        if (!name || !sku) {
+            alert("Vui lòng nhập Tên sản phẩm và Mã SKU!");
+            return;
+        }
+        if (!cate) {
+            alert("Vui lòng chọn Nhóm hàng!");
+            return;
+        }
+
+        // Tạo object gửi đi
+        const payload = {
+            maHang: sku,
+            tenHang: name,
+            maLoai: cate,
+            maNCC: supplier,
+            moTa: desc,
+            donViTinh: unit,
+            donGiaBan: priceOut,
+            donGiaNhap: priceIn,
+            soLuongTon: stock,
+            // Tạm thời để ảnh mặc định hoặc lấy từ input nếu bạn đã thêm id="product_img"
+            anhMinhHoa: 'img/default.jpg' 
+        };
+
+        // Gửi API
+        try {
+            const btnSave = document.querySelector('button.bg-primary');
+            const originalText = btnSave.innerHTML;
+            btnSave.innerText = 'Đang lưu...';
+            btnSave.disabled = true;
+
+            const res = await fetch(API_PRODUCT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const json = await res.json();
+
+            if (json.success) {
+                alert('Thêm sản phẩm thành công!');
+                window.location.href = 'code.html'; // Quay về trang danh sách
+            } else {
+                alert('Lỗi: ' + json.message);
+                btnSave.innerHTML = originalText;
+                btnSave.disabled = false;
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Lỗi kết nối server');
+        }
+    }
+
+    // Gán sự kiện cho nút Lưu
+    // Tìm nút có chứa chữ "Lưu sản phẩm" hoặc icon save
+    document.addEventListener('DOMContentLoaded', () => {
+        loadInitData();
+
+        // Gán hàm saveProduct vào nút Lưu
+        const saveBtns = document.querySelectorAll('button');
+        saveBtns.forEach(btn => {
+            if(btn.innerText.includes('Lưu sản phẩm')) {
+                btn.onclick = saveProduct;
+            }
+        });
+    });
+</script>
 </body></html>

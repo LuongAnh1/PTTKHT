@@ -12,6 +12,8 @@ const quanLyNguoiDungRoutes = require('./routes/quanlynguoidung');
 const quanLyKhoRoutes = require('./routes/quanlykho');
 const quanLyDanhMucRoutes = require('./routes/quanlydanhmuc'); 
 const quanLySanPhamRoutes = require('./routes/quanlysanpham');
+const quanLyKhuyenMaiRoutes = require('./routes/quanlykhuyenmai');
+const quanLyNhaCungCapRoutes = require('./routes/quanlynhacungcap');
 
 const app = express(); // <--- Tạo app tại đây
 const PORT = process.env.PORT || 3000;
@@ -29,6 +31,8 @@ app.use('/api/users', quanLyNguoiDungRoutes);
 app.use('/api/kho', quanLyKhoRoutes);
 app.use('/api/categories', quanLyDanhMucRoutes);
 app.use('/api/products', quanLySanPhamRoutes);
+app.use('/api/marketing', quanLyKhuyenMaiRoutes);
+app.use('/api/suppliers', quanLyNhaCungCapRoutes);
 
 // Hàm mã hóa MD5
 function md5(text) {
