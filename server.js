@@ -10,6 +10,8 @@ const baoCaoRoutes = require('./routes/baocao');
 const trangChuRoutes = require('./routes/trangchu'); 
 const quanLyNguoiDungRoutes = require('./routes/quanlynguoidung');
 const quanLyKhoRoutes = require('./routes/quanlykho');
+const quanLyDanhMucRoutes = require('./routes/quanlydanhmuc'); 
+const quanLySanPhamRoutes = require('./routes/quanlysanpham');
 
 const app = express(); // <--- Tạo app tại đây
 const PORT = process.env.PORT || 3000;
@@ -25,6 +27,8 @@ app.use('/api/bao-cao', baoCaoRoutes);
 app.use('/api/trang-chu', trangChuRoutes); 
 app.use('/api/users', quanLyNguoiDungRoutes);
 app.use('/api/kho', quanLyKhoRoutes);
+app.use('/api/categories', quanLyDanhMucRoutes);
+app.use('/api/products', quanLySanPhamRoutes);
 
 // Hàm mã hóa MD5
 function md5(text) {
