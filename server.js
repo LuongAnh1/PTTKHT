@@ -9,6 +9,7 @@ require('dotenv').config();
 const baoCaoRoutes = require('./routes/baocao');
 const trangChuRoutes = require('./routes/trangchu'); 
 const quanLyNguoiDungRoutes = require('./routes/quanlynguoidung');
+const quanLyKhoRoutes = require('./routes/quanlykho');
 const quanLyDanhMucRoutes = require('./routes/quanlydanhmuc'); 
 const quanLySanPhamRoutes = require('./routes/quanlysanpham');
 
@@ -25,6 +26,7 @@ app.use('/PTTKHT', express.static(path.join(__dirname, 'PTTKHT')));
 app.use('/api/bao-cao', baoCaoRoutes);
 app.use('/api/trang-chu', trangChuRoutes); 
 app.use('/api/users', quanLyNguoiDungRoutes);
+app.use('/api/kho', quanLyKhoRoutes);
 app.use('/api/categories', quanLyDanhMucRoutes);
 app.use('/api/products', quanLySanPhamRoutes);
 
