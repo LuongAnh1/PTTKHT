@@ -121,42 +121,49 @@
                 <!-- Filter Section -->
                 <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700 flex-shrink-0">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                        <!-- 1. Tìm kiếm -->
                         <div class="lg:col-span-12">
                             <div class="relative">
                                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                                <input class="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent text-sm shadow-sm" placeholder="Tìm kiếm theo Tên sản phẩm, Mã SKU, Mã vạch..." type="text"/>
+                                <!-- Thêm id="filter-search" -->
+                                <input id="filter-search" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent text-sm shadow-sm" placeholder="Tìm kiếm..." type="text"/>
                             </div>
                         </div>
+                        
+                        <!-- 2. Trạng thái -->
                         <div class="lg:col-span-3">
-                            <select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+                            <!-- Thêm id="filter-status" -->
+                            <select id="filter-status" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
                                 <option value="">Trạng thái kinh doanh</option>
                                 <option value="active">Đang bán</option>
                                 <option value="inactive">Ngừng kinh doanh</option>
-                                <option value="out_stock">Hết hàng</option>
                             </select>
                         </div>
+
+                        <!-- 3. Nhóm hàng -->
                         <div class="lg:col-span-3">
-                            <select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
-                                <option value="">Nhóm hàng</option>
-                                <option value="ao">Thời trang Nam</option>
-                                <option value="quan">Thời trang Nữ</option>
-                                <option value="pk">Phụ kiện</option>
+                            <!-- Thêm id="filter-cate" -->
+                            <select id="filter-cate" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+                                <option value="">Tất cả nhóm hàng</option>
+                                <!-- JS sẽ tự đổ dữ liệu vào đây -->
                             </select>
                         </div>
+
+                        <!-- 4. Thương hiệu (Tạm thời disable vì DB chưa có) -->
                         <div class="lg:col-span-3">
-                            <select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
-                                <option value="">Thương hiệu/Nhà cung cấp</option>
-                                <option value="nike">Nike Official</option>
-                                <option value="adidas">Adidas VN</option>
-                                <option value="local">Local Brand</option>
+                            <select disabled class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-400 text-sm cursor-not-allowed">
+                                <option value="">Thương hiệu (Chưa hỗ trợ)</option>
                             </select>
                         </div>
+
+                        <!-- 5. Tồn kho -->
                         <div class="lg:col-span-3">
-                            <select class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
+                            <!-- Thêm id="filter-stock" -->
+                            <select id="filter-stock" class="w-full border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm focus:ring-primary focus:border-primary">
                                 <option value="">Trạng thái Tồn kho</option>
-                                <option value="all">Tất cả</option>
-                                <option value="available">Còn hàng</option>
-                                <option value="low">Sắp hết hàng (Low Stock)</option>
+                                <option value="available">Sẵn hàng (>10)</option>
+                                <option value="low">Sắp hết (1-10)</option>
+                                <option value="out">Hết hàng (0)</option>
                             </select>
                         </div>
                     </div>
@@ -190,221 +197,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <!-- Item 1 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden">
-                                            <img alt="T-Shirt" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtJxb20nS1JpeCVwU1eD03EFxMYpH9eR8VF2r703C2CAHo3M8UfH2kerlBhb4foNxwp3b7-01a0avYPIBM2Uh67G1ZkOkaOmOvQ9YF6s7zNj8GGo2ctk6ZXttjbRyL2A3Q2etyW4eo8s8RZjNB9WSTIChTeuHzazzeGO5qo7fiaRAyYAjOTUHFcjz1Ize2nFnU6NSptdjwLk4uC987dkY4wpFj0yis10oOc7Bky4yuRTdY0yAVTu-D8-SN2_nGmu3w7vsvP0CZU5k"/>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="font-medium text-gray-900 dark:text-white text-base">Áo Thun Cotton Premium</div>
-                                        <div class="flex items-center gap-2 mt-1">
-                                            <span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">SKU: AT-001</span>
-                                            <span class="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">style</span> 4 biến thể</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4 text-gray-600 dark:text-gray-300">Thời trang Nam</td>
-                                    <td class="px-4 py-4 font-medium text-gray-900 dark:text-white">150.000₫ - 180.000₫</td>
-                                    <td class="px-4 py-4">
-                                        <button class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
-                                            <span class="font-bold">1,250</span>
-                                            <span class="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary">expand_circle_down</span>
-                                        </button>
-                                        <div class="text-xs text-green-600 mt-0.5">Sẵn hàng</div>
-                                    </td>
-                                    <td class="px-4 py-4 text-gray-500 text-xs"><div>20/10/2023</div><div>14:30</div></td>
-                                    <td class="px-4 py-4 text-center">
-                                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                                            <input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary" id="toggle1" name="toggle" type="checkbox"/>
-                                            <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer checked:bg-primary" for="toggle1"></label>
-                                        </div>
-                                    </td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch">
-                                                <span class="material-symbols-outlined text-[20px]">print</span>
-                                            </button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-                                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa">
-                                                <span class="material-symbols-outlined text-[20px]">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Item 2 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden">
-                                            <img alt="Shoes" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpGHX7VEqu7qiHFcRPzCS-2PHRGy899pWGfT3eS3EI7JDtrXR7Ic5vmic91Hme-bqlZTotfzD-9k-cZgx0mGS2wdtkN57pOQZvnPAYxwpZnScAiWBuV6oPgz3cI-Cu3HAboD1OPZfbOXSrScf4-y-_sfFmzVYdou4Hgxk6lU-d3KErSt0cRzoBRL4_6f_0InzsV_Dq4m4B-AQMy5bckncQkYynxygss5lmLddtpLGLTmKnS1_5KZLMdk3fKGxZva8DpqKLokjAMsA"/>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="font-medium text-gray-900 dark:text-white text-base">Giày Sneaker Nike Air</div>
-                                        <div class="flex items-center gap-2 mt-1">
-                                            <span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">SKU: SNK-992</span>
-                                            <span class="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">style</span> 8 biến thể</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4 text-gray-600 dark:text-gray-300">Giày dép</td>
-                                    <td class="px-4 py-4 font-medium text-gray-900 dark:text-white">2.500.000₫</td>
-                                    <td class="px-4 py-4">
-                                        <button class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
-                                            <span class="font-bold text-orange-500">12</span>
-                                            <span class="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary">expand_circle_down</span>
-                                        </button>
-                                        <div class="text-xs text-orange-500 mt-0.5">Sắp hết</div>
-                                    </td>
-                                    <td class="px-4 py-4 text-gray-500 text-xs"><div>18/10/2023</div><div>09:15</div></td>
-                                    <td class="px-4 py-4 text-center">
-                                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                                            <input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary" id="toggle2" name="toggle" type="checkbox"/>
-                                            <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer checked:bg-primary" for="toggle2"></label>
-                                        </div>
-                                    </td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch">
-                                                <span class="material-symbols-outlined text-[20px]">print</span>
-                                            </button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-                                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa">
-                                                <span class="material-symbols-outlined text-[20px]">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Item 3 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group bg-red-50/30 dark:bg-red-900/10">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-gray-400">
-                                            <span class="material-symbols-outlined">image_not_supported</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="font-medium text-gray-900 dark:text-white text-base">Quần Jeans Slimfit Cũ</div>
-                                        <div class="flex items-center gap-2 mt-1">
-                                            <span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">SKU: QJ-OLD</span>
-                                            <span class="text-xs text-gray-500 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">style</span> 1 biến thể</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4 text-gray-600 dark:text-gray-300">Thời trang Nam</td>
-                                    <td class="px-4 py-4 font-medium text-gray-900 dark:text-white">450.000₫</td>
-                                    <td class="px-4 py-4">
-                                        <button class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
-                                            <span class="font-bold text-red-600">0</span>
-                                            <span class="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary">expand_circle_down</span>
-                                        </button>
-                                        <div class="text-xs text-red-600 mt-0.5">Hết hàng</div>
-                                    </td>
-                                    <td class="px-4 py-4 text-gray-500 text-xs"><div>01/05/2023</div><div>10:00</div></td>
-                                    <td class="px-4 py-4 text-center">
-                                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in opacity-50">
-                                            <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300" id="toggle3" name="toggle" type="checkbox"/>
-                                            <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" for="toggle3"></label>
-                                        </div>
-                                    </td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch">
-                                                <span class="material-symbols-outlined text-[20px]">print</span>
-                                            </button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-                                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa">
-                                                <span class="material-symbols-outlined text-[20px]">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Dummy Data -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-gray-400"><span class="material-symbols-outlined">image</span></div>
-                                    </td>
-                                    <td class="px-4 py-4"><div class="font-medium">Áo Polo Classic</div><div class="text-xs text-gray-500">SKU: PL-002</div></td>
-                                    <td class="px-4 py-4">Thời trang Nam</td>
-                                    <td class="px-4 py-4">250.000₫</td>
-                                    <td class="px-4 py-4"><span class="font-bold">500</span></td>
-                                    <td class="px-4 py-4 text-xs">21/10/2023</td>
-                                    <td class="px-4 py-4 text-center"><div class="w-2 h-2 rounded-full bg-green-500 mx-auto"></div></td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch"><span class="material-symbols-outlined text-[20px]">print</span></button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-gray-400"><span class="material-symbols-outlined">image</span></div>
-                                    </td>
-                                    <td class="px-4 py-4"><div class="font-medium">Váy Hoa Nhí</div><div class="text-xs text-gray-500">SKU: V-005</div></td>
-                                    <td class="px-4 py-4">Thời trang Nữ</td>
-                                    <td class="px-4 py-4">350.000₫</td>
-                                    <td class="px-4 py-4"><span class="font-bold">50</span></td>
-                                    <td class="px-4 py-4 text-xs">22/10/2023</td>
-                                    <td class="px-4 py-4 text-center"><div class="w-2 h-2 rounded-full bg-green-500 mx-auto"></div></td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch"><span class="material-symbols-outlined text-[20px]">print</span></button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-gray-400"><span class="material-symbols-outlined">image</span></div>
-                                    </td>
-                                    <td class="px-4 py-4"><div class="font-medium">Mũ Lưỡi Trai</div><div class="text-xs text-gray-500">SKU: MU-001</div></td>
-                                    <td class="px-4 py-4">Phụ kiện</td>
-                                    <td class="px-4 py-4">100.000₫</td>
-                                    <td class="px-4 py-4"><span class="font-bold">200</span></td>
-                                    <td class="px-4 py-4 text-xs">23/10/2023</td>
-                                    <td class="px-4 py-4 text-center"><div class="w-2 h-2 rounded-full bg-green-500 mx-auto"></div></td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch"><span class="material-symbols-outlined text-[20px]">print</span></button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-4 py-4">
-                                        <div class="h-12 w-12 rounded bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-gray-400"><span class="material-symbols-outlined">image</span></div>
-                                    </td>
-                                    <td class="px-4 py-4"><div class="font-medium">Túi Xách Da</div><div class="text-xs text-gray-500">SKU: TX-099</div></td>
-                                    <td class="px-4 py-4">Phụ kiện</td>
-                                    <td class="px-4 py-4">1.200.000₫</td>
-                                    <td class="px-4 py-4"><span class="font-bold">15</span></td>
-                                    <td class="px-4 py-4 text-xs">24/10/2023</td>
-                                    <td class="px-4 py-4 text-center"><div class="w-2 h-2 rounded-full bg-green-500 mx-auto"></div></td>
-                                    <!-- HÀNH ĐỘNG - CĂN GIỮA -->
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="In mã vạch"><span class="material-symbols-outlined text-[20px]">print</span></button>
-                                            <button class="text-gray-400 hover:text-primary p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                            <button class="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xóa"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <!-- Dữ liệu sản phẩm sẽ được JS đổ vào đây -->
                             </tbody>
                         </table>
                     </div>
@@ -512,224 +305,144 @@
     const CATE_API_URL = '/api/categories';
     let currentDataList = [];
 
-    // --- 1. Tải danh mục vào thẻ Select ---
-    async function loadCategoriesToSelect() {
+    // 1. Tải danh mục vào Filter và Modal
+    async function loadCategories() {
         try {
             const res = await fetch(CATE_API_URL);
             const json = await res.json();
             if (json.success) {
-                const select = document.getElementById('prod-cate');
-                select.innerHTML = '<option value="">-- Chọn loại --</option>';
+                // Đổ vào ô lọc trên Toolbar
+                const filterSelect = document.getElementById('filter-cate');
+                filterSelect.innerHTML = '<option value="">Tất cả nhóm hàng</option>';
+                
+                // Đổ vào ô chọn trong Modal
+                const modalSelect = document.getElementById('prod-cate');
+                modalSelect.innerHTML = '<option value="">-- Chọn loại --</option>';
+
                 json.data.forEach(c => {
-                    select.innerHTML += `<option value="${c.MaLoai}">${c.TenLoai}</option>`;
+                    // Thêm vào Filter
+                    filterSelect.innerHTML += `<option value="${c.MaLoai}">${c.TenLoai}</option>`;
+                    // Thêm vào Modal
+                    modalSelect.innerHTML += `<option value="${c.MaLoai}">${c.TenLoai}</option>`;
                 });
             }
         } catch (e) { console.error(e); }
     }
 
-    // --- 2. Tải danh sách sản phẩm ---
-    async function loadProducts(keyword = '') {
+    // 2. Tải sản phẩm (Xử lý đa bộ lọc)
+    async function loadProducts() {
         try {
-            const url = keyword ? `${API_URL}?q=${keyword}` : API_URL;
-            const res = await fetch(url);
+            // Lấy giá trị từ các ô input
+            const keyword = document.getElementById('filter-search').value;
+            const status = document.getElementById('filter-status').value;
+            const cate = document.getElementById('filter-cate').value;
+            const stock = document.getElementById('filter-stock').value;
+
+            // Tạo URL với query params
+            // URL sẽ dạng: /api/products?q=ao&status=active&cate=1&stock=low
+            const params = new URLSearchParams({
+                q: keyword,
+                status: status,
+                cate: cate,
+                stock: stock
+            });
+
+            const res = await fetch(`${API_URL}?${params.toString()}`);
             const json = await res.json();
 
             if (json.success) {
                 currentDataList = json.data;
                 renderTable(json.data);
             }
-        } catch (error) {
-            console.error('Lỗi tải sản phẩm:', error);
-        }
+        } catch (error) { console.error(error); }
     }
 
-    // --- 3. Render Bảng ---
+    // 3. Render Bảng (Giữ nguyên)
     function renderTable(list) {
-        // Tìm tbody bằng cách querySelector (vì trong HTML gốc bạn chưa đặt ID)
-        // GỢI Ý: Bạn nên thêm id="productTableBody" vào thẻ tbody trong HTML
-        const tbody = document.querySelector('tbody'); 
+        const tbody = document.querySelector('tbody');
         tbody.innerHTML = '';
 
         if (!list || list.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-gray-500">Không tìm thấy sản phẩm</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-gray-500">Không tìm thấy sản phẩm phù hợp</td></tr>`;
+            document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: 0 sản phẩm`;
             return;
         }
 
         list.forEach(item => {
-            // Định dạng tiền tệ
             const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.DonGiaBan);
+            const imgUrl = item.AnhMinhHoa || 'https://via.placeholder.com/50';
             
-            // Xử lý ảnh (nếu null thì dùng ảnh mặc định)
-            const imgUrl = item.AnhMinhHoa || 'https://via.placeholder.com/50?text=No+Img';
-            
-            // Trạng thái tồn kho
             let stockStatus = '';
             if (item.SoLuongTon > 10) stockStatus = `<div class="text-xs text-green-600 mt-0.5">Sẵn hàng</div>`;
             else if (item.SoLuongTon > 0) stockStatus = `<div class="text-xs text-orange-500 mt-0.5">Sắp hết</div>`;
             else stockStatus = `<div class="text-xs text-red-600 mt-0.5">Hết hàng</div>`;
 
+            const isChecked = item.TrangThai == 1 ? 'checked' : '';
+            const ngayTao = '14/01/2025';
+
             const row = `
                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b dark:border-gray-700">
-                    <td class="px-4 py-4">
-                        <div class="h-12 w-12 rounded bg-gray-100 border flex items-center justify-center overflow-hidden">
-                            <img src="${imgUrl}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/50'">
-                        </div>
-                    </td>
-                    <td class="px-4 py-4">
-                        <div class="font-medium text-gray-900 dark:text-white">${item.TenHang}</div>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border">SKU: ${item.MaHang}</span>
-                            <span class="text-xs text-blue-600">Size: ${item.Size || '-'} | Màu: ${item.MauSac || '-'}</span>
-                        </div>
-                    </td>
-                    <td class="px-4 py-4 text-gray-600 dark:text-gray-300">${item.TenLoai || 'Chưa phân loại'}</td>
+                    <td class="px-4 py-4"><div class="h-12 w-12 rounded bg-gray-100 border flex items-center justify-center overflow-hidden"><img src="${imgUrl}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/50'"></div></td>
+                    <td class="px-4 py-4"><div class="font-medium text-gray-900 dark:text-white">${item.TenHang}</div><div class="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border w-fit mt-1">SKU: ${item.MaHang}</div></td>
+                    <td class="px-4 py-4 text-gray-600 dark:text-gray-300">${item.TenLoai || '-'}</td>
                     <td class="px-4 py-4 font-medium text-gray-900 dark:text-white">${price}</td>
-                    <td class="px-4 py-4">
-                        <span class="font-bold">${item.SoLuongTon}</span> ${item.DonViTinh}
-                        ${stockStatus}
-                    </td>
+                    <td class="px-4 py-4"><span class="font-bold">${item.SoLuongTon}</span> ${item.DonViTinh} ${stockStatus}</td>
+                    <td class="px-4 py-4 text-gray-500 text-sm">${ngayTao}</td>
                     <td class="px-4 py-4 text-center">
-                        <!-- Nút Status giả lập (vì DB chưa có cột Status) -->
                         <div class="relative inline-block w-10 align-middle select-none">
-                            <input type="checkbox" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary"/>
+                            <input type="checkbox" ${isChecked} onchange="toggleStatus('${item.MaHang}', this)" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary"/>
                             <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer checked:bg-primary"></label>
                         </div>
                     </td>
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-4 text-center">
                         <div class="flex items-center justify-center gap-2">
-                            <button onclick="openModal('edit', '${item.MaHang}')" class="text-gray-400 hover:text-primary p-1" title="Sửa">
-                                <span class="material-symbols-outlined">edit</span>
-                            </button>
-                            <button onclick="deleteProduct('${item.MaHang}')" class="text-gray-400 hover:text-red-500 p-1" title="Xóa">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
+                            <button onclick="openModal('edit', '${item.MaHang}')" class="text-gray-400 hover:text-primary p-1"><span class="material-symbols-outlined">edit</span></button>
+                            <button onclick="deleteProduct('${item.MaHang}')" class="text-gray-400 hover:text-red-500 p-1"><span class="material-symbols-outlined">delete</span></button>
                         </div>
                     </td>
-                </tr>
-            `;
+                </tr>`;
             tbody.innerHTML += row;
         });
-
-        // Cập nhật tổng số
-        const footerCount = document.querySelector('.text-xs.text-gray-500 div');
-        if (footerCount) footerCount.innerText = `Tổng số: ${list.length} sản phẩm`;
+        document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: ${list.length} sản phẩm`;
     }
 
-    // --- 4. Modal Logic ---
-    function openModal(mode, sku = null) {
-        const modal = document.getElementById('productModal');
-        const title = document.getElementById('modal-title');
-        const form = document.getElementById('productForm');
-        
-        form.reset();
-        loadCategoriesToSelect(); // Load lại danh mục mới nhất
-
-        const skuInput = document.getElementById('prod-sku');
-        const isEditInput = document.getElementById('is-edit-mode');
-
-        if (mode === 'add') {
-            title.innerText = "Thêm sản phẩm mới";
-            skuInput.disabled = false; // Cho nhập SKU
-            skuInput.classList.remove('bg-gray-100');
-            isEditInput.value = 'false';
-        } else {
-            title.innerText = "Cập nhật sản phẩm";
-            skuInput.disabled = true; // Không cho sửa SKU (Khóa chính)
-            skuInput.classList.add('bg-gray-100');
-            isEditInput.value = 'true';
-
-            // Điền dữ liệu cũ
-            const item = currentDataList.find(x => x.MaHang == sku);
-            if (item) {
-                skuInput.value = item.MaHang;
-                document.getElementById('prod-name').value = item.TenHang;
-                document.getElementById('prod-cate').value = item.MaLoai;
-                document.getElementById('prod-unit').value = item.DonViTinh;
-                document.getElementById('prod-size').value = item.Size;
-                document.getElementById('prod-color').value = item.MauSac;
-                document.getElementById('prod-price-in').value = item.DonGiaNhap;
-                document.getElementById('prod-price-out').value = item.DonGiaBan;
-                document.getElementById('prod-stock').value = item.SoLuongTon;
-                document.getElementById('prod-img').value = item.AnhMinhHoa;
-            }
-        }
-        modal.classList.remove('hidden');
-    }
-
-    function closeModal() {
-        document.getElementById('productModal').classList.add('hidden');
-    }
-
-    // --- 5. Lưu (Thêm/Sửa) ---
-    async function handleSave(e) {
-        e.preventDefault();
-        
-        const isEdit = document.getElementById('is-edit-mode').value === 'true';
-        const payload = {
-            maHang: document.getElementById('prod-sku').value,
-            tenHang: document.getElementById('prod-name').value,
-            maLoai: document.getElementById('prod-cate').value,
-            donViTinh: document.getElementById('prod-unit').value,
-            size: document.getElementById('prod-size').value,
-            mauSac: document.getElementById('prod-color').value,
-            donGiaNhap: document.getElementById('prod-price-in').value || 0,
-            donGiaBan: document.getElementById('prod-price-out').value || 0,
-            soLuongTon: document.getElementById('prod-stock').value || 0,
-            anhMinhHoa: document.getElementById('prod-img').value
-        };
-
-        const method = isEdit ? 'PUT' : 'POST';
-        const url = isEdit ? `${API_URL}/${payload.maHang}` : API_URL;
-
-        try {
-            const res = await fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            const json = await res.json();
-            
-            if (json.success) {
-                alert(json.message);
-                closeModal();
-                loadProducts();
-            } else {
-                alert('Lỗi: ' + json.message);
-            }
-        } catch (err) { console.error(err); alert('Lỗi kết nối'); }
-    }
-
-    // --- 6. Xóa ---
-    async function deleteProduct(sku) {
-        if (!confirm('Bạn có chắc muốn xóa sản phẩm SKU: ' + sku + '?')) return;
-        try {
-            const res = await fetch(`${API_URL}/${sku}`, { method: 'DELETE' });
-            const json = await res.json();
-            if (json.success) {
-                alert('Đã xóa');
-                loadProducts();
-            } else {
-                alert(json.message);
-            }
-        } catch (e) { console.error(e); }
-    }
-
-    // --- 7. Tìm kiếm ---
-    let timeout = null;
-    document.querySelector('input[type="text"]').addEventListener('input', (e) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => loadProducts(e.target.value), 500);
-    });
+    // --- CÁC HÀM XỬ LÝ KHÁC (Status, Modal, Delete) GIỮ NGUYÊN ---
+    // (Copy lại các hàm toggleStatus, deleteProduct, handleSave, openModal, closeModal từ bài trước vào đây)
+    // ...
+    // ... 
     
-    // Gán sự kiện nút Thêm mới
+    // --- GẮN SỰ KIỆN LỌC (QUAN TRỌNG) ---
+    // Tìm kiếm (Debounce 0.5s)
+    let timeout = null;
+    document.getElementById('filter-search').addEventListener('input', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(loadProducts, 500);
+    });
+
+    // Các ô Select: Cứ đổi là load lại ngay
+    document.getElementById('filter-status').addEventListener('change', loadProducts);
+    document.getElementById('filter-cate').addEventListener('change', loadProducts);
+    document.getElementById('filter-stock').addEventListener('change', loadProducts);
+
+    // Nút Thêm mới
     document.querySelector('button.bg-primary').onclick = () => openModal('add');
 
     // Khởi chạy
-    document.addEventListener('DOMContentLoaded', () => {
-        // Xóa sạch dữ liệu mẫu trong HTML trước
+    document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector('tbody').innerHTML = '';
-        loadProducts();
+        await loadCategories(); // Load danh mục vào Filter trước
+        loadProducts();         // Sau đó load sản phẩm
     });
+    
+    // Copy lại các hàm logic Modal, Delete, ToggleStatus, HandleSave ở đây...
+    // (Bạn dùng lại code JS của câu trả lời trước, chỉ thay thế đoạn loadData và Event Listener như trên)
+    
+    async function toggleStatus(sku, checkbox) { /* ...Code cũ... */ }
+    async function openModal(mode, sku) { /* ...Code cũ... */ }
+    function closeModal() { document.getElementById('productModal').classList.add('hidden'); }
+    async function handleSave(e) { /* ...Code cũ... */ }
+    async function deleteProduct(sku) { /* ...Code cũ... */ }
+
 </script>
 </body>
 </html>
