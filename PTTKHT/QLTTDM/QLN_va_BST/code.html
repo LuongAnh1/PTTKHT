@@ -122,7 +122,9 @@
                     <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-none">
                         <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto">
                             <div class="relative w-full sm:w-64">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                                <span 
+                                    id="searchInput" 
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
                                 <input class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm kiếm nhóm..." type="text"/>
                             </div>
                             <div class="flex flex-wrap gap-2 w-full sm:w-auto">
@@ -147,7 +149,7 @@
                             </div>
                         </div>
                         <button class="bg-primary text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors whitespace-nowrap shadow-sm">
-                            <span class="material-symbols-outlined">add</span> Thêm nhóm mới
+                            <span id="btnAdd" class="material-symbols-outlined">add</span> Thêm nhóm mới
                         </button>
                     </div>
 
@@ -165,83 +167,8 @@
                                         <th class="px-6 py-3 text-right whitespace-nowrap font-semibold" scope="col">Hành động</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">TT-NAM-HE</td>
-                                        <td class="px-6 py-4 font-medium">Thời trang Nam Hè</td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-gray-600 dark:text-gray-300 mb-2">Bộ sưu tập quần áo basic mùa hè dành cho nam giới</div>
-                                            <div class="flex flex-wrap gap-2">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Nam</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">Xuân-Hè</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">Uniqlo</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">Thời trang Nam</td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex items-center justify-end gap-3">
-                                                <button class="text-gray-400 hover:text-primary p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                                <button class="text-gray-400 hover:text-red-500 p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">TT-NU-DONG</td>
-                                        <td class="px-6 py-4 font-medium">Áo khoác Nữ Đông</td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-gray-600 dark:text-gray-300 mb-2">Các mẫu áo khoác len, dạ, áo phao mùa đông mới nhất</div>
-                                            <div class="flex flex-wrap gap-2">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200">Nữ</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">Thu-Đông</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">Zara</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">Thời trang Nữ</td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex items-center justify-end gap-3">
-                                                <button class="text-gray-400 hover:text-primary p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                                <button class="text-gray-400 hover:text-red-500 p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">TE-SPORTS</td>
-                                        <td class="px-6 py-4 font-medium">Đồ thể thao Trẻ em</td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-gray-600 dark:text-gray-300 mb-2">Quần áo thể thao năng động, thấm hút mồ hôi cho bé</div>
-                                            <div class="flex flex-wrap gap-2">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Trẻ em</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">Xuân-Hè</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">Nike</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">Thời trang Trẻ em</td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex items-center justify-end gap-3">
-                                                <button class="text-gray-400 hover:text-primary p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                                <button class="text-gray-400 hover:text-red-500 p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">PK-NAM</td>
-                                        <td class="px-6 py-4 font-medium">Phụ kiện Nam</td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-gray-600 dark:text-gray-300 mb-2">Thắt lưng, ví da, cà vạt, tất cao cấp</div>
-                                            <div class="flex flex-wrap gap-2">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Nam</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Mọi mùa</span>
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">H&amp;M</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">Phụ kiện</td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex items-center justify-end gap-3">
-                                                <button class="text-gray-400 hover:text-primary p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                                <button class="text-gray-400 hover:text-red-500 p-1.5 transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="tableBody" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    <!-- Dữ liệu sẽ được chèn vào đây bởi JavaScript -->
                                 </tbody>
                             </table>
                         </div>
@@ -255,5 +182,240 @@
         </div>
     </main>
 </div>
+<!-- MODAL THÊM/SỬA DANH MỤC -->
+<div id="categoryModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50 transition-opacity duration-300">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6 transform transition-all scale-100">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-5 border-b border-gray-100 dark:border-gray-700 pb-3">
+            <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white">Thêm danh mục mới</h3>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-red-500 transition-colors focus:outline-none">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <!-- Form -->
+        <form id="categoryForm" onsubmit="handleSave(event)">
+            <!-- Input ẩn để chứa ID (nếu đang sửa) -->
+            <input type="hidden" id="cate-id"> 
+            
+            <!-- 1. Tên nhóm (Bắt buộc) -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Tên nhóm <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="cate-name" placeholder="Ví dụ: Thời trang Nam" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm py-2 px-3" required>
+            </div>
+
+            <!-- 2. Nhóm cha -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nhóm cha</label>
+                <input type="text" id="cate-parent" placeholder="Ví dụ: Quần, Áo (Để trống nếu là gốc)" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm py-2 px-3">
+            </div>
+
+            <!-- 3. Tags (Dùng text input) -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Tags <span class="text-xs text-gray-400 font-normal">(Ngăn cách bởi dấu phẩy)</span>
+                </label>
+                <input type="text" id="cate-tags" placeholder="Ví dụ: Nam, Hè, Cotton" class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm py-2 px-3">
+            </div>
+
+            <!-- 4. Mô tả (Dùng Textarea) -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mô tả</label>
+                <textarea id="cate-desc" rows="3" placeholder="Nhập mô tả chi tiết cho danh mục..." class="w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 text-sm py-2 px-3"></textarea>
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Hủy bỏ</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm text-sm font-medium flex items-center">
+                    <span class="material-symbols-outlined text-[18px] mr-1">save</span> Lưu lại
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    const API_URL = '/api/categories';
+    let currentDataList = []; // Biến toàn cục lưu danh sách tải về
+
+    // 1. Tải dữ liệu
+    async function loadData(keyword = '') {
+        try {
+            const url = keyword ? `${API_URL}?q=${keyword}` : API_URL;
+            const res = await fetch(url);
+            const json = await res.json();
+
+            if (json.success) {
+                currentDataList = json.data; // Lưu lại để dùng cho chức năng Sửa
+                renderTable(json.data);
+            }
+        } catch (error) {
+            console.error('Lỗi tải dữ liệu:', error);
+        }
+    }
+
+    // 2. Render Bảng
+    function renderTable(list) {
+        const tbody = document.getElementById('tableBody');
+        let htmlContent = '';
+
+        if (!list || list.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-gray-500">Không tìm thấy dữ liệu</td></tr>`;
+            document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: 0 danh mục`;
+            return;
+        }
+
+        list.forEach(item => {
+            const id = item.MaLoai;
+            const ten = item.TenLoai || 'Không tên';
+            const moTa = item.MoTa || 'Đang cập nhật...';
+            const nhomCha = item.NhomCha || '-';
+            const tags = item.Tags || '';
+
+            // Xử lý Tags hiển thị màu
+            let tagsHtml = '';
+            if (tags) {
+                const colors = ['blue', 'green', 'purple', 'orange', 'pink'];
+                tagsHtml = tags.split(',').map((tag, i) => 
+                    `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-${colors[i%5]}-100 text-${colors[i%5]}-800 dark:bg-${colors[i%5]}-900 dark:text-${colors[i%5]}-200 mr-1 mt-1">${tag.trim()}</span>`
+                ).join('');
+            }
+
+            htmlContent += `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b dark:border-gray-700">
+                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">#${id}</td>
+                    <td class="px-6 py-4 font-medium">${ten}</td>
+                    <td class="px-6 py-4 max-w-xs">
+                        <div class="text-gray-600 dark:text-gray-300 mb-1 line-clamp-2 text-sm">${moTa}</div>
+                        <div class="flex flex-wrap gap-1">${tagsHtml}</div>
+                    </td>
+                    <td class="px-6 py-4 text-sm">${nhomCha}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <button onclick="openModal('edit', ${id})" class="text-gray-400 hover:text-blue-600 p-1.5 transition-colors" title="Sửa">
+                                <span class="material-symbols-outlined text-[20px]">edit</span>
+                            </button>
+                            <button onclick="deleteItem(${id})" class="text-gray-400 hover:text-red-500 p-1.5 transition-colors" title="Xóa">
+                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+        });
+        tbody.innerHTML = htmlContent;
+        document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: ${list.length} danh mục`;
+    }
+
+    // --- CÁC HÀM XỬ LÝ MODAL ---
+
+    // 3. Mở Modal (Cho cả Thêm và Sửa)
+    function openModal(mode, id = null) {
+        const modal = document.getElementById('categoryModal');
+        const title = document.getElementById('modal-title');
+        const form = document.getElementById('categoryForm');
+
+        // Reset form
+        form.reset();
+
+        if (mode === 'add') {
+            title.innerText = "Thêm danh mục mới";
+            document.getElementById('cate-id').value = ''; // Xóa ID
+        } else if (mode === 'edit') {
+            title.innerText = "Cập nhật danh mục";
+            // Tìm dữ liệu cũ trong mảng currentDataList
+            const item = currentDataList.find(x => x.MaLoai == id);
+            if (item) {
+                document.getElementById('cate-id').value = item.MaLoai;
+                document.getElementById('cate-name').value = item.TenLoai;
+                document.getElementById('cate-parent').value = item.NhomCha || '';
+                document.getElementById('cate-tags').value = item.Tags || '';
+                document.getElementById('cate-desc').value = item.MoTa || '';
+            }
+        }
+        
+        modal.classList.remove('hidden');
+    }
+
+    // 4. Đóng Modal
+    function closeModal() {
+        document.getElementById('categoryModal').classList.add('hidden');
+    }
+
+    // 5. Lưu dữ liệu (Xử lý Submit Form)
+    async function handleSave(e) {
+        e.preventDefault(); // Chặn load lại trang
+
+        const id = document.getElementById('cate-id').value;
+        const tenLoai = document.getElementById('cate-name').value;
+        const nhomCha = document.getElementById('cate-parent').value;
+        const tags = document.getElementById('cate-tags').value;
+        const moTa = document.getElementById('cate-desc').value;
+
+        // Tạo object gửi đi
+        const payload = { tenLoai, nhomCha, tags, moTa };
+        
+        // Xác định phương thức và URL (Có ID => Sửa (PUT), Không ID => Thêm (POST))
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `${API_URL}/${id}` : API_URL;
+
+        try {
+            const res = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const json = await res.json();
+
+            if (json.success) {
+                alert(id ? 'Cập nhật thành công!' : 'Thêm mới thành công!');
+                closeModal();
+                loadData(); // Tải lại bảng
+            } else {
+                alert('Có lỗi xảy ra: ' + json.message);
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Lỗi kết nối server!');
+        }
+    }
+
+    // 6. Xóa danh mục
+    async function deleteItem(id) {
+        if (!confirm('Bạn có chắc chắn muốn xóa danh mục này?')) return;
+        try {
+            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            const json = await res.json();
+            if (json.success) {
+                alert('Đã xóa thành công');
+                loadData();
+            } else {
+                alert('Lỗi: ' + json.message);
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    // 7. Sự kiện tìm kiếm và nút Thêm
+    let timeout = null;
+    document.getElementById('searchInput').nextElementSibling.addEventListener('input', (e) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => loadData(e.target.value), 500);
+    });
+
+    // Gán sự kiện click cho nút "Thêm nhóm mới" trên Toolbar
+    document.querySelector('button.bg-primary').onclick = () => openModal('add');
+
+    // Khởi chạy lần đầu
+    document.addEventListener('DOMContentLoaded', () => loadData());
+
+    // Đóng modal khi click ra ngoài
+    window.onclick = function(event) {
+        const modal = document.getElementById('categoryModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
 </body>
 </html>
