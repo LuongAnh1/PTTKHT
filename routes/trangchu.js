@@ -35,16 +35,21 @@ router.get('/thong-ke-chung', async (req, res) => {
     }
 });
 
-// API 2: Cảnh báo tồn kho (Giữ nguyên)
+// API 2: Cảnh báo tồn kho
 router.get('/canh-bao', async (req, res) => {
     try {
+        // Lấy các hàng hóa có tồn kho thấp (dưới 10)
         const [rows] = await db.execute(`
-            SELECT TenHang, SoLuongTon as SoLuong, ViTri, DinhMucTon 
-            FROM HANG_HOA WHERE SoLuongTon < DinhMucTon LIMIT 5
+            SELECT TenHang, SoLuongTon as SoLuong
+            FROM HANG_HOA 
+            WHERE SoLuongTon < 10 
+            ORDER BY SoLuongTon ASC
+            LIMIT 5
         `);
         res.json({ success: true, data: rows });
     } catch (error) {
-        res.status(500).json({ success: false, message: "Lỗi Server" });
+        console.error("Lỗi Cảnh báo:", error);
+        res.status(500).json({ success: false, message: error.message });
     }
 });
 
@@ -120,6 +125,23 @@ router.get('/cong-no-ncc', async (req, res) => {
     } catch (error) {
         console.error("Lỗi Công nợ:", error);
         res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// API 6: Danh sách nhân viên (dùng cho chọn Người kiểm kê)
+router.get('/nhan-vien', async (req, res) => {
+    try {
+        const [rows] = await db.execute(
+            `SELECT MaNV, TenDangNhap, HoTen, QuyenHan, TrangThai
+             FROM TAI_KHOAN
+             WHERE TrangThai = 1
+             ORDER BY HoTen`
+        );
+
+        res.json({ success: true, data: rows || [] });
+    } catch (error) {
+        console.error('Lỗi lấy danh sách nhân viên:', error);
+        res.status(500).json({ success: false, message: 'Lỗi lấy danh sách nhân viên' });
     }
 });
 
