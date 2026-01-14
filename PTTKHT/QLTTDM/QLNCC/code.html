@@ -25,12 +25,9 @@
     </script>
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
-        
-        /* CSS thanh cuộn đẹp */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
     </style>
 </head>
@@ -46,7 +43,7 @@
             </div>
         </div>
         <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700 overflow-y-auto custom-scrollbar">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/TC/code.html">
                 <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
@@ -74,8 +71,6 @@
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 bg-background-light dark:bg-background-dark p-8 overflow-hidden flex flex-col">
-        
-        <!-- Wrapper chính -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full">
             
             <!-- Header Section -->
@@ -85,57 +80,35 @@
                     <p class="text-gray-500 dark:text-gray-400">Quản lý thông tin đối tác, nguồn nhập hàng và theo dõi công nợ.</p>
                 </div>
                 <div>
-                <nav aria-label="Tabs" class="flex space-x-2 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
-    
-                <!-- 1. Nhóm & Bộ sưu tập -->
-                <a href="../QLN_va_BST/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:border-gray-300 px-4 py-3 font-medium text-sm transition-colors whitespace-nowrap">
-                    Nhóm & Bộ sưu tập
-                </a>
-
-                <!-- 2. Sản phẩm & Biến thể -->
-                <a href="../QLSP_va_BT/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:border-gray-300 px-4 py-3 font-medium text-sm transition-colors whitespace-nowrap">
-                    Sản phẩm & Biến thể
-                </a>
-
-                <!-- 3. Giá & Khuyến mãi -->
-                <a href="../QLG_va_KM/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:border-gray-300 px-4 py-3 font-medium text-sm transition-colors whitespace-nowrap">
-                    Giá & Khuyến mãi
-                </a>
-
-                <!-- 4. Quản lý Nhà cung cấp (Đang chọn - Active) -->
-                <div class="border-b-2 border-blue-600 text-blue-600 px-4 py-3 font-medium text-sm whitespace-nowrap">
-                    Quản lý Nhà cung cấp
+                    <nav aria-label="Tabs" class="flex space-x-2 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+                        <a href="../QLN_va_BST/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:border-gray-300 px-4 py-3 font-medium text-sm transition-colors whitespace-nowrap">Nhóm & Bộ sưu tập</a>
+                        <a href="../QLSP_va_BT/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:border-gray-300 px-4 py-3 font-medium text-sm transition-colors whitespace-nowrap">Sản phẩm & Biến thể</a>
+                        <a href="../QLG_va_KM/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:border-gray-300 px-4 py-3 font-medium text-sm transition-colors whitespace-nowrap">Giá & Khuyến mãi</a>
+                        <div class="border-b-2 border-blue-600 text-blue-600 px-4 py-3 font-medium text-sm whitespace-nowrap">Quản lý Nhà cung cấp</div>
+                    </nav>
                 </div>
-
-            </nav>
-            </div>
             </div>
 
             <!-- Content Section -->
             <div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 flex flex-col overflow-hidden">
                 <div class="flex flex-col h-full gap-6">
                     
-                    <!-- Toolbar (Tìm kiếm & Nút) -->
+                    <!-- Toolbar -->
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-shrink-0">
                         <div class="relative w-full sm:w-96">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                            <input class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm transition-all" placeholder="Tìm tên, SĐT, mã..." type="text"/>
+                            <input id="searchInput" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm transition-all" placeholder="Tìm tên, SĐT, mã..." type="text"/>
                         </div>
                         <div class="flex gap-3 w-full sm:w-auto">
-                            <button class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 rounded-lg flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors whitespace-nowrap shadow-sm text-sm">
-                                <span class="material-symbols-outlined text-[18px]">filter_list</span> Lọc
-                            </button>
-                            <button class="flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 whitespace-nowrap text-sm">
+                            <button onclick="openModal('add')" class="flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 whitespace-nowrap text-sm">
                                 <span class="material-symbols-outlined text-[18px]">add</span>
                                 <span>Thêm nhà cung cấp</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- KHUNG CHỨA BẢNG CÓ THANH TRƯỢT -->
+                    <!-- Bảng dữ liệu -->
                     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm flex-1 flex flex-col min-h-0 overflow-hidden">
-                        
-                        <!-- Phần bảng cuộn -->
                         <div class="overflow-y-auto custom-scrollbar flex-1">
                             <table class="w-full text-sm text-left border-collapse">
                                 <thead class="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 shadow-sm">
@@ -149,83 +122,252 @@
                                     </tr>
                                 </thead>
                                 
-                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                        <td class="px-6 py-4">
-                                            <div class="font-medium text-gray-900 dark:text-white">Xưởng may Thành Công</div>
-                                            <div class="text-xs text-gray-500 mt-0.5">Mã: SUP-001</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-400">call</span> 0905 123 456
-                                            </div>
-                                            <div class="flex items-center gap-2 text-gray-500 mt-1">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-400">mail</span> contact@thanhcong.vn
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 max-w-[200px] truncate">123 Phạm Văn Đồng, TP. Thủ Đức</td>
-                                        <td class="px-6 py-4">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Không có nợ</span>
-                                            <div class="text-xs text-gray-500 mt-1">Dư nợ: 0 đ</div>
-                                        </td>
-                                        <td class="px-6 py-4 italic">Chuyên hàng thun</td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex items-center justify-end gap-2">
-                                                <button class="text-gray-400 hover:text-blue-600 p-1.5"><span class="material-symbols-outlined text-[20px]">receipt_long</span></button>
-                                                <button class="text-gray-400 hover:text-primary p-1.5"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                                <button class="text-gray-400 hover:text-red-500 p-1.5"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                        <td class="px-6 py-4">
-                                            <div class="font-medium text-gray-900 dark:text-white">Kho vải Minh Hưng</div>
-                                            <div class="text-xs text-gray-500 mt-0.5">Mã: SUP-002</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-400">call</span> 0912 987 654
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 max-w-[200px] truncate">45 Tân Bình, TP. HCM</td>
-                                        <td class="px-6 py-4">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Đang nợ</span>
-                                            <div class="text-xs text-red-600 font-semibold mt-1">Dư nợ: 15.500.000 đ</div>
-                                        </td>
-                                        <td class="px-6 py-4 italic">Giao hàng chậm</td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex items-center justify-end gap-2">
-                                                <button class="text-gray-400 hover:text-blue-600 p-1.5"><span class="material-symbols-outlined text-[20px]">receipt_long</span></button>
-                                                <button class="text-gray-400 hover:text-primary p-1.5"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                                <button class="text-gray-400 hover:text-red-500 p-1.5"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Dữ liệu mẫu -->
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 03</td><td class="px-6 py-4">0909 111 222</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 04</td><td class="px-6 py-4">0909 222 333</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 05</td><td class="px-6 py-4">0909 333 444</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 06</td><td class="px-6 py-4">0909 444 555</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 07</td><td class="px-6 py-4">0909 555 666</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 08</td><td class="px-6 py-4">0909 666 777</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 09</td><td class="px-6 py-4">0909 777 888</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"><td class="px-6 py-4">NCC Test 10</td><td class="px-6 py-4">0909 888 999</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td><td class="px-6 py-4">...</td></tr>
+                                <tbody id="supplierTableBody" class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                                    <!-- Dữ liệu sẽ được JS đổ vào đây -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- FOOTER (TỔNG SỐ) - ĐÃ THÊM -->
                         <div class="flex-none flex items-center justify-between px-6 py-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-500 dark:text-gray-400">
-                            <div>Tổng số: 10 nhà cung cấp</div>
+                            <div id="footerCount">Đang tải...</div>
                         </div>
-
                     </div>
-                    
                 </div>
             </div>
         </div>
     </main>
 </div>
+
+<!-- === MODAL THÊM/SỬA === -->
+<div id="supplierModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6">
+        <div class="flex justify-between items-center mb-5 border-b pb-2 dark:border-gray-700">
+            <h3 id="modalTitle" class="text-xl font-bold text-gray-900 dark:text-white">Thêm Nhà cung cấp</h3>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-red-500"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        
+        <form onsubmit="handleSave(event)">
+            <input type="hidden" id="ncc-id">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tên Nhà cung cấp <span class="text-red-500">*</span></label>
+                    <input type="text" id="ncc-name" required class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="VD: Xưởng may Thành Công">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Người liên hệ</label>
+                    <input type="text" id="ncc-contact" class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Anh A / Chị B">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Số điện thoại</label>
+                    <input type="text" id="ncc-phone" class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                    <input type="email" id="ncc-email" class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Công nợ hiện tại (VNĐ)</label>
+                    <input type="number" id="ncc-debt" class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm text-right" placeholder="0">
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Địa chỉ</label>
+                    <input type="text" id="ncc-address" class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm">
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ghi chú</label>
+                    <textarea id="ncc-note" rows="2" class="w-full mt-1 rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"></textarea>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-6 border-t pt-4 dark:border-gray-700">
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">Hủy</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-blue-600 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[18px]">save</span> Lưu lại
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const API_URL = '/api/suppliers';
+    let currentList = [];
+
+    // 1. Load danh sách
+    async function loadSuppliers(keyword = '') {
+        try {
+            const url = keyword ? `${API_URL}?q=${keyword}` : API_URL;
+            const res = await fetch(url);
+            const json = await res.json();
+            
+            if (json.success) {
+                currentList = json.data;
+                renderTable(json.data);
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    // 2. Render Bảng
+    function renderTable(list) {
+        const tbody = document.getElementById('supplierTableBody');
+        tbody.innerHTML = '';
+
+        if(list.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-gray-500">Không tìm thấy dữ liệu</td></tr>`;
+            document.getElementById('footerCount').innerText = `Tổng số: 0 nhà cung cấp`;
+            return;
+        }
+
+        const formatMoney = (n) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n);
+
+        list.forEach(item => {
+            const debt = parseFloat(item.SoTienNo) || 0;
+            let debtStatus = '';
+            
+            if (debt > 0) {
+                debtStatus = `
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Đang nợ</span>
+                    <div class="text-xs text-red-600 font-semibold mt-1">Dư nợ: ${formatMoney(debt)}</div>
+                `;
+            } else {
+                debtStatus = `
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Không có nợ</span>
+                    <div class="text-xs text-gray-500 mt-1">Dư nợ: 0 đ</div>
+                `;
+            }
+
+            // Tạo mã hiển thị giả lập (VD: SUP-001) dựa trên ID
+            const displayCode = `SUP-${String(item.MaNCC).padStart(3, '0')}`;
+
+            const row = `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b dark:border-gray-700">
+                    <td class="px-6 py-4">
+                        <div class="font-medium text-gray-900 dark:text-white">${item.TenNCC}</div>
+                        <div class="text-xs text-gray-500 mt-0.5">Mã: ${displayCode}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                            <span class="material-symbols-outlined text-[16px] text-gray-400">call</span> ${item.SoDienThoai || '---'}
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-500 mt-1 text-xs">
+                            <span class="material-symbols-outlined text-[16px] text-gray-400">person</span> LH: ${item.NguoiLienHe || '---'}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 max-w-[200px] truncate" title="${item.DiaChi || ''}">${item.DiaChi || '---'}</td>
+                    <td class="px-6 py-4">${debtStatus}</td>
+                    <td class="px-6 py-4 italic text-gray-500 max-w-[150px] truncate">${item.GhiChu || ''}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <button onclick="openModal('edit', ${item.MaNCC})" class="text-gray-400 hover:text-primary p-1.5" title="Sửa"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+                            <button onclick="deleteSupplier(${item.MaNCC})" class="text-gray-400 hover:text-red-500 p-1.5" title="Xóa"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+        document.getElementById('footerCount').innerText = `Tổng số: ${list.length} nhà cung cấp`;
+    }
+
+    // 3. Modal Logic
+    function openModal(mode, id = null) {
+        document.getElementById('supplierModal').classList.remove('hidden');
+        document.getElementById('ncc-id').value = '';
+        document.getElementById('ncc-name').value = '';
+        document.getElementById('ncc-contact').value = '';
+        document.getElementById('ncc-phone').value = '';
+        document.getElementById('ncc-email').value = '';
+        document.getElementById('ncc-debt').value = '';
+        document.getElementById('ncc-address').value = '';
+        document.getElementById('ncc-note').value = '';
+
+        if (mode === 'add') {
+            document.getElementById('modalTitle').innerText = "Thêm Nhà cung cấp";
+        } else {
+            document.getElementById('modalTitle').innerText = "Cập nhật Nhà cung cấp";
+            const item = currentList.find(x => x.MaNCC == id);
+            if (item) {
+                document.getElementById('ncc-id').value = item.MaNCC;
+                document.getElementById('ncc-name').value = item.TenNCC;
+                document.getElementById('ncc-contact').value = item.NguoiLienHe;
+                document.getElementById('ncc-phone').value = item.SoDienThoai;
+                document.getElementById('ncc-email').value = item.Email;
+                document.getElementById('ncc-debt').value = item.SoTienNo;
+                document.getElementById('ncc-address').value = item.DiaChi;
+                document.getElementById('ncc-note').value = item.GhiChu;
+            }
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('supplierModal').classList.add('hidden');
+    }
+
+    // 4. Lưu dữ liệu
+    async function handleSave(e) {
+        e.preventDefault();
+        const id = document.getElementById('ncc-id').value;
+        const payload = {
+            tenNCC: document.getElementById('ncc-name').value,
+            nguoiLienHe: document.getElementById('ncc-contact').value,
+            sdt: document.getElementById('ncc-phone').value,
+            email: document.getElementById('ncc-email').value,
+            soTienNo: document.getElementById('ncc-debt').value,
+            diaChi: document.getElementById('ncc-address').value,
+            ghiChu: document.getElementById('ncc-note').value
+        };
+
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `${API_URL}/${id}` : API_URL;
+
+        try {
+            const res = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const json = await res.json();
+            
+            if (json.success) {
+                alert('Thành công!');
+                closeModal();
+                loadSuppliers();
+            } else {
+                alert('Lỗi: ' + json.message);
+            }
+        } catch (e) { alert('Lỗi kết nối server'); }
+    }
+
+    // 5. Xóa
+    async function deleteSupplier(id) {
+        if (!confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này?')) return;
+        try {
+            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            if ((await res.json()).success) {
+                alert('Đã xóa');
+                loadSuppliers();
+            } else {
+                alert('Không thể xóa (có thể do ràng buộc dữ liệu)');
+            }
+        } catch (e) { alert('Lỗi kết nối'); }
+    }
+
+    // 6. Tìm kiếm
+    let timeout = null;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => loadSuppliers(e.target.value), 500);
+    });
+
+    // Chạy
+    document.addEventListener('DOMContentLoaded', () => loadSuppliers());
+</script>
+
 </body>
 </html>

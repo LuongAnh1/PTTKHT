@@ -59,33 +59,58 @@ router.get('/', async (req, res) => {
 
 // 2. Thêm sản phẩm mới
 router.post('/', async (req, res) => {
-    const { maHang, tenHang, maLoai, size, mauSac, donViTinh, soLuongTon, donGiaNhap, donGiaBan, anhMinhHoa } = req.body;
+    const { 
+        maHang, tenHang, maLoai, maNCC, moTa, 
+        size, mauSac, donViTinh, 
+        soLuongTon, donGiaNhap, donGiaBan, anhMinhHoa 
+    } = req.body;
 
     try {
+        // Kiểm tra trùng SKU
         const [check] = await db.execute('SELECT MaHang FROM HANG_HOA WHERE MaHang = ?', [maHang]);
         if (check.length > 0) return res.status(400).json({ success: false, message: 'Mã SKU đã tồn tại!' });
 
-        // --- XỬ LÝ DỮ LIỆU ĐẦU VÀO (QUAN TRỌNG) ---
-        // Chuyển chuỗi rỗng thành NULL hoặc 0 để tránh lỗi 'Truncated incorrect INTEGER value'
-        const valMaLoai = maLoai ? parseInt(maLoai) : null; 
-        const valSoLuong = soLuongTon ? parseInt(soLuongTon) : 0;
-        const valGiaNhap = donGiaNhap ? parseFloat(donGiaNhap) : 0;
-        const valGiaBan = donGiaBan ? parseFloat(donGiaBan) : 0;
-        const valAnh = anhMinhHoa || null;
-        const valSize = size || null;
-        const valMau = mauSac || null;
-        const valDVT = donViTinh || 'Cái';
+        // --- KHU VỰC SỬA LỖI (DATA SANITIZATION) ---
+        // Chuyển tất cả undefined thành null hoặc giá trị mặc định
+        
+        // 1. Xử lý số (Nếu rỗng hoặc undefined -> về 0 hoặc null)
+        const valMaLoai   = maLoai ? parseInt(maLoai) : null; 
+        const valMaNCC    = maNCC ? parseInt(maNCC) : null;
+        const valSoLuong  = soLuongTon ? parseInt(soLuongTon) : 0;
+        const valGiaNhap  = donGiaNhap ? parseFloat(donGiaNhap) : 0;
+        const valGiaBan   = donGiaBan ? parseFloat(donGiaBan) : 0;
+
+        // 2. Xử lý chuỗi (Nếu undefined -> về null)
+        const valMoTa     = moTa || null;
+        const valSize     = size || null;      // <-- Sửa lỗi tại đây
+        const valMau      = mauSac || null;    // <-- Sửa lỗi tại đây
+        const valAnh      = anhMinhHoa || null;
+        const valDVT      = donViTinh || 'Cái'; // Mặc định là 'Cái' nếu thiếu
         // ------------------------------------------
 
         const sql = `
             INSERT INTO HANG_HOA 
-            (MaHang, TenHang, MaLoai, Size, MauSac, DonViTinh, SoLuongTon, DonGiaNhap, DonGiaBan, AnhMinhHoa, TrangThai)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+            (MaHang, TenHang, MaLoai, MaNCC, MoTa, Size, MauSac, DonViTinh, SoLuongTon, DonGiaNhap, DonGiaBan, AnhMinhHoa, TrangThai)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
         `;
         
-        await db.execute(sql, [maHang, tenHang, valMaLoai, valSize, valMau, valDVT, valSoLuong, valGiaNhap, valGiaBan, valAnh]);
+        // Đảm bảo thứ tự biến khớp 100% với dấu hỏi chấm (?)
+        await db.execute(sql, [
+            maHang, 
+            tenHang, 
+            valMaLoai, 
+            valMaNCC, 
+            valMoTa, 
+            valSize, 
+            valMau, 
+            valDVT, 
+            valSoLuong, 
+            valGiaNhap, 
+            valGiaBan, 
+            valAnh
+        ]);
         
-        res.json({ success: true, message: 'Thêm thành công!' });
+        res.json({ success: true, message: 'Thêm sản phẩm thành công!' });
     } catch (error) {
         console.error('Lỗi thêm:', error);
         res.status(500).json({ success: false, message: 'Lỗi server: ' + error.message });
@@ -157,12 +182,20 @@ router.put('/:id/status', async (req, res) => {
 
 // 5. Xóa sản phẩm
 router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
     try {
-        await db.execute('DELETE FROM HANG_HOA WHERE MaHang = ?', [req.params.id]);
-        res.json({ success: true, message: 'Đã xóa sản phẩm' });
+        await db.execute('DELETE FROM HANG_HOA WHERE MaHang = ?', [id]);
+        res.json({ success: true, message: 'Đã xóa sản phẩm thành công!' });
     } catch (error) {
-        if (error.errno === 1451) return res.status(400).json({ success: false, message: 'Sản phẩm đã có trong hóa đơn, không thể xóa!' });
-        res.status(500).json({ success: false, message: 'Lỗi server' });
+        // Mã lỗi 1451: Cannot delete or update a parent row: a foreign key constraint fails
+        if (error.errno === 1451) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Không thể xóa! Sản phẩm này đã phát sinh giao dịch (Hóa đơn, Nhập kho...). Bạn chỉ có thể chuyển trạng thái sang "Ngừng kinh doanh".' 
+            });
+        }
+        console.error('Lỗi xóa:', error);
+        res.status(500).json({ success: false, message: 'Lỗi server: ' + error.message });
     }
 });
 
