@@ -3,57 +3,32 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Báo cáo &amp; Thống kê - Thẻ kho</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <title>Báo cáo & Thống kê - Thẻ kho</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        primary: "#3B82F6",
-                        "background-light": "#F3F4F6",
-                        "background-dark": "#111827",
-                    },
-                    fontFamily: {
-                        display: ["Roboto", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem", // 8px
-                    },
+                    colors: { primary: "#3B82F6", "background-light": "#F3F4F6", "background-dark": "#111827" },
+                    fontFamily: { display: ["Roboto", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
                 },
             },
         };
     </script>
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
-        }
-        /* Tùy chỉnh thanh cuộn */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 20px;
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #4b5563;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #4b5563; }
     </style>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="flex h-screen">
-    <!-- SIDEBAR -->
     <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col shrink-0">
         <div class="p-6">
             <div class="flex items-center space-x-3">
@@ -61,112 +36,126 @@
                 <h1 class="text-xl font-bold text-white">Admin</h1>
             </div>
         </div>
+        
         <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+               href="/PTTKHT/TC/code.html">
                 <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+               href="/PTTKHT/QTHT/QLND/code.html">
                 <span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+           
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+               href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
                 <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+               href="/PTTKHT/QLK/NK/code.html">
                 <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
-            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
-                <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
+
+            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" 
+               href="/PTTKHT/BCTK/BCTK/code.html">
+                <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo & Thống kê
             </a>
         </nav>
+
         <div class="p-4">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
                 <span class="material-symbols-outlined mr-3">account_circle</span> admin
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+               href="/PTTKHT/QTHT/DN/code.html">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="flex-1 p-8 h-screen overflow-hidden flex flex-col">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full">
-            <!-- Header Section (Fixed) -->
             <div class="p-6 pb-0 shrink-0">
                 <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Báo cáo &amp; Thống kê</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Báo cáo & Thống kê</h2>
                     <p class="text-gray-500 dark:text-gray-400">Xem chi tiết lịch sử nhập, xuất, điều chuyển hàng hóa trong kho.</p>
                 </div>
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav aria-label="Tabs" class="flex space-x-6">
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" 
+                           href="/PTTKHT/BCTK/BCTK/code.html">
                             Báo cáo Tồn kho
                         </a>
-                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" href="#">
+
+                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" 
+                           href="#">
                             Thẻ kho
                         </a>
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
+
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" 
+                           href="/PTTKHT/BCTK/BCHQKD/code.html">
                             Hiệu quả kinh doanh
                         </a>
                     </nav>
                 </div>
             </div>
 
-            <!-- Content Body (Scrollable Area) -->
             <div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 overflow-hidden flex flex-col">
                 <div class="space-y-6 h-full flex flex-col">
                     
-                    <!-- Filters (Shrink-0) -->
                     <div class="flex flex-wrap items-end justify-between gap-4 shrink-0 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
                         <div class="flex items-center gap-3 flex-wrap flex-1">
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Tìm kiếm</label>
                                 <div class="relative w-72">
                                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                                    <input class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm theo SKU, tên SP..." type="text"/>
+                                    <input id="search-input" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm theo SKU, tên SP..." type="text"/>
                                 </div>
                             </div>
+                            
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Kho hàng</label>
-                                <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-40">
-                                    <option>Tất cả kho</option>
-                                    <option>Kho Hồ Chí Minh</option>
-                                    <option>Kho Hà Nội</option>
+                                <select id="warehouse-filter" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-40">
+                                    <option value="">Tất cả kho</option>
+                                    <option value="Kho Tổng HCM">Kho Tổng HCM</option>
+                                    <option value="Kho Hà Nội">Kho Hà Nội</option>
+                                    <option value="Kho Đà Nẵng">Kho Đà Nẵng</option>
                                 </select>
                             </div>
+
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Loại giao dịch</label>
-                                <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-40">
-                                    <option>Tất cả</option>
-                                    <option>Nhập kho</option>
-                                    <option>Xuất kho</option>
-                                    <option>Điều chuyển</option>
+                                <select id="type-filter" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-40">
+                                    <option value="">Tất cả</option>
+                                    <option value="Nhập kho">Nhập kho</option>
+                                    <option value="Xuất kho">Xuất kho</option>
+                                    <option value="Điều chuyển">Điều chuyển</option>
                                 </select>
                             </div>
+
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Khoảng thời gian</label>
                                 <div class="flex items-center bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-2">
                                     <span class="material-symbols-outlined text-gray-500 text-lg mr-2">calendar_today</span>
-                                    <select class="bg-transparent border-none py-2 pl-0 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:ring-0 cursor-pointer">
-                                        <option>30 ngày qua</option>
-                                        <option>Tháng này</option>
-                                        <option>Tháng trước</option>
-                                        <option>Tùy chọn...</option>
+                                    <select id="time-filter" class="bg-transparent border-none py-2 pl-0 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:ring-0 cursor-pointer">
+                                        <option value="30days" selected>30 ngày qua</option>
+                                        <option value="7days">7 ngày qua</option>
+                                        <option value="all">Toàn thời gian</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
+
                         <div>
-                            <button class="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm">
+                            <button onclick="exportToCSV()" class="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm">
                                 <span class="material-symbols-outlined text-lg">download</span> Xuất Excel
                             </button>
                         </div>
                     </div>
 
-                    <!-- Table Wrapper (Flex-1 + Overflow) -->
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-1 flex flex-col overflow-hidden">
-                        
-                        <!-- Scrollable Table Body -->
                         <div class="overflow-y-auto custom-scrollbar flex-1">
                             <table class="w-full text-sm text-left">
                                 <thead class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-xs font-semibold sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
@@ -183,138 +172,13 @@
                                         <th class="px-4 py-3 whitespace-nowrap" scope="col">Ghi chú</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">SHRT-WHT-M</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <div>Áo sơ mi trắng Basic</div>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-                                                <span class="w-2 h-2 rounded-full bg-white border border-gray-300 mr-1"></span> Trắng
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 text-center font-medium">M</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">26/10/2023 14:30</td>
-                                        <td class="px-4 py-4">
-                                            <span class="bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200 dark:border-red-800 flex items-center w-fit gap-1 whitespace-nowrap">
-                                                <span class="material-symbols-outlined text-[14px]">arrow_upward</span> Xuất kho
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-right font-medium text-red-600 dark:text-red-400">-10</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">Kho Hồ Chí Minh</td>
-                                        <td class="px-4 py-4 text-right font-semibold text-gray-900 dark:text-white">45</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 italic">Xuất bán đơn #DH-10293</td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">JNS-BLU-32</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <div>Quần Jeans Slimfit</div>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300">
-                                                <span class="w-2 h-2 rounded-full bg-blue-600 mr-1"></span> Xanh đậm
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 text-center font-medium">32</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">26/10/2023 10:15</td>
-                                        <td class="px-4 py-4">
-                                            <span class="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-green-200 dark:border-green-800 flex items-center w-fit gap-1 whitespace-nowrap">
-                                                <span class="material-symbols-outlined text-[14px]">arrow_downward</span> Nhập kho
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-right font-medium text-green-600 dark:text-green-400">+100</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">Kho Hà Nội</td>
-                                        <td class="px-4 py-4 text-right font-semibold text-gray-900 dark:text-white">230</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 italic">Nhập lô hàng mùa đông</td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">DRS-FLR-S</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <div>Váy hoa nhí Vintage</div>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-pink-100 text-pink-800 dark:bg-pink-900/50 dark:text-pink-300">
-                                                <span class="w-2 h-2 rounded-full bg-pink-400 mr-1"></span> Hoa nhí
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 text-center font-medium">S</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">25/10/2023 16:45</td>
-                                        <td class="px-4 py-4">
-                                            <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 flex items-center w-fit gap-1 whitespace-nowrap">
-                                                <span class="material-symbols-outlined text-[14px]">swap_horiz</span> Điều chuyển
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-right font-medium text-blue-600 dark:text-blue-400">-20</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">Kho HCM <span class="text-gray-400 mx-1">→</span> Kho HN</td>
-                                        <td class="px-4 py-4 text-right font-semibold text-gray-900 dark:text-white">15</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 italic">Cân đối tồn kho</td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">JKT-LEA-L</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <div>Áo khoác da Biker</div>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-800 text-white dark:bg-gray-600 dark:text-gray-200">
-                                                <span class="w-2 h-2 rounded-full bg-black border border-gray-600 mr-1"></span> Đen
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 text-center font-medium">L</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">25/10/2023 09:20</td>
-                                        <td class="px-4 py-4">
-                                            <span class="bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200 dark:border-red-800 flex items-center w-fit gap-1 whitespace-nowrap">
-                                                <span class="material-symbols-outlined text-[14px]">arrow_upward</span> Xuất kho
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-right font-medium text-red-600 dark:text-red-400">-1</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">Kho Hà Nội</td>
-                                        <td class="px-4 py-4 text-right font-semibold text-gray-900 dark:text-white">8</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 italic">Xuất bảo hành đổi mới</td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">SHRT-WHT-M</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <div>Áo sơ mi trắng Basic</div>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-                                                <span class="w-2 h-2 rounded-full bg-white border border-gray-300 mr-1"></span> Trắng
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 text-center font-medium">M</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">24/10/2023 11:00</td>
-                                        <td class="px-4 py-4">
-                                            <span class="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-green-200 dark:border-green-800 flex items-center w-fit gap-1 whitespace-nowrap">
-                                                <span class="material-symbols-outlined text-[14px]">keyboard_return</span> Nhập trả
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-4 text-right font-medium text-green-600 dark:text-green-400">+1</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">Kho Hồ Chí Minh</td>
-                                        <td class="px-4 py-4 text-right font-semibold text-gray-900 dark:text-white">56</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 italic">Khách trả lại (Sai size)</td>
-                                    </tr>
-                                    <!-- Thêm row test scroll -->
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">TSH-BLK-L</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300"><div>Áo thun đen cổ tròn</div></td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-800 text-white"><span class="w-2 h-2 rounded-full bg-black border border-gray-500 mr-1"></span> Đen</span></td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 text-center font-medium">L</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">24/10/2023 10:00</td>
-                                        <td class="px-4 py-4"><span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200 flex items-center w-fit gap-1"><span class="material-symbols-outlined text-[14px]">arrow_upward</span> Xuất kho</span></td>
-                                        <td class="px-4 py-4 text-right font-medium text-red-600">-5</td>
-                                        <td class="px-4 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">Kho Hà Nội</td>
-                                        <td class="px-4 py-4 text-right font-semibold text-gray-900 dark:text-white">100</td>
-                                        <td class="px-4 py-4 text-gray-500 dark:text-gray-400 italic">...</td>
-                                    </tr>
+                                <tbody id="transaction-table-body" class="divide-y divide-gray-200 dark:divide-gray-700">
                                 </tbody>
                             </table>
                         </div>
-
-                        <!-- Footer: Chỉ hiển thị tổng số -->
                         <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shrink-0">
                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                Tổng số <span class="font-medium">3,450</span> giao dịch
+                                Tổng số <span id="display-count" class="font-medium">0</span> giao dịch
                             </div>
                         </div>
                     </div>
@@ -323,5 +187,6 @@
         </div>
     </main>
 </div>
+<script src="thekho.js"></script>
 </body>
 </html>

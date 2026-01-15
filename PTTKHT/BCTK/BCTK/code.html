@@ -3,58 +3,36 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Báo cáo &amp; Thống kê</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <title>Báo cáo & Thống kê</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        primary: "#3B82F6",
-                        "background-light": "#F3F4F6",
-                        "background-dark": "#111827",
-                    },
-                    fontFamily: {
-                        display: ["Roboto", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem", // 8px
-                    },
+                    colors: { primary: "#3B82F6", "background-light": "#F3F4F6", "background-dark": "#111827" },
+                    fontFamily: { display: ["Roboto", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
                 },
             },
         };
     </script>
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
-        }
-        /* Tùy chỉnh thanh cuộn */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 20px;
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #4b5563;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+        
+        /* Tùy chỉnh thanh cuộn to, rõ và hiện đại giống hình mẫu */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; border: 2px solid #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+        .dark .custom-scrollbar::-webkit-scrollbar-track { background: #1f2937; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #4b5563; border: 2px solid #1f2937; }
     </style>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
-<div class="flex h-screen">
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col shrink-0">
+<div class="flex min-h-screen"> <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col shrink-0 sticky top-0 h-screen">
         <div class="p-6">
             <div class="flex items-center space-x-3">
                 <span class="material-symbols-outlined text-3xl text-white">settings</span>
@@ -62,243 +40,121 @@
             </div>
         </div>
         <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/TC/code.html">
                 <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/QLND/code.html">
                 <span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
                 <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLK/NK/code.html">
                 <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
-            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="#">
-                <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
+            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="/PTTKHT/BCTK/BCTK/code.html">
+                <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo & Thống kê
             </a>
         </nav>
         <div class="p-4">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
                 <span class="material-symbols-outlined mr-3">account_circle</span> admin
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/DN/code.html">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 p-8 h-screen overflow-hidden flex flex-col">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full">
-            <!-- Header Section (Fixed) -->
-            <div class="p-6 pb-0 shrink-0">
+    <main class="flex-1 p-8 ">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm flex flex-col">
+            
+            <div class="p-6 border-b border-gray-100 dark:border-gray-700">
                 <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Báo cáo &amp; Thống kê</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Báo cáo & Thống kê</h2>
                     <p class="text-gray-500 dark:text-gray-400">Theo dõi lịch sử giao dịch kho và biến động tồn kho chi tiết.</p>
                 </div>
-                <div class="border-b border-gray-200 dark:border-gray-700">
-                    <nav aria-label="Tabs" class="flex space-x-6">
-                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" href="#">
-                            Báo cáo Tồn kho
-                        </a>
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
-                            Thẻ kho
-                        </a>
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="#">
-                            Hiệu quả kinh doanh
-                        </a>
-                    </nav>
-                </div>
+                <nav class="flex space-x-6">
+                    <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold whitespace-nowrap" href="#">
+                        Báo cáo Tồn kho
+                    </a>
+                    <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="/PTTKHT/BCTK/TK/code.html"> 
+                        Thẻ kho
+                    </a>
+                    <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="/PTTKHT/BCTK/BCHQKD/code.html">
+                        Hiệu quả kinh doanh
+                    </a>
+                </nav>
             </div>
 
-            <!-- Content Body (Scrollable Table Area) -->
-            <div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 overflow-hidden flex flex-col">
-                <div class="space-y-6 h-full flex flex-col">
-                    
-                    <!-- Stats Cards (Fixed height, shrink-0) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 shrink-0">
-                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-sm font-medium text-blue-800 dark:text-blue-200">Tổng nhập trong kỳ</h3>
-                                <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">input</span>
-                            </div>
-                            <p class="text-2xl font-bold text-gray-900 dark:text-white">5,200</p>
-                            <p class="text-xs text-blue-600 dark:text-blue-300 mt-1">Sản phẩm</p>
-                        </div>
-                        <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-xl border border-purple-100 dark:border-purple-800">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-sm font-medium text-purple-800 dark:text-purple-200">Tổng xuất trong kỳ</h3>
-                                <span class="material-symbols-outlined text-purple-600 dark:text-purple-400">output</span>
-                            </div>
-                            <p class="text-2xl font-bold text-gray-900 dark:text-white">3,850</p>
-                            <p class="text-xs text-purple-600 dark:text-purple-300 mt-1">Sản phẩm</p>
-                        </div>
-                        <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border border-red-100 dark:border-red-800">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-sm font-medium text-red-800 dark:text-red-200">Hàng trả lại</h3>
-                                <span class="material-symbols-outlined text-red-600 dark:text-red-400">keyboard_return</span>
-                            </div>
-                            <p class="text-2xl font-bold text-gray-900 dark:text-white">125</p>
-                            <p class="text-xs text-red-600 dark:text-red-300 mt-1">Chiếm 3.2% tổng xuất</p>
-                        </div>
-                        <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-xl border border-orange-100 dark:border-orange-800">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-sm font-medium text-orange-800 dark:text-orange-200">Cần kiểm kê</h3>
-                                <span class="material-symbols-outlined text-orange-600 dark:text-orange-400">fact_check</span>
-                            </div>
-                            <p class="text-2xl font-bold text-gray-900 dark:text-white">12</p>
-                            <p class="text-xs text-orange-600 dark:text-orange-300 mt-1">Mã hàng có chênh lệch</p>
-                        </div>
-                    </div>
+            <div class="flex justify-start shrink-0"> <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl"> <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center gap-3">
+            <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                <span class="material-symbols-outlined text-blue-600 text-xl">input</span>
+            </div>
+            <div>
+                <h3 class="text-[10px] font-semibold text-gray-500 uppercase leading-none mb-1">Tổng nhập</h3>
+                <p id="stat-import" class="text-lg font-bold text-gray-900 dark:text-white leading-none">0</p>
+            </div>
+        </div>
 
-                    <!-- Filters (Shrink-0) -->
-                    <div class="flex flex-wrap items-center justify-between gap-4 shrink-0 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                        <div class="flex items-center gap-3 flex-wrap flex-1">
-                            <div class="relative w-72">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                                <input class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm kiếm tên SP, mã SKU..." type="text"/>
-                            </div>
-                            <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-                                <option>Tất cả kho</option>
-                                <option>Kho Hồ Chí Minh</option>
-                                <option>Kho Hà Nội</option>
-                            </select>
-                            <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-                                <option>Loại giao dịch</option>
-                                <option>Nhập kho</option>
-                                <option>Xuất kho</option>
-                                <option>Trả hàng</option>
-                                <option>Kiểm kê</option>
-                            </select>
-                        </div>
-                        <button class="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm">
-                            <span class="material-symbols-outlined text-lg">download</span> Xuất Excel
-                        </button>
-                    </div>
+        <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center gap-3">
+            <div class="p-2 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
+                <span class="material-symbols-outlined text-purple-600 text-xl">output</span>
+            </div>
+            <div>
+                <h3 class="text-[10px] font-semibold text-gray-500 uppercase leading-none mb-1">Tổng xuất</h3>
+                <p id="stat-export" class="text-lg font-bold text-gray-900 dark:text-white leading-none">0</p>
+            </div>
+        </div>
 
-                    <!-- Table Wrapper (Flex-1 + Overflow) -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-1 flex flex-col overflow-hidden">
-                        
-                        <!-- Scrollable Table Body -->
-                        <div class="overflow-y-auto custom-scrollbar flex-1">
-                            <table class="w-full text-sm text-left">
-                                <thead class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-xs font-semibold whitespace-nowrap sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
-                                    <tr>
-                                        <th class="px-6 py-3 min-w-[120px]" scope="col">Mã SKU</th>
-                                        <th class="px-6 py-3 min-w-[200px]" scope="col">Tên sản phẩm</th>
-                                        <th class="px-4 py-3" scope="col">Màu sắc</th>
-                                        <th class="px-4 py-3" scope="col">Kích thước</th>
-                                        <th class="px-6 py-3" scope="col">Ngày giao dịch</th>
-                                        <th class="px-6 py-3" scope="col">Loại giao dịch</th>
-                                        <th class="px-6 py-3 text-right" scope="col">Số lượng</th>
-                                        <th class="px-6 py-3" scope="col">Kho liên quan</th>
-                                        <th class="px-6 py-3 min-w-[150px]" scope="col">Ghi chú</th>
-                                        <th class="px-6 py-3 text-right" scope="col">Tồn kho cuối kỳ</th>
-                                        <th class="px-6 py-3 text-center" scope="col">Trạng thái</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">AT-BAS-WH</td>
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">Áo Thun Basic Cotton</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">Trắng</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">L</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">24/05/2024</td>
-                                        <td class="px-6 py-4"><span class="text-blue-600 dark:text-blue-400 font-medium">Nhập kho</span></td>
-                                        <td class="px-6 py-4 text-right font-medium text-blue-600 dark:text-blue-400">+200</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Kho Tổng HCM</td>
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-500 italic">Nhập hàng vụ Hè</td>
-                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">450</td>
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-green-200 dark:border-green-800">An toàn</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">QJ-SLI-BL</td>
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">Quần Jeans Slimfit</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">Xanh nhạt</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">32</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">24/05/2024</td>
-                                        <td class="px-6 py-4"><span class="text-orange-600 dark:text-orange-400 font-medium">Xuất bán</span></td>
-                                        <td class="px-6 py-4 text-right font-medium text-orange-600 dark:text-orange-400">-5</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Kho CN Hà Nội</td>
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-500 italic">Đơn #DH9921</td>
-                                        <td class="px-6 py-4 text-right font-bold text-red-600 dark:text-red-400">12</td>
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200 dark:border-red-800">Sắp hết</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">VA-VINT-YL</td>
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">Váy Vintage Hoa nhí</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">Vàng</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">M</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">23/05/2024</td>
-                                        <td class="px-6 py-4"><span class="text-orange-600 dark:text-orange-400 font-medium">Xuất bán</span></td>
-                                        <td class="px-6 py-4 text-right font-medium text-orange-600 dark:text-orange-400">-1</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Kho Tổng HCM</td>
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-500 italic">Đơn #DH9918</td>
-                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">85</td>
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-orange-200 dark:border-orange-800">Tồn lâu</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">AK-BOM-BK</td>
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">Áo khoác Bomber Da</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">Đen</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">XL</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">22/05/2024</td>
-                                        <td class="px-6 py-4"><span class="text-purple-600 dark:text-purple-400 font-medium">Trả hàng</span></td>
-                                        <td class="px-6 py-4 text-right font-medium text-purple-600 dark:text-purple-400">+1</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Kho Đà Nẵng</td>
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-500 italic">Lỗi đường may</td>
-                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">24</td>
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-green-200 dark:border-green-800">An toàn</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">SN-CHU-GY</td>
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">Sneaker Chunky Basic</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">Xám</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">42</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">20/05/2024</td>
-                                        <td class="px-6 py-4"><span class="text-gray-600 dark:text-gray-400 font-medium">Kiểm kê</span></td>
-                                        <td class="px-6 py-4 text-right font-medium text-red-600 dark:text-red-400">-2</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Kho Tổng HCM</td>
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-500 italic">Hao hụt kho</td>
-                                        <td class="px-6 py-4 text-right font-bold text-red-600 dark:text-red-400">8</td>
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200 dark:border-red-800">Sắp hết</span>
-                                        </td>
-                                    </tr>
-                                    <!-- Thêm row để test scroll -->
-                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">TS-POL-NV</td>
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">Áo Polo Nam</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">Xanh than</td>
-                                        <td class="px-4 py-4 text-gray-600 dark:text-gray-400">M</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">19/05/2024</td>
-                                        <td class="px-6 py-4"><span class="text-blue-600 dark:text-blue-400 font-medium">Nhập kho</span></td>
-                                        <td class="px-6 py-4 text-right font-medium text-blue-600 dark:text-blue-400">+150</td>
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Kho Hà Nội</td>
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-500 italic">Hàng mới về</td>
-                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">200</td>
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full border border-green-200 dark:border-green-800">An toàn</span>
-                                        </td>
-                                    </tr>
+        <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center gap-3">
+            <div class="p-2 bg-red-50 dark:bg-red-900/30 rounded-lg">
+                <span class="material-symbols-outlined text-red-600 text-xl">keyboard_return</span>
+            </div>
+            <div>
+                <h3 class="text-[10px] font-semibold text-gray-500 uppercase leading-none mb-1">Trả hàng</h3>
+                <p id="stat-return" class="text-lg font-bold text-gray-900 dark:text-white leading-none">0</p>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center gap-3">
+            <div class="p-2 bg-orange-50 dark:bg-orange-900/30 rounded-lg">
+                <span class="material-symbols-outlined text-orange-600 text-xl">fact_check</span>
+            </div>
+            <div>
+                <h3 class="text-[10px] font-semibold text-gray-500 uppercase leading-none mb-1">Kiểm kê</h3>
+                <p id="stat-check" class="text-lg font-bold text-gray-900 dark:text-white leading-none">0</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-sm text-left whitespace-nowrap">
+                            <thead class="bg-gray-50/50 dark:bg-gray-900/50 text-gray-500 font-semibold border-b dark:border-gray-700">
+                                <tr>
+                                    <th class="px-6 py-4 min-w-[120px]">Mã SKU</th>
+                                    <th class="px-6 py-4 min-w-[250px]">Tên sản phẩm</th>
+                                    <th class="px-6 py-4">Màu sắc</th>
+                                    <th class="px-6 py-4">Kích thước</th>
+                                    <th class="px-6 py-4">Ngày GD</th>
+                                    <th class="px-6 py-4">Loại GD</th>
+                                    <th class="px-6 py-4 text-right">Số lượng</th>
+                                    <th class="px-6 py-4 text-center">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transaction-table-body" class="divide-y divide-gray-100 dark:divide-gray-700">
                                 </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Footer: Chỉ hiển thị Tổng số -->
-                        <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shrink-0">
-                            <div class="text-sm text-gray-500 dark:text-gray-400">
-                                Tổng số <span class="font-medium">2,850</span> giao dịch
-                            </div>
+                        </table>
+                    </div>
+                    
+                    <div class="px-6 py-4 border-t border-gray-50 dark:border-gray-700 flex justify-between items-center bg-gray-50/30 dark:bg-gray-900/30 rounded-b-xl">
+                        <span class="text-sm text-gray-500">Hiển thị <span id="display-count" class="font-bold">0</span> giao dịch</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 border rounded-md text-sm font-medium hover:bg-gray-50 transition-colors">Trước</button>
+                            <button class="px-4 py-2 border rounded-md text-sm font-medium hover:bg-gray-50 transition-colors">Sau</button>
                         </div>
                     </div>
                 </div>
@@ -306,5 +162,8 @@
         </div>
     </main>
 </div>
+
+<script src="baocaotonkho.js"></script>
+
 </body>
 </html>

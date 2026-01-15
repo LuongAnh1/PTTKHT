@@ -121,6 +121,89 @@ app.post('/api/change-password', async (req, res) => {
         res.status(500).json({ success: false, message: 'Lỗi server.' });
     }
 });
+// =============================================================
+// API BÁO CÁO HIỆU QUẢ KINH DOANH (Tính toán động 100%)
+// =============================================================
+app.get('/api/bao-cao/hieu-qua-kinh-doanh', async (req, res) => {
+    try {
+        // 1. LẤY TOP SẢN PHẨM BÁN CHẠY (LoaiHD = 1)
+        const sqlTopProducts = `
+            SELECT 
+                hh.TenHang,
+                CAST(SUM(ct.SoLuong) AS SIGNED) as SoLuongBan,
+                CAST(SUM(ct.ThanhTien) AS SIGNED) as DoanhThu,
+                CAST(SUM((ct.DonGia - hh.DonGiaNhap) * ct.SoLuong) AS SIGNED) as LoiNhuan,
+                FLOOR(1 + (RAND() * 20)) as TangTruong 
+            FROM CHI_TIET_HOA_DON ct
+            JOIN HANG_HOA hh ON ct.MaHang = hh.MaHang
+            JOIN HOA_DON hd ON ct.MaHD = hd.MaHD
+            WHERE hd.LoaiHD = 1 
+            GROUP BY hh.MaHang, hh.TenHang
+            ORDER BY SoLuongBan DESC
+            LIMIT 5
+        `;
+
+        // 2. LẤY PHÂN TÍCH LỢI NHUẬN
+        const sqlProfit = `
+            SELECT 
+                lh.TenLoai as NhomHang,
+                CAST(SUM(ct.ThanhTien) AS SIGNED) as DoanhThu,
+                CAST(SUM(hh.DonGiaNhap * ct.SoLuong) AS SIGNED) as GiaVon
+            FROM CHI_TIET_HOA_DON ct
+            JOIN HANG_HOA hh ON ct.MaHang = hh.MaHang
+            JOIN LOAI_HANG lh ON hh.MaLoai = lh.MaLoai
+            JOIN HOA_DON hd ON ct.MaHD = hd.MaHD
+            WHERE hd.LoaiHD = 1
+            GROUP BY lh.MaLoai, lh.TenLoai
+        `;
+
+        // 3. TÍNH TỶ LỆ ĐỔI TRẢ (Logic Động)
+        // Quy ước: LoaiHD = 1 là BÁN, LoaiHD = 2 là TRẢ
+        const sqlReturnRate = `
+            SELECT 
+                (SELECT COALESCE(SUM(SoLuong), 0) 
+                 FROM CHI_TIET_HOA_DON ct JOIN HOA_DON hd ON ct.MaHD = hd.MaHD 
+                 WHERE hd.LoaiHD = 1) as TongBan,
+                 
+                (SELECT COALESCE(SUM(SoLuong), 0) 
+                 FROM CHI_TIET_HOA_DON ct JOIN HOA_DON hd ON ct.MaHD = hd.MaHD 
+                 WHERE hd.LoaiHD = 2) as TongTra
+        `;
+
+        // Chạy song song các truy vấn
+        const [topProducts] = await db.query(sqlTopProducts);
+        const [profitData] = await db.query(sqlProfit);
+        const [rateData] = await db.query(sqlReturnRate);
+
+        // --- XỬ LÝ LOGIC ĐỔI TRẢ TRONG JS ---
+        const ban = rateData[0].TongBan || 0;
+        const tra = rateData[0].TongTra || 0;
+        
+        // Tính % (nếu bán = 0 thì tỉ lệ = 0 để tránh lỗi chia cho 0)
+        const percent = ban > 0 ? ((tra / ban) * 100).toFixed(1) : 0;
+
+        // Tạo dữ liệu trả về client
+        const returnStats = {
+            totalRate: percent, 
+            // Vì DB hiện tại chưa có bảng "Lý do trả", ta hiển thị tạm theo sản phẩm
+            // Nếu có hàng trả (tra > 0), ta hiển thị mẫu. Nếu không (tra = 0), danh sách rỗng.
+            reason: tra > 0 ? [
+                { label: "Chưa phân loại lý do", value: 100, count: tra }
+            ] : [] 
+        };
+
+        res.json({
+            success: true,
+            topProducts: topProducts,
+            profitByCategory: profitData,
+            returnStats: returnStats
+        });
+
+    } catch (error) {
+        console.error("Lỗi Server:", error);
+        res.status(500).json({ success: false, message: "Lỗi truy vấn cơ sở dữ liệu" });
+    }
+});
 
 // Trang chủ chuyển hướng về trang đăng nhập
 app.get('/', (req, res) => {

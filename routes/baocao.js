@@ -1,35 +1,61 @@
 const express = require('express'); 
-const db = require('../db'); // Kết nối CSDL (lùi lại 1 thư mục để tìm file db.js)
-const router = express.Router(); // <--- DÒNG NÀY RẤT QUAN TRỌNG ĐỂ SỬA LỖI
+const db = require('../db'); 
+const router = express.Router();    
 
-// ============================================
-// VIẾT CÁC API LIÊN QUAN ĐẾN BÁO CÁO Ở ĐÂY
-// ============================================
-
-// Ví dụ API: Lấy danh sách báo cáo
-// URL gọi: GET http://localhost:3000/api/bao-cao/danh-sach
-router.get('/danh-sach', async (req, res) => {
+router.get('/ton-kho', async (req, res) => {
     try {
-        // Giả sử bảng tên là BAO_CAO
-        const [rows] = await db.execute('SELECT * FROM BAO_CAO');
-        res.json({ success: true, data: rows });
+        const sql = `
+            SELECT 
+                hh.MaHang AS sku,
+                hh.TenHang AS name,
+                hh.MauSac AS color,
+                hh.Size AS size,
+                DATE_FORMAT(pnk.NgayNhap, '%Y-%m-%d') AS date,
+                'Nhập kho' AS type,
+                ctn.SoLuong AS qty,
+                
+                -- [SỬA DÒNG NÀY] Lấy tên kho thật từ bảng PHIEU_NHAP_KHO
+                COALESCE(pnk.TenKho, 'Kho Tổng') AS warehouse,
+
+                pnk.GhiChu AS note,
+                hh.SoLuongTon AS stock,
+                CASE WHEN hh.SoLuongTon < 10 THEN 'Sắp hết' ELSE 'An toàn' END AS status
+            FROM CHI_TIET_PHIEU_NHAP_KHO ctn
+            JOIN PHIEU_NHAP_KHO pnk ON ctn.MaPNK = pnk.MaPNK
+            JOIN HANG_HOA hh ON ctn.MaHang = hh.MaHang
+
+            UNION ALL
+
+            SELECT 
+                hh.MaHang AS sku,
+                hh.TenHang AS name,
+                hh.MauSac AS color,
+                hh.Size AS size,
+                DATE_FORMAT(pxk.NgayXuat, '%Y-%m-%d') AS date,
+                'Xuất kho' AS type,
+                
+                CAST(ctx.SoLuong AS SIGNED) * -1 AS qty,
+                
+                -- [SỬA DÒNG NÀY] Lấy tên kho thật từ bảng PHIEU_XUAT_KHO
+                COALESCE(pxk.TenKho, 'Kho Tổng') AS warehouse,
+
+                pxk.GhiChu AS note,
+                hh.SoLuongTon AS stock,
+                CASE WHEN hh.SoLuongTon < 10 THEN 'Sắp hết' ELSE 'An toàn' END AS status
+            FROM CHI_TIET_PHIEU_XUAT_KHO ctx
+            JOIN PHIEU_XUAT_KHO pxk ON ctx.MaPXK = pxk.MaPXK
+            JOIN HANG_HOA hh ON ctx.MaHang = hh.MaHang
+            
+            ORDER BY date DESC;
+        `;
+
+        const [rows] = await db.execute(sql);
+        res.json(rows);
+
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Lỗi lấy dữ liệu báo cáo' });
+        console.error('Lỗi lấy báo cáo tồn kho:', error);
+        res.status(500).json({ success: false, message: 'Lỗi server khi lấy tồn kho' });
     }
 });
 
-// Ví dụ API: Tạo báo cáo mới
-// URL gọi: POST http://localhost:3000/api/bao-cao/tao-moi
-router.post('/tao-moi', async (req, res) => {
-    const { tenBaoCao, noiDung } = req.body;
-    try {
-        // Code insert vào database...
-        res.json({ success: true, message: 'Đã tạo báo cáo' });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Lỗi tạo báo cáo' });
-    }
-});
-
-// ============================================
-module.exports = router; // 
+module.exports = router;
