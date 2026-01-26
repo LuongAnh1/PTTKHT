@@ -13,10 +13,7 @@ router.get('/ton-kho', async (req, res) => {
                 DATE_FORMAT(pnk.NgayNhap, '%Y-%m-%d') AS date,
                 'Nhập kho' AS type,
                 ctn.SoLuong AS qty,
-                
-                -- [SỬA DÒNG NÀY] Lấy tên kho thật từ bảng PHIEU_NHAP_KHO
-                COALESCE(pnk.TenKho, 'Kho Tổng') AS warehouse,
-
+                'Kho Tổng' AS warehouse,
                 pnk.GhiChu AS note,
                 hh.SoLuongTon AS stock,
                 CASE WHEN hh.SoLuongTon < 10 THEN 'Sắp hết' ELSE 'An toàn' END AS status
@@ -35,10 +32,7 @@ router.get('/ton-kho', async (req, res) => {
                 'Xuất kho' AS type,
                 
                 CAST(ctx.SoLuong AS SIGNED) * -1 AS qty,
-                
-                -- [SỬA DÒNG NÀY] Lấy tên kho thật từ bảng PHIEU_XUAT_KHO
-                COALESCE(pxk.TenKho, 'Kho Tổng') AS warehouse,
-
+                'Kho Tổng' AS warehouse,
                 pxk.GhiChu AS note,
                 hh.SoLuongTon AS stock,
                 CASE WHEN hh.SoLuongTon < 10 THEN 'Sắp hết' ELSE 'An toàn' END AS status
