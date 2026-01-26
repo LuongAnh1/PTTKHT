@@ -10,12 +10,12 @@ INSERT INTO LOAI_HANG (TenLoai, MoTa, NhomCha, Tags) VALUES
 ('Túi Xách', 'Túi xách da', 'Phụ Kiện', 'Túi'),
 ('Phụ Kiện Khác', 'Phụ kiện thời trang', 'Phụ Kiện', 'Phụ kiện');
 
-INSERT INTO TAI_KHOAN (TenDangNhap, MatKhau, HoTen, Email, QuyenHan) VALUES
-('admin','21232f297a57a5a743894a0e4a801fc3','Nguyễn Văn Quản Lý','admin@gmail.com',0),
-('nhanvien1','e10adc3949ba59abbe56e057f20f883e','Trần Thị Bán Hàng','nv1@gmail.com',1),
-('nhanvien2','e10adc3949ba59abbe56e057f20f883e','Lê Văn C','nv2@gmail.com',1),
-('kho1','e10adc3949ba59abbe56e057f20f883e','Phạm Thị Kho','kho@gmail.com',1),
-('sale01','e10adc3949ba59abbe56e057f20f883e','Hoàng Văn D','sale01@gmail.com',1);
+INSERT INTO TAI_KHOAN (TenDangNhap, MatKhau, HoTen, Email, QuyenHan) VALUES 
+('admin',     '21232f297a57a5a743894a0e4a801fc3', 'Nguyễn Văn Quản Lý', 'admin@gmail.com',  1), -- Admin (Full quyền)
+('nhanvien1', 'e10adc3949ba59abbe56e057f20f883e', 'Trần Thị Bán Hàng',  'nv1@gmail.com',    2), -- Kinh Doanh
+('nhanvien2', 'e10adc3949ba59abbe56e057f20f883e', 'Lê Văn C',           'nv2@gmail.com',    2), -- Kinh Doanh
+('kho1',      'e10adc3949ba59abbe56e057f20f883e', 'Phạm Thị Kho',       'kho@gmail.com',    3), -- Kho
+('sale01',    'e10adc3949ba59abbe56e057f20f883e', 'Hoàng Văn D',        'sale01@gmail.com', 2); -- Kinh Doanh
 
 INSERT INTO NHA_CUNG_CAP (TenNCC, DiaChi, SoDienThoai, Email, NguoiLienHe, SoTienNo) VALUES
 ('CT Thời Trang ABC','Hà Nội','0241234567','abc@gmail.com','Nguyễn Văn A',5000000),

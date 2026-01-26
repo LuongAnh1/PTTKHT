@@ -23,6 +23,32 @@
             },
         };
     </script>
+    <!-- 1. IMPORT FILE PHÂN QUYỀN (Nếu chưa có) -->
+    <script src="../../assets/js/permissions.js"></script>
+
+    <!-- 2. SCRIPT CHẶN TRUY CẬP (Bảo vệ trang) -->
+    <script>
+        (function() {
+            // Lấy thông tin user
+            const userJson = localStorage.getItem('user');
+            
+            // Nếu chưa đăng nhập -> Đẩy về trang Login
+            if (!userJson) {
+                window.location.href = '../../QTHT/DN/code.html'; // Sửa đường dẫn login của bạn
+                return;
+            }
+
+            const user = JSON.parse(userJson);
+
+            // Kiểm tra: Nếu QuyenHan KHÁC 1 (Không phải Admin) -> Đẩy về trang chủ
+            // Lưu ý: So sánh == 1 vì có thể dữ liệu là string "1" hoặc số 1
+            if (user.QuyenHan != 1) {
+                alert("Bạn không có quyền truy cập trang quản trị này!");
+                window.location.href = '../../TC/code.html'; // Sửa đường dẫn trang chủ
+            }
+        })();
+    </script>
+
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -34,40 +60,66 @@
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200"> 
 
 <div class="flex h-screen">
-    <!-- SIDEBAR (Cấu trúc mới giống PQCT) -->
+    <!-- SIDEBAR -->
     <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col flex-shrink-0 transition-all duration-300">
         <div class="p-6">
             <div class="flex items-center space-x-3">
                 <span class="material-symbols-outlined text-3xl text-white">settings</span>
-                <h1 class="text-xl font-bold text-white">Admin</h1>
+                <!-- Hiển thị Vai trò người dùng (Admin/Sale/Kho) -->
+                <h1 id="user-role-label" class="text-xl font-bold text-white">Fashion Store</h1>
             </div>
         </div>
+
+        <!-- MENU LIST -->
         <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700 overflow-y-auto">
             
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/TC/code.html">
+            <!-- 1. TRANG CHỦ: Ai cũng vào được (Không cần auth-check) -->
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+            href="/PTTKHT/TC/code.html">
                 <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
 
-            <!-- Menu đang Active -->
-            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold shadow-md" href="#">
+            <!-- 2. QUẢN TRỊ HỆ THỐNG: Chỉ Admin (sys_user) -->
+            <!-- Đang Active -->
+            <a class="auth-check flex items-center px-4 py-2.5 rounded-lg font-semibold shadow-md bg-primary text-white" 
+            href="/PTTKHT/QTHT/QLND/code.html"
+            data-resource="sys_user"> 
+            <!-- Lưu ý: data-resource="sys_user" -> Sale và Kho sẽ bị ẩn -->
                 <span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
             </a>
 
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
+            <!-- 3. QUẢN LÝ DANH MỤC: Ai cũng thấy (Admin/Sale: Sửa, Kho: Xem) -->
+            <a class="auth-check flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+            href="/PTTKHT/QLTTDM/QLN_va_BST/code.html"
+            data-resource="cat_group">
                 <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLK/NK/code.html">
+
+            <!-- 4. QUẢN LÝ KHO: Sale không thấy, Admin/Kho thấy -->
+            <a class="auth-check flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+            href="/PTTKHT/QLK/NK/code.html"
+            data-resource="imp_import">
                 <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/BCTK/BCTK/code.html">
+
+            <!-- 5. BÁO CÁO: Ai cũng thấy (Nội dung bên trong sẽ khác nhau) -->
+            <a class="auth-check flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
+            href="/PTTKHT/BCTK/BCTK/code.html"
+            data-resource="rep_inventory">
                 <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
             </a>
         </nav>
+
+        <!-- FOOTER SIDEBAR -->
         <div class="p-4 border-t border-gray-700">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
-            </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/DN/code.html">
+            <!-- Hiển thị Tên người dùng đang đăng nhập -->
+            <div class="flex items-center px-4 py-2.5 rounded-lg text-gray-400">
+                <span class="material-symbols-outlined mr-3">account_circle</span> 
+                <span id="user-name-display" class="truncate">Đang tải...</span>
+            </div>
+            
+            <!-- Nút Đăng xuất -->
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-red-600/20 hover:text-red-400 transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
@@ -412,5 +464,39 @@
         }
     }
 </script>
+
+<!-- SCRIPT XỬ LÝ HIỂN THỊ VÀ LOGOUT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Lấy thông tin user từ localStorage
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            
+            // Hiển thị tên
+            document.getElementById('user-name-display').textContent = user.HoTen || user.TenDangNhap;
+            
+            // Hiển thị vai trò (Tùy chọn)
+            const roleLabel = document.getElementById('user-role-label');
+            if (user.QuyenHan == 1) roleLabel.textContent = "Administrator";
+            else if (user.QuyenHan == 2) roleLabel.textContent = "Nhân viên Sale";
+            else if (user.QuyenHan == 3) roleLabel.textContent = "Thủ Kho";
+        }
+
+        // 2. Xử lý Đăng xuất
+        document.getElementById('btn-logout').addEventListener('click', (e) => {
+            e.preventDefault();
+            if(confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+                // Xóa token và user info
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                
+                // Chuyển về trang đăng nhập
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

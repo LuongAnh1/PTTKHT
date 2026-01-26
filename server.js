@@ -3,7 +3,12 @@ const cors = require('cors');
 const crypto = require('crypto');
 const path = require('path');
 const db = require('./db'); 
+const jwt = require('jsonwebtoken'); // [MỚI] Import JWT
 require('dotenv').config();
+
+// [MỚI] IMPORT MIDDLEWARE BẢO MẬT
+// Giả sử bạn lưu file authMiddleware.js trong thư mục routes
+const { verifyToken, checkPermission, SECRET_KEY } = require('./routes/authMiddleware');
 
 // [1] IMPORT CÁC ROUTE
 const baoCaoRoutes = require('./routes/baocao');
@@ -15,7 +20,7 @@ const quanLySanPhamRoutes = require('./routes/quanlysanpham');
 const quanLyKhuyenMaiRoutes = require('./routes/quanlykhuyenmai');
 const quanLyNhaCungCapRoutes = require('./routes/quanlynhacungcap');
 
-const app = express(); // <--- Tạo app tại đây
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // [2] MIDDLEWARE
@@ -24,15 +29,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/PTTKHT', express.static(path.join(__dirname, 'PTTKHT')));
 
-// [3] ĐĂNG KÝ ROUTE (Phải đặt ở dưới dòng const app = express())
-app.use('/api/bao-cao', baoCaoRoutes);
+// [3] ĐĂNG KÝ ROUTE VÀ ÁP DỤNG PHÂN QUYỀN
+// Nguyên tắc: app.use(Đường_dẫn, [Kiểm_tra_đăng_nhập, Kiểm_tra_quyền], Route_xử_lý)
+
+// Nhóm công khai (Không cần đăng nhập)
 app.use('/api/trang-chu', trangChuRoutes); 
-app.use('/api/users', quanLyNguoiDungRoutes);
-app.use('/api/kho', quanLyKhoRoutes);
-app.use('/api/categories', quanLyDanhMucRoutes);
-app.use('/api/products', quanLySanPhamRoutes);
-app.use('/api/marketing', quanLyKhuyenMaiRoutes);
-app.use('/api/suppliers', quanLyNhaCungCapRoutes);
+
+// Nhóm Quản lý người dùng: Chỉ Admin mới vào được (Sale, Kho bị chặn ở authMiddleware)
+app.use('/api/users', verifyToken, checkPermission('users'), quanLyNguoiDungRoutes);
+
+// Nhóm Sản phẩm: Admin/Sale sửa được, Kho chỉ xem được (Logic xử lý trong authMiddleware)
+app.use('/api/products', verifyToken, checkPermission('products'), quanLySanPhamRoutes);
+
+// Nhóm Kho: Admin/Kho sửa được, Sale bị chặn
+app.use('/api/kho', verifyToken, checkPermission('inventory'), quanLyKhoRoutes);
+
+// Nhóm Danh mục
+app.use('/api/categories', verifyToken, checkPermission('products'), quanLyDanhMucRoutes);
+
+// Nhóm Khuyến mãi
+app.use('/api/marketing', verifyToken, checkPermission('products'), quanLyKhuyenMaiRoutes);
+
+// Nhóm Nhà cung cấp
+app.use('/api/suppliers', verifyToken, checkPermission('suppliers'), quanLyNhaCungCapRoutes);
+
+// Nhóm Báo cáo
+app.use('/api/bao-cao', verifyToken, baoCaoRoutes);
+
 
 // Hàm mã hóa MD5
 function md5(text) {
@@ -41,7 +64,7 @@ function md5(text) {
 
 // [4] CÁC API HỆ THỐNG
 
-// API: Đăng nhập
+// API: Đăng nhập (ĐÃ SỬA ĐỂ TRẢ VỀ TOKEN)
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) 
@@ -49,15 +72,32 @@ app.post('/api/login', async (req, res) => {
 
     try {
         const hashedPassword = md5(password);
-        // Chỉ lấy các trường cần thiết, tránh lấy mật khẩu trả về client
         const [rows] = await db.execute(
-            'SELECT MaNV, TenDangNhap, HoTen, QuyenHan, Email FROM TAI_KHOAN WHERE TenDangNhap = ? AND MatKhau = ?',
+            'SELECT MaNV, TenDangNhap, HoTen, QuyenHan, Email, TrangThai FROM TAI_KHOAN WHERE TenDangNhap = ? AND MatKhau = ?',
             [username, hashedPassword]
         );
 
         if (rows.length > 0) {
             const user = rows[0];
-            res.json({ success: true, message: 'Đăng nhập thành công!', user: user });
+
+            if(user.TrangThai !== 1) {
+                return res.status(403).json({ success: false, message: 'Tài khoản đã bị khóa.' });
+            }
+
+            // [MỚI] TẠO TOKEN
+            const token = jwt.sign(
+                { MaNV: user.MaNV, TenDangNhap: user.TenDangNhap, QuyenHan: user.QuyenHan },
+                SECRET_KEY,
+                { expiresIn: '24h' } // Token hết hạn sau 24h
+            );
+
+            // Trả về cả user info và token
+            res.json({ 
+                success: true, 
+                message: 'Đăng nhập thành công!', 
+                user: user,
+                token: token // Client cần lưu cái này
+            });
         } else {
             res.status(401).json({ success: false, message: 'Sai thông tin đăng nhập.' });
         }
