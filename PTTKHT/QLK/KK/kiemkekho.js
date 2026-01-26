@@ -59,71 +59,56 @@ async function loadMatHang() {
         await loadMatHangFromKho();
     } catch (error) {
         console.error('Lỗi load dữ liệu:', error);
-        alert('Không thể tải dữ liệu kiểm kê!');
     }
 }
 
 async function loadMatHangFromKho() {
     try {
-        const response = await fetch('/api/kho/kiem-ke/ton-kho');
+        const token = localStorage.getItem('token');
+        if (!token) return; // Đã chặn ở HTML
+
+        const response = await fetch('/api/kho/kiem-ke/ton-kho', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI] Token Header
+            }
+        });
+
+        // Backend chặn Role 3 -> 403
+        if (response.status === 403) {
+            alert("Bạn không có quyền truy cập dữ liệu này!");
+            window.location.href = '/PTTKHT/TC/code.html';
+            return;
+        }
+
         const result = await response.json();
         
-        console.log('API Response kiem-ke/ton-kho:', result); // Debug
-        
         if (result.success) {
-            console.log('Dữ liệu tồn kho:', result.data); // Debug
-            console.log('Số lượng phần tử trong result.data:', result.data ? result.data.length : 0); // Debug
-            
             if (result.data && Array.isArray(result.data)) {
-                allMatHang = result.data.map((item, idx) => {
-                    // Validate dữ liệu
-                    if (!item.MaHang) {
-                        console.warn(`Item ${idx} thiếu MaHang:`, item);
-                    }
-                    
-                    return {
-                        MaHang: item.MaHang || `UNKNOWN_${idx}`,
-                        TenHang: item.TenHang || 'Không có tên',
-                        ThongTin: `${item.Size || ''} ${item.MauSac || ''}`.trim() || '',
-                        DonViTinh: item.DonViTinh || '',
-                        SoLuongPhanMem: Number(item.SoLuongPhanMem) || 0,
-                        // SL thực tế mặc định = 0 để bắt buộc người dùng nhập
-                        SoLuongThucTe: 0,
-                        DanhMuc: classifyFashionCategory(item)
-                    };
-                });
-                console.log('allMatHang sau khi map:', allMatHang); // Debug
-                console.log('Số lượng mặt hàng sau khi map:', allMatHang.length); // Debug
-                console.log('Mẫu dữ liệu đầu tiên:', allMatHang[0]); // Debug
+                allMatHang = result.data.map((item, idx) => ({
+                    MaHang: item.MaHang || `UNKNOWN_${idx}`,
+                    TenHang: item.TenHang || 'Không có tên',
+                    ThongTin: `${item.Size || ''} ${item.MauSac || ''}`.trim() || '',
+                    DonViTinh: item.DonViTinh || '',
+                    SoLuongPhanMem: Number(item.SoLuongPhanMem) || 0,
+                    SoLuongThucTe: 0,
+                    DanhMuc: classifyFashionCategory(item)
+                }));
             } else {
-                console.warn('Dữ liệu không phải là array:', result.data);
                 allMatHang = [];
             }
             
             filteredMatHang = [...allMatHang];
-            console.log('filteredMatHang trước khi render:', filteredMatHang); // Debug
-            console.log('Số lượng filteredMatHang:', filteredMatHang.length); // Debug
-            
-            // Render bảng (hàm renderTable sẽ tự đợi element sẵn sàng)
             renderTonKhoTable(filteredMatHang);
             updateStatistics();
             updateTonKhoTotalCount(filteredMatHang.length);
         } else {
-            console.warn('API không thành công:', result.message); // Debug
-            allMatHang = [];
-            filteredMatHang = [];
-            renderTonKhoTable(filteredMatHang);
-            updateStatistics();
-            updateTonKhoTotalCount(0);
+            allMatHang = []; filteredMatHang = []; renderTonKhoTable([]); updateStatistics(); updateTonKhoTotalCount(0);
         }
     } catch (error) {
         console.error('Lỗi load tồn kho:', error);
-        alert('Không thể tải dữ liệu kiểm kê!');
-        allMatHang = [];
-        filteredMatHang = [];
-        renderTonKhoTable(filteredMatHang);
-        updateStatistics();
-        updateTonKhoTotalCount(0);
+        allMatHang = []; filteredMatHang = []; renderTonKhoTable([]); updateStatistics(); updateTonKhoTotalCount(0);
     }
 }
 

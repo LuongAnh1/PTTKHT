@@ -16,7 +16,24 @@ const filterState = {
 // ============================================
 async function loadPhieuNhap() {
     try {
-        const response = await fetch('/api/kho/nhap-kho');
+        const token = localStorage.getItem('token');
+        if (!token) return; // Đã xử lý ở HTML rồi, nhưng check lại cho chắc
+
+        const response = await fetch('/api/kho/nhap-kho', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [QUAN TRỌNG] Gửi kèm token
+            }
+        });
+
+        // Nếu Backend trả về 403 (Forbidden) dù đã qua mặt được HTML
+        if (response.status === 403) {
+            alert("Bạn không có quyền lấy dữ liệu kho!");
+            window.location.href = '/PTTKHT/TC/code.html';
+            return;
+        }
+        
         const result = await response.json();
         
         console.log('API Response nhap-kho:', result); // Debug

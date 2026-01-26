@@ -16,13 +16,28 @@ const filterState = {
 // ============================================
 async function loadPhieuXuat() {
     try {
-        const response = await fetch('/api/kho/xuat-kho');
+        const token = localStorage.getItem('token');
+        if (!token) return; // Đã xử lý ở HTML
+
+        const response = await fetch('/api/kho/xuat-kho', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI] Thêm token
+            }
+        });
+
+        // Nếu Backend trả về 403 -> Chặn
+        if (response.status === 403) {
+            alert("Bạn không có quyền truy cập dữ liệu Xuất Kho!");
+            window.location.href = '/PTTKHT/TC/code.html';
+            return;
+        }
+        
         const result = await response.json();
-        
-        console.log('API Response xuat-kho:', result); // Debug
-        
+        console.log('API Response xuat-kho:', result);
+
         if (result.success) {
-            console.log('Dữ liệu phiếu xuất:', result.data); // Debug
             if (result.data && Array.isArray(result.data)) {
                 allPhieuXuat = result.data.map(phieu => ({
                     MaPhieu: phieu.MaPXK,
@@ -31,13 +46,11 @@ async function loadPhieuXuat() {
                     TrangThai: phieu.TrangThai === 1 ? 'completed' : 'processing',
                     NgayXuat: phieu.NgayXuat
                 }));
-                console.log('allPhieuXuat sau khi map:', allPhieuXuat); // Debug
             } else {
-                console.warn('Dữ liệu không phải là array:', result.data);
                 allPhieuXuat = [];
             }
             
-            // Kiểm tra và cập nhật trạng thái từ sessionStorage (nếu có)
+            // Xử lý session update (giữ nguyên)
             const updatedInfo = sessionStorage.getItem('phieuXuatUpdated');
             if (updatedInfo) {
                 try {
@@ -47,29 +60,21 @@ async function loadPhieuXuat() {
                         allPhieuXuat[phieuIndex].TrangThai = update.trangThai;
                     }
                     sessionStorage.removeItem('phieuXuatUpdated');
-                } catch (e) {
-                    console.error('Lỗi xử lý sessionStorage:', e);
-                }
+                } catch (e) { console.error(e); }
             }
             
             filteredPhieuXuat = [...allPhieuXuat];
             renderTable(filteredPhieuXuat);
             updateTotalCount(filteredPhieuXuat.length);
         } else {
-            allPhieuXuat = [];
-            filteredPhieuXuat = [];
-            renderTable(filteredPhieuXuat);
-            updateTotalCount(0);
+            allPhieuXuat = []; filteredPhieuXuat = []; renderTable([]); updateTotalCount(0);
         }
     } catch (error) {
         console.error('Lỗi load dữ liệu:', error);
-        alert('Không thể tải dữ liệu phiếu xuất!');
-        allPhieuXuat = [];
-        filteredPhieuXuat = [];
-        renderTable(filteredPhieuXuat);
-        updateTotalCount(0);
+        allPhieuXuat = []; filteredPhieuXuat = []; renderTable([]); updateTotalCount(0);
     }
 }
+
 
 // ============================================
 // 2. RENDER BẢNG DỮ LIỆU
@@ -77,82 +82,37 @@ async function loadPhieuXuat() {
 function renderTable(data) {
     const tbody = document.getElementById('phieuXuatTableBody');
     if (!tbody) return;
-
     tbody.innerHTML = '';
-
     if (data.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
-                    Không có dữ liệu phiếu xuất. Vui lòng tạo phiếu xuất mới.
-                </td>
-            </tr>
-        `;
+        tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Không có dữ liệu phiếu xuất.</td></tr>`;
         return;
     }
-    
-    console.log('Rendering', data.length, 'phiếu xuất'); // Debug
-    
-    data.forEach(phieu => {
-        const row = createTableRow(phieu);
-        tbody.innerHTML += row;
-    });
+    data.forEach(phieu => { tbody.innerHTML += createTableRow(phieu); });
 }
 
-// Tạo một dòng trong bảng
 function createTableRow(phieu) {
     const statusInfo = getStatusInfo(phieu.TrangThai);
     const statusClass = getStatusClass(phieu.TrangThai);
     const formattedDate = formatDate(phieu.NgayXuat);
-    
-    // Xác định các nút hành động dựa trên trạng thái
     let actionButtons = '';
+    
+    // Logic nút bấm
     if (phieu.TrangThai === 'completed') {
-        // Phiếu đã hoàn thành - CHỈ ĐƯỢC XEM, KHÔNG ĐƯỢC SỬA
+        actionButtons = `<button onclick="viewPhieuXuat('${phieu.MaPhieu}')" class="text-gray-400 hover:text-primary p-1.5"><span class="material-symbols-outlined">visibility</span></button>`;
+    } else {
         actionButtons = `
-            <button onclick="viewPhieuXuat('${phieu.MaPhieu}')" class="text-gray-400 hover:text-primary p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xem chi tiết">
-                <span class="material-symbols-outlined text-[20px]">visibility</span>
-            </button>
-        `;
-    } else { // processing - Đang xử lý
-        actionButtons = `
-            <button onclick="viewPhieuXuat('${phieu.MaPhieu}')" class="text-gray-400 hover:text-primary p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Xem chi tiết">
-                <span class="material-symbols-outlined text-[20px]">visibility</span>
-            </button>
-            <button onclick="editPhieuXuat('${phieu.MaPhieu}')" class="text-gray-400 hover:text-primary p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Chỉnh sửa">
-                <span class="material-symbols-outlined text-[20px]">edit</span>
-            </button>
+            <button onclick="viewPhieuXuat('${phieu.MaPhieu}')" class="text-gray-400 hover:text-primary p-1.5"><span class="material-symbols-outlined">visibility</span></button>
+            <button onclick="editPhieuXuat('${phieu.MaPhieu}')" class="text-gray-400 hover:text-primary p-1.5"><span class="material-symbols-outlined">edit</span></button>
         `;
     }
 
     return `
         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-            <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full ${statusClass.bg} flex items-center justify-center ${statusClass.text} font-bold">
-                        <span class="material-symbols-outlined text-lg">receipt_long</span>
-                    </div>
-                    <div>
-                        <div class="font-medium text-gray-900 dark:text-white">${phieu.MaPhieu}</div>
-                    </div>
-                </div>
-            </td>
-            <td class="px-6 py-4">
-                <div class="text-gray-900 dark:text-white font-medium">${phieu.NguoiNhan || '-'}</div>
-                ${phieu.ThongTin ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${phieu.ThongTin}</div>` : ''}
-            </td>
-            <td class="px-6 py-4">
-                <div class="flex items-center gap-2">
-                    <div class="w-2.5 h-2.5 rounded-full ${statusInfo.color}"></div>
-                    <span class="text-gray-700 dark:text-gray-300">${statusInfo.text}</span>
-                </div>
-            </td>
+            <td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full ${statusClass.bg} flex items-center justify-center ${statusClass.text} font-bold"><span class="material-symbols-outlined text-lg">receipt_long</span></div><div class="font-medium text-gray-900 dark:text-white">${phieu.MaPhieu}</div></div></td>
+            <td class="px-6 py-4"><div class="text-gray-900 dark:text-white font-medium">${phieu.NguoiNhan || '-'}</div>${phieu.ThongTin ? `<div class="text-xs text-gray-500 mt-1">${phieu.ThongTin}</div>` : ''}</td>
+            <td class="px-6 py-4"><div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full ${statusInfo.color}"></div><span class="text-gray-700 dark:text-gray-300">${statusInfo.text}</span></div></td>
             <td class="px-6 py-4 text-gray-600 dark:text-gray-400">${formattedDate}</td>
-            <td class="px-6 py-4 text-right">
-                <div class="flex items-center justify-end gap-2">
-                    ${actionButtons}
-                </div>
-            </td>
+            <td class="px-6 py-4 text-right"><div class="flex items-center justify-end gap-2">${actionButtons}</div></td>
         </tr>
     `;
 }
@@ -366,24 +326,27 @@ function editPhieuXuat(maPhieu) {
 // 8. HỦY PHIẾU
 // ============================================
 async function cancelPhieuXuat(maPhieu, nguoiNhan) {
-    if (!confirm(`Bạn có chắc chắn muốn hủy phiếu xuất "${maPhieu}" của "${nguoiNhan}"?`)) {
-        return;
-    }
+    if (!confirm(`Hủy phiếu xuất "${maPhieu}"?`)) return;
 
     try {
+        const token = localStorage.getItem('token'); // Lấy token
         const response = await fetch(`/api/kho/xuat-kho/${maPhieu}/cancel`, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI]
+            }
         });
         const result = await response.json();
         if (result.success) {
             alert('Đã hủy phiếu xuất thành công!');
-            await loadPhieuXuat(); // Reload danh sách
+            await loadPhieuXuat();
         } else {
             alert('Lỗi: ' + result.message);
         }
     } catch (error) {
         console.error('Lỗi hủy phiếu:', error);
-        alert('Không thể hủy phiếu xuất: ' + error.message);
+        alert('Không thể hủy phiếu xuất!');
     }
 }
 

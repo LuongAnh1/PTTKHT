@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Quản lý Kho - Xuất hàng</title>
+    <title>Quản lý Kho</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -12,44 +12,43 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        primary: "#3B82F6",
-                        "background-light": "#F3F4F6",
-                        "background-dark": "#111827",
-                    },
-                    fontFamily: {
-                        display: ["Roboto", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem", // 8px
-                    },
+                    colors: { primary: "#3B82F6", "background-light": "#F3F4F6", "background-dark": "#111827" },
+                    fontFamily: { display: ["Roboto", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
                 },
             },
         };
     </script>
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
-        }
-        /* Tùy chỉnh thanh cuộn */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 20px;
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #4b5563;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #4b5563; }
     </style>
+
+    <!-- [QUAN TRỌNG] SCRIPT CHẶN QUYỀN 2 (SALE) -->
+    <script>
+        (function() {
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            if (!token || !userJson) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            const user = JSON.parse(userJson);
+            const role = parseInt(user.QuyenHan);
+
+            // Nếu là Sale (2) -> Đuổi về trang chủ ngay
+            if (role === 2) {
+                alert("Bạn không có quyền truy cập module Quản lý Kho!");
+                window.location.href = '/PTTKHT/TC/code.html';
+            }
+        })();
+    </script>
+    
     <script src="xuatkho.js"></script>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
@@ -72,34 +71,37 @@
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
                 <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="/PTTKHT/QLK/NK/code.html">
+            
+            <!-- Thêm ID="nav-warehouse" để JS dễ tìm và ẩn -->
+            <a id="nav-warehouse" class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="/PTTKHT/QLK/NK/code.html">
                 <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
+
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/BCTK/BCTK/code.html">
                 <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
             </a>
         </nav>
         <div class="p-4">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
+                <!-- Thêm ID user-display để hiển thị tên -->
+                <span class="material-symbols-outlined mr-3">account_circle</span> <span id="user-display">Admin</span>
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/DN/code.html">
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT (Giữ nguyên phần nội dung bên trong) -->
     <main class="flex-1 p-8 h-screen overflow-hidden flex flex-col">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full">
             <!-- Header Section -->
             <div class="p-6 border-b border-gray-200 dark:border-gray-700 shrink-0">
                 <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quản lý Kho</h2>
-                    <p class="text-gray-500 dark:text-gray-400">Quản lý các hoạt động nhập hàng, xuất hàng và kiểm kê tồn kho hệ thống.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quản lý Kho - Xuất hàng</h2>
+                    <p class="text-gray-500 dark:text-gray-400">Quản lý các hoạt động xuất kho.</p>
                 </div>
                 <div>
-                    <!-- Tabs: Đã xóa icon, Active tab là Xuất hàng -->
                     <nav aria-label="Tabs" class="flex space-x-2 border-b border-gray-200 dark:border-gray-700">
                         <a href="/PTTKHT/QLK/NK/code.html" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 px-4 py-3 font-medium text-sm flex items-center gap-2 focus:outline-none transition-colors">
                             Nhập hàng
@@ -117,7 +119,6 @@
             <!-- Content Body -->
             <div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 overflow-hidden flex flex-col">
                 <div class="space-y-6 h-full flex flex-col">
-                    
                     <!-- Search & Action Bar -->
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0">
                         <div class="relative w-full sm:w-96">
@@ -125,12 +126,13 @@
                             <input id="searchPhieuXuat" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm kiếm mã phiếu, người nhận..." type="text"/>
                         </div>
                         <div class="flex gap-3 w-full sm:w-auto relative">
+                            <!-- (Giữ nguyên các nút Filter) -->
                             <div class="relative">
                                 <button id="filterButton" class="flex-1 sm:flex-none justify-center bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm text-sm relative">
                                     <span class="material-symbols-outlined text-[20px]">filter_list</span> Bộ lọc
                                     <span id="filterBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">!</span>
                                 </button>
-                                <!-- Filter Dropdown -->
+                                <!-- Filter Dropdown (Giữ nguyên) -->
                                 <div id="filterDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
                                     <div class="p-4 space-y-4">
                                         <div class="flex items-center justify-between">
@@ -139,8 +141,6 @@
                                                 <span class="material-symbols-outlined text-[20px]">close</span>
                                             </button>
                                         </div>
-                                        
-                                        <!-- Filter by Status -->
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Trạng thái</label>
                                             <select id="filterStatus" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white py-2 px-3 focus:ring-primary focus:border-primary shadow-sm text-sm">
@@ -149,19 +149,14 @@
                                                 <option value="completed">Hoàn thành</option>
                                             </select>
                                         </div>
-
-                                        <!-- Filter Actions -->
                                         <div class="flex gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-                                            <button id="applyFilter" class="flex-1 bg-primary text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors text-sm">
-                                                Áp dụng
-                                            </button>
-                                            <button id="resetFilter" class="flex-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-sm">
-                                                Đặt lại
-                                            </button>
+                                            <button id="applyFilter" class="flex-1 bg-primary text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors text-sm">Áp dụng</button>
+                                            <button id="resetFilter" class="flex-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-sm">Đặt lại</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Nút Tạo Phiếu Xuất -->
                             <a href="/PTTKHT/QLK/PXK/code.html" class="flex-1 sm:flex-none justify-center bg-primary text-white font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors shadow-sm text-sm">
                                 <span class="material-symbols-outlined text-[20px]">add</span> Tạo phiếu xuất
                             </a>
@@ -170,11 +165,8 @@
 
                     <!-- Table Wrapper -->
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-1 flex flex-col overflow-hidden">
-                        
-                        <!-- Scrollable Table Body -->
                         <div class="overflow-y-auto custom-scrollbar flex-1">
                             <table class="w-full text-sm text-left">
-                                <!-- Sticky Header -->
                                 <thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
                                     <tr>
                                         <th class="px-6 py-3 font-semibold">Mã phiếu xuất</th>
@@ -185,12 +177,10 @@
                                     </tr>
                                 </thead>
                                 <tbody id="phieuXuatTableBody" class="divide-y divide-gray-200 dark:divide-gray-700">
-                                    <!-- Dữ liệu sẽ được load động bằng JavaScript -->
+                                    <!-- Dữ liệu -->
                                 </tbody>
                             </table>
                         </div>
-
-                        <!-- Footer: Chỉ hiện tổng số (Giống Nhập kho) -->
                         <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shrink-0">
                             <div class="text-sm text-gray-500 dark:text-gray-400">
                                 Tổng số <span id="totalPhieuXuat" class="font-medium">0</span> phiếu xuất
@@ -202,5 +192,34 @@
         </div>
     </main>
 </div>
+
+<!-- SCRIPT XỬ LÝ UI: HIỂN THỊ TÊN VÀ ẨN MENU KHO NẾU CẦN -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            
+            // 1. Hiển thị tên
+            const userDisplay = document.getElementById('user-display');
+            if(userDisplay) userDisplay.innerText = user.HoTen || user.TenDangNhap;
+
+            // 2. Ẩn menu Kho trên Sidebar nếu là Role 2 (Sale)
+            if (parseInt(user.QuyenHan) === 2) {
+                const navWarehouse = document.getElementById('nav-warehouse');
+                if (navWarehouse) navWarehouse.style.display = 'none';
+            }
+        }
+
+        // Xử lý đăng xuất
+        const btnLogout = document.getElementById('btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            });
+        }
+    });
+</script>
 </body>
 </html>

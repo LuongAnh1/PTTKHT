@@ -18,13 +18,24 @@ const filterStatePKK = {
 // ============================================
 async function loadPhieuKiemKe() {
     try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
         const from = document.getElementById('filterFromDate')?.value || '';
         const to = document.getElementById('filterToDate')?.value || '';
         const qs = new URLSearchParams();
         if (from) qs.set('from', from);
         if (to) qs.set('to', to);
 
-        const response = await fetch(`/api/kho/kiem-ke${qs.toString() ? `?${qs.toString()}` : ''}`);
+        const response = await fetch(`/api/kho/kiem-ke${qs.toString() ? `?${qs.toString()}` : ''}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI]
+            }
+        });
+
+        if (response.status === 403) return; // Chặn ngầm nếu lọt qua HTML
+
         const result = await response.json();
         
         if (result.success) {
@@ -32,35 +43,25 @@ async function loadPhieuKiemKe() {
                 allPhieuKiemKe = result.data.map(phieu => ({
                     MaPhieu: phieu.MaPKK,
                     TenNguoiKiemKe: phieu.TenNguoiKiemKe || '',
-                    TrangThai: phieu.TrangThai === 1 ? 'completed' : 
-                              phieu.TrangThai === 2 ? 'cancelled' : 'processing',
+                    TrangThai: phieu.TrangThai === 1 ? 'completed' : phieu.TrangThai === 2 ? 'cancelled' : 'processing',
                     NgayKiemKe: phieu.NgayKiemKe,
                     GhiChu: phieu.GhiChu || '',
                     TongMaLech: Number(phieu.TongMaLech) || 0
                 }));
-            } else {
-                allPhieuKiemKe = [];
-            }
-            
+            } else { allPhieuKiemKe = []; }
             filteredPhieuKiemKe = [...allPhieuKiemKe];
             currentPagePKK = 1;
             renderPhieuKiemKeTable(filteredPhieuKiemKe);
             updatePhieuKiemKeTotalCount(filteredPhieuKiemKe.length);
         } else {
-            allPhieuKiemKe = [];
-            filteredPhieuKiemKe = [];
-            renderPhieuKiemKeTable(filteredPhieuKiemKe);
-            updatePhieuKiemKeTotalCount(0);
+            allPhieuKiemKe = []; filteredPhieuKiemKe = []; renderPhieuKiemKeTable([]); updatePhieuKiemKeTotalCount(0);
         }
     } catch (error) {
         console.error('Lỗi load dữ liệu:', error);
-        alert('Không thể tải dữ liệu phiếu kiểm kê!');
-        allPhieuKiemKe = [];
-        filteredPhieuKiemKe = [];
-        renderPhieuKiemKeTable(filteredPhieuKiemKe);
-        updatePhieuKiemKeTotalCount(0);
+        allPhieuKiemKe = []; filteredPhieuKiemKe = []; renderPhieuKiemKeTable([]); updatePhieuKiemKeTotalCount(0);
     }
 }
+
 
 // ============================================
 // 2. RENDER BẢNG DỮ LIỆU

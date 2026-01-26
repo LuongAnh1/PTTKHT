@@ -27,6 +27,29 @@
             },
         };
     </script>
+    <!-- [QUAN TRỌNG] SCRIPT CHẶN QUYỀN TRUY CẬP (Thêm vào đây) -->
+    <script>
+        (function() {
+            // 1. Kiểm tra đăng nhập
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            if (!token || !userJson) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            // 2. Kiểm tra quyền
+            const user = JSON.parse(userJson);
+            const role = parseInt(user.QuyenHan);
+
+            // 3. NẾU LÀ SALE (Role 2) -> CHẶN VÀ ĐUỔI VỀ TRANG CHỦ
+            if (role === 2) {
+                alert("Bạn không có quyền truy cập module Quản lý Kho!");
+                window.location.href = '/PTTKHT/TC/code.html'; // Hoặc trang sản phẩm
+            }
+        })();
+    </script>
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0,
@@ -202,5 +225,19 @@
         </div>
     </main>
 </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userJson = localStorage.getItem('user');
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                // Ẩn menu kho trên sidebar nếu là role 2
+                if (parseInt(user.QuyenHan) === 2) {
+                    // Bạn cần thêm id="nav-warehouse" vào thẻ <a> Quản lý kho trong HTML sidebar trước
+                    const navWarehouse = document.querySelector('a[href*="/PTTKHT/QLK/NK/code.html"]');
+                    if (navWarehouse) navWarehouse.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
