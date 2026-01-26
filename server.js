@@ -32,29 +32,26 @@ app.use('/PTTKHT', express.static(path.join(__dirname, 'PTTKHT')));
 // [3] ĐĂNG KÝ ROUTE VÀ ÁP DỤNG PHÂN QUYỀN
 // Nguyên tắc: app.use(Đường_dẫn, [Kiểm_tra_đăng_nhập, Kiểm_tra_quyền], Route_xử_lý)
 
-// Nhóm công khai (Không cần đăng nhập)
-app.use('/api/trang-chu', trangChuRoutes); 
+// Nhóm Quản lý người dùng ('sys_user')
+app.use('/api/users', verifyToken, checkPermission('sys_user'), quanLyNguoiDungRoutes);
 
-// Nhóm Quản lý người dùng: Chỉ Admin mới vào được (Sale, Kho bị chặn ở authMiddleware)
-app.use('/api/users', verifyToken, checkPermission('users'), quanLyNguoiDungRoutes);
+// Nhóm Sản phẩm ('cat_product')
+app.use('/api/products', verifyToken, checkPermission('cat_product'), quanLySanPhamRoutes);
 
-// Nhóm Sản phẩm: Admin/Sale sửa được, Kho chỉ xem được (Logic xử lý trong authMiddleware)
-app.use('/api/products', verifyToken, checkPermission('products'), quanLySanPhamRoutes);
+// Nhóm Kho ('imp_import' hoặc 'imp_check' - tùy logic bạn chọn quyền nào đại diện)
+app.use('/api/kho', verifyToken, checkPermission('imp_import'), quanLyKhoRoutes);
 
-// Nhóm Kho: Admin/Kho sửa được, Sale bị chặn
-app.use('/api/kho', verifyToken, checkPermission('inventory'), quanLyKhoRoutes);
+// Nhóm Danh mục ('cat_group')
+app.use('/api/categories', verifyToken, checkPermission('cat_group'), quanLyDanhMucRoutes);
 
-// Nhóm Danh mục
-app.use('/api/categories', verifyToken, checkPermission('products'), quanLyDanhMucRoutes);
+// Nhóm Khuyến mãi ('cat_price')
+app.use('/api/marketing', verifyToken, checkPermission('cat_price'), quanLyKhuyenMaiRoutes);
 
-// Nhóm Khuyến mãi
-app.use('/api/marketing', verifyToken, checkPermission('products'), quanLyKhuyenMaiRoutes);
+// Nhóm Nhà cung cấp ('cat_supplier')
+app.use('/api/suppliers', verifyToken, checkPermission('cat_supplier'), quanLyNhaCungCapRoutes);
 
-// Nhóm Nhà cung cấp
-app.use('/api/suppliers', verifyToken, checkPermission('suppliers'), quanLyNhaCungCapRoutes);
-
-// Nhóm Báo cáo
-app.use('/api/bao-cao', verifyToken, baoCaoRoutes);
+// Nhóm Báo cáo (Admin/Kinh doanh xem được) - Bạn cần check quyền báo cáo
+app.use('/api/bao-cao', verifyToken, checkPermission('rep_inventory'), baoCaoRoutes);
 
 
 // Hàm mã hóa MD5

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Quản lý Thông tin Danh mục</title>
+    <title>Quản lý Nhà cung cấp</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -12,11 +12,7 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        primary: "#3B82F6",
-                        "background-light": "#F3F4F6",
-                        "background-dark": "#111827",
-                    },
+                    colors: { primary: "#3B82F6", "background-light": "#F3F4F6", "background-dark": "#111827" },
                     fontFamily: { display: ["Roboto", "sans-serif"] },
                     borderRadius: { DEFAULT: "0.5rem" },
                 },
@@ -28,8 +24,33 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; }
     </style>
+
+    <!-- [QUAN TRỌNG] SCRIPT KIỂM TRA QUYỀN VÀ CHẶN ROLE 3 -->
+    <script>
+        (function() {
+            // 1. Lấy thông tin từ localStorage
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            // 2. Nếu chưa đăng nhập -> Đẩy về trang Login
+            if (!token || !userJson) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            // 3. Phân tích quyền
+            const user = JSON.parse(userJson);
+            const role = parseInt(user.QuyenHan);
+
+            // 4. NẾU LÀ KHO (Role 3) -> CHẶN NGAY
+            if (role === 3) {
+                alert("Bạn không có quyền truy cập trang Quản lý Nhà cung cấp!");
+                // Chuyển hướng về trang Quản lý Kho hoặc Trang chủ
+                window.location.href = '/PTTKHT/QLK/NK/code.html'; 
+            }
+        })();
+    </script>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 overflow-hidden"> 
 
@@ -59,11 +80,12 @@
                 <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo &amp; Thống kê
             </a>
         </nav>
+        <!-- Footer Sidebar có hiển thị tên -->
         <div class="p-4 border-t border-gray-700">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
+                <span class="material-symbols-outlined mr-3">account_circle</span> <span id="user-display">User</span>
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
@@ -199,11 +221,46 @@
     const API_URL = '/api/suppliers';
     let currentList = [];
 
-    // 1. Load danh sách
+    // LẤY TOKEN
+    const token = localStorage.getItem('token');
+
+    // --- SETUP USER INFO & LOGOUT ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            // Hiển thị tên user trên sidebar
+            const userDisplay = document.getElementById('user-display');
+            if(userDisplay) userDisplay.innerText = user.HoTen || user.TenDangNhap;
+        }
+
+        // Sự kiện đăng xuất
+        const btnLogout = document.getElementById('btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            });
+        }
+
+        loadSuppliers();
+    });
+
+    // --- 1. Load danh sách (Có Headers) ---
     async function loadSuppliers(keyword = '') {
         try {
             const url = keyword ? `${API_URL}?q=${keyword}` : API_URL;
-            const res = await fetch(url);
+            // [MỚI] Thêm headers chứa token
+            const res = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            // Nếu bị Backend chặn (403)
+            if (res.status === 403) return; 
+
             const json = await res.json();
             
             if (json.success) {
@@ -213,7 +270,7 @@
         } catch (e) { console.error(e); }
     }
 
-    // 2. Render Bảng
+    // --- 2. Render Bảng (Giữ nguyên logic) ---
     function renderTable(list) {
         const tbody = document.getElementById('supplierTableBody');
         tbody.innerHTML = '';
@@ -242,7 +299,6 @@
                 `;
             }
 
-            // Tạo mã hiển thị giả lập (VD: SUP-001) dựa trên ID
             const displayCode = `SUP-${String(item.MaNCC).padStart(3, '0')}`;
 
             const row = `
@@ -275,7 +331,7 @@
         document.getElementById('footerCount').innerText = `Tổng số: ${list.length} nhà cung cấp`;
     }
 
-    // 3. Modal Logic
+    // --- 3. Modal Logic ---
     function openModal(mode, id = null) {
         document.getElementById('supplierModal').classList.remove('hidden');
         document.getElementById('ncc-id').value = '';
@@ -309,7 +365,7 @@
         document.getElementById('supplierModal').classList.add('hidden');
     }
 
-    // 4. Lưu dữ liệu
+    // --- 4. Lưu dữ liệu (Có Headers) ---
     async function handleSave(e) {
         e.preventDefault();
         const id = document.getElementById('ncc-id').value;
@@ -329,7 +385,10 @@
         try {
             const res = await fetch(url, {
                 method: method,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // [MỚI]
+                },
                 body: JSON.stringify(payload)
             });
             const json = await res.json();
@@ -344,11 +403,16 @@
         } catch (e) { alert('Lỗi kết nối server'); }
     }
 
-    // 5. Xóa
+    // --- 5. Xóa (Có Headers) ---
     async function deleteSupplier(id) {
         if (!confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này?')) return;
         try {
-            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            const res = await fetch(`${API_URL}/${id}`, { 
+                method: 'DELETE',
+                headers: { 
+                    'Authorization': `Bearer ${token}` // [MỚI]
+                }
+            });
             if ((await res.json()).success) {
                 alert('Đã xóa');
                 loadSuppliers();
@@ -365,8 +429,6 @@
         timeout = setTimeout(() => loadSuppliers(e.target.value), 500);
     });
 
-    // Chạy
-    document.addEventListener('DOMContentLoaded', () => loadSuppliers());
 </script>
 
 </body>

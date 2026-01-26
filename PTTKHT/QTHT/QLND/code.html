@@ -303,15 +303,43 @@
     // --- 1. TẢI DỮ LIỆU ---
     async function loadUsers() {
         try {
-            const response = await fetch('/api/users');
+            // [MỚI] Lấy token từ localStorage
+            const token = localStorage.getItem('token');
+            
+            // Nếu không có token thì đuổi về trang đăng nhập ngay
+            if (!token) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            const response = await fetch('/api/users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // [MỚI] Gửi kèm Token để chứng minh mình đã đăng nhập
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
+
+            // Kiểm tra nếu hết phiên đăng nhập (401) hoặc không có quyền (403)
+            if (response.status === 401 || response.status === 403) {
+                alert("Phiên đăng nhập hết hạn hoặc bạn không có quyền!");
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
             const result = await response.json();
+            
             if (result.success) {
                 allUsers = result.data;
                 renderTable(allUsers);
+            } else {
+                console.error(result.message);
             }
-        } catch (error) { console.error(error); }
+        } catch (error) { 
+            console.error("Lỗi tải dữ liệu:", error); 
+        }
     }
-
     function renderTable(data) {
         const tbody = document.getElementById('user-table-body');
         const totalSpan = document.getElementById('total-users');
@@ -372,7 +400,16 @@
     async function deleteUser(id, name) {
         if (confirm(`Xóa người dùng "${name}"?`)) {
             try {
-                const res = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+                const token = localStorage.getItem('token'); // [MỚI]
+
+                const res = await fetch(`/api/users/${id}`, { 
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // [MỚI]
+                    }
+                });
+                
                 const result = await res.json();
                 if (result.success) { alert(result.message); loadUsers(); }
                 else { alert('Lỗi: ' + result.message); }
@@ -435,6 +472,7 @@
         }
 
         try {
+            const token = localStorage.getItem('token');
             const res = await fetch(url, {
                 method: method,
                 headers: { 'Content-Type': 'application/json' },

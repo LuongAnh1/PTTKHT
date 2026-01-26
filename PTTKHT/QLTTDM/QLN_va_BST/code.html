@@ -27,6 +27,7 @@
             },
         };
     </script>
+    
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0,
@@ -148,7 +149,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button class="bg-primary text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors whitespace-nowrap shadow-sm">
+                        <button id="btnAddGroup"  class="bg-primary text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors whitespace-nowrap shadow-sm">
                             <span id="btnAdd" class="material-symbols-outlined">add</span> Thêm nhóm mới
                         </button>
                     </div>
@@ -164,7 +165,7 @@
                                         <th class="px-6 py-3 whitespace-nowrap font-semibold" scope="col">Tên nhóm</th>
                                         <th class="px-6 py-3 min-w-[300px] font-semibold" scope="col">Mô tả</th>
                                         <th class="px-6 py-3 whitespace-nowrap font-semibold" scope="col">Nhóm cha</th>
-                                        <th class="px-6 py-3 text-right whitespace-nowrap font-semibold" scope="col">Hành động</th>
+                                        <th class="px-6 py-3 text-right whitespace-nowrap font-semibold auth-action-col">Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody" class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -240,33 +241,65 @@
     const API_URL = '/api/categories';
     let currentDataList = []; // Biến toàn cục lưu danh sách tải về
 
-    // 1. Tải dữ liệu
+    // 1. [QUAN TRỌNG] Lấy Token và Role
+    const token = localStorage.getItem('token');
+    const userJson = localStorage.getItem('user');
+    let userRole = 0; // Mặc định là 0 (Không quyền)
+
+    if (userJson) {
+        const user = JSON.parse(userJson);
+        userRole = parseInt(user.QuyenHan);
+    }
+
+    // Nếu chưa đăng nhập -> Đuổi về trang login
+    if (!token) {
+        window.location.href = '/PTTKHT/QTHT/DN/code.html';
+    }
+
+    // 2. Hàm Tải Dữ liệu (Có gửi Token)
     async function loadData(keyword = '') {
         try {
             const url = keyword ? `${API_URL}?q=${keyword}` : API_URL;
-            const res = await fetch(url);
-            const json = await res.json();
+            
+            // Gửi request kèm Token
+            const res = await fetch(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
 
+            if (res.status === 401 || res.status === 403) {
+                alert("Phiên đăng nhập hết hạn hoặc không có quyền!");
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            const json = await res.json();
             if (json.success) {
-                currentDataList = json.data; // Lưu lại để dùng cho chức năng Sửa
+                currentDataList = json.data;
                 renderTable(json.data);
             }
-        } catch (error) {
-            console.error('Lỗi tải dữ liệu:', error);
-        }
+        } catch (error) { console.error('Lỗi tải dữ liệu:', error); }
     }
 
-    // 2. Render Bảng
+    // 3. Render Bảng (Có kiểm tra Role để ẩn nút Sửa/Xóa)
     function renderTable(list) {
         const tbody = document.getElementById('tableBody');
-        let htmlContent = '';
+        const totalDiv = document.getElementById('total-count');
+        
+        // Ẩn/Hiện cột header "Hành động"
+        const actionHeader = document.querySelector('.auth-action-col');
+        if (userRole === 3 && actionHeader) {
+            actionHeader.style.display = 'none';
+        }
 
         if (!list || list.length === 0) {
             tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-gray-500">Không tìm thấy dữ liệu</td></tr>`;
-            document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: 0 danh mục`;
+            totalDiv.innerText = `Tổng số: 0 danh mục`;
             return;
         }
 
+        let htmlContent = '';
         list.forEach(item => {
             const id = item.MaLoai;
             const ten = item.TenLoai || 'Không tên';
@@ -274,13 +307,31 @@
             const nhomCha = item.NhomCha || '-';
             const tags = item.Tags || '';
 
-            // Xử lý Tags hiển thị màu
+            // Xử lý Tags
             let tagsHtml = '';
             if (tags) {
                 const colors = ['blue', 'green', 'purple', 'orange', 'pink'];
                 tagsHtml = tags.split(',').map((tag, i) => 
-                    `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-${colors[i%5]}-100 text-${colors[i%5]}-800 dark:bg-${colors[i%5]}-900 dark:text-${colors[i%5]}-200 mr-1 mt-1">${tag.trim()}</span>`
+                    `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-${colors[i%5]}-100 text-${colors[i%5]}-800 mr-1 mt-1">${tag.trim()}</span>`
                 ).join('');
+            }
+
+            // LOGIC PHÂN QUYỀN TRONG BẢNG
+            // Nếu role = 3 (Kho) -> Không vẽ cột hành động
+            // Nếu role != 3 -> Vẽ nút Sửa/Xóa bình thường
+            let actionCell = '';
+            if (userRole !== 3) {
+                actionCell = `
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <button onclick="openModal('edit', ${id})" class="text-gray-400 hover:text-blue-600 p-1.5 transition-colors" title="Sửa">
+                                <span class="material-symbols-outlined text-[20px]">edit</span>
+                            </button>
+                            <button onclick="deleteItem(${id})" class="text-gray-400 hover:text-red-500 p-1.5 transition-colors" title="Xóa">
+                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                            </button>
+                        </div>
+                    </td>`;
             }
 
             htmlContent += `
@@ -292,20 +343,11 @@
                         <div class="flex flex-wrap gap-1">${tagsHtml}</div>
                     </td>
                     <td class="px-6 py-4 text-sm">${nhomCha}</td>
-                    <td class="px-6 py-4 text-right">
-                        <div class="flex items-center justify-end gap-2">
-                            <button onclick="openModal('edit', ${id})" class="text-gray-400 hover:text-blue-600 p-1.5 transition-colors" title="Sửa">
-                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                            </button>
-                            <button onclick="deleteItem(${id})" class="text-gray-400 hover:text-red-500 p-1.5 transition-colors" title="Xóa">
-                                <span class="material-symbols-outlined text-[20px]">delete</span>
-                            </button>
-                        </div>
-                    </td>
+                    ${actionCell} 
                 </tr>`;
         });
         tbody.innerHTML = htmlContent;
-        document.querySelector('.text-xs.text-gray-500 div').innerText = `Tổng số: ${list.length} danh mục`;
+        totalDiv.innerText = `Tổng số: ${list.length} danh mục`;
     }
 
     // --- CÁC HÀM XỬ LÝ MODAL ---
@@ -345,25 +387,27 @@
 
     // 5. Lưu dữ liệu (Xử lý Submit Form)
     async function handleSave(e) {
-        e.preventDefault(); // Chặn load lại trang
+        e.preventDefault(); 
+        if(userRole === 3) { alert("Bạn không có quyền này!"); return; }
 
         const id = document.getElementById('cate-id').value;
-        const tenLoai = document.getElementById('cate-name').value;
-        const nhomCha = document.getElementById('cate-parent').value;
-        const tags = document.getElementById('cate-tags').value;
-        const moTa = document.getElementById('cate-desc').value;
-
-        // Tạo object gửi đi
-        const payload = { tenLoai, nhomCha, tags, moTa };
+        const payload = {
+            tenLoai: document.getElementById('cate-name').value,
+            nhomCha: document.getElementById('cate-parent').value,
+            tags: document.getElementById('cate-tags').value,
+            moTa: document.getElementById('cate-desc').value
+        };
         
-        // Xác định phương thức và URL (Có ID => Sửa (PUT), Không ID => Thêm (POST))
         const method = id ? 'PUT' : 'POST';
         const url = id ? `${API_URL}/${id}` : API_URL;
 
         try {
             const res = await fetch(url, {
                 method: method,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // [QUAN TRỌNG]
+                },
                 body: JSON.stringify(payload)
             });
             const json = await res.json();
@@ -371,28 +415,26 @@
             if (json.success) {
                 alert(id ? 'Cập nhật thành công!' : 'Thêm mới thành công!');
                 closeModal();
-                loadData(); // Tải lại bảng
-            } else {
-                alert('Có lỗi xảy ra: ' + json.message);
-            }
-        } catch (error) {
-            console.error(error);
-            alert('Lỗi kết nối server!');
-        }
+                loadData(); 
+            } else { alert('Lỗi: ' + json.message); }
+        } catch (error) { console.error(error); }
     }
 
-    // 6. Xóa danh mục
+    // Hàm Xóa (Thêm Token vào Headers)
     async function deleteItem(id) {
+        if(userRole === 3) { alert("Bạn không có quyền này!"); return; }
         if (!confirm('Bạn có chắc chắn muốn xóa danh mục này?')) return;
+        
         try {
-            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            const res = await fetch(`${API_URL}/${id}`, { 
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` } // [QUAN TRỌNG]
+            });
             const json = await res.json();
             if (json.success) {
                 alert('Đã xóa thành công');
                 loadData();
-            } else {
-                alert('Lỗi: ' + json.message);
-            }
+            } else { alert('Lỗi: ' + json.message); }
         } catch (e) { console.error(e); }
     }
 
@@ -407,14 +449,30 @@
     document.querySelector('button.bg-primary').onclick = () => openModal('add');
 
     // Khởi chạy lần đầu
-    document.addEventListener('DOMContentLoaded', () => loadData());
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Kiểm tra quyền và ẩn nút Thêm Mới nếu là role 3
+        const btnAdd = document.getElementById('btnAddGroup');
+        if (userRole === 3 && btnAdd) {
+            btnAdd.style.display = 'none'; // Ẩn nút Thêm
+        } else if (btnAdd) {
+            btnAdd.addEventListener('click', () => openModal('add'));
+        }
 
-    // Đóng modal khi click ra ngoài
+        // 2. Tải dữ liệu
+        loadData();
+
+        // 3. Sự kiện tìm kiếm
+        let timeout = null;
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => loadData(e.target.value), 500);
+        });
+    });
+
+    // Đóng modal khi click ngoài
     window.onclick = function(event) {
         const modal = document.getElementById('categoryModal');
-        if (event.target == modal) {
-            closeModal();
-        }
+        if (event.target == modal) closeModal();
     }
 </script>
 </body>

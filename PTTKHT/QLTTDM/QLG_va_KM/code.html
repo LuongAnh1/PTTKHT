@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <!-- (Giữ nguyên phần Head cũ) -->
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Quản lý Giá & Khuyến mãi</title>
@@ -12,17 +13,9 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        primary: "#3B82F6",
-                        "background-light": "#F3F4F6",
-                        "background-dark": "#111827",
-                    },
-                    fontFamily: {
-                        display: ["Roboto", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem", 
-                    },
+                    colors: { primary: "#3B82F6", "background-light": "#F3F4F6", "background-dark": "#111827" },
+                    fontFamily: { display: ["Roboto", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.5rem" },
                 },
             },
         };
@@ -30,10 +23,33 @@
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
     </style>
+
+    <!-- [QUAN TRỌNG] SCRIPT CHẶN QUYỀN TRUY CẬP (ĐẶT Ở ĐÂY ĐỂ CHẠY SỚM NHẤT) -->
+    <script>
+        (function() {
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            if (!token || !userJson) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            const user = JSON.parse(userJson);
+            const role = parseInt(user.QuyenHan);
+
+            // NẾU LÀ KHO (Role 3) -> CHẶN NGAY LẬP TỨC
+            if (role === 3) {
+                alert("Bạn không có quyền truy cập trang này!");
+                // Chuyển hướng về trang chủ hoặc trang Kho
+                window.location.href = '/PTTKHT/QLK/NK/code.html'; 
+            }
+        })();
+    </script>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="flex h-screen">
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (Giữ nguyên) -->
     <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col flex-shrink-0">
         <div class="p-6">
             <div class="flex items-center space-x-3">
@@ -60,9 +76,9 @@
         </nav>
         <div class="p-4 border-t border-gray-700">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
+                <span class="material-symbols-outlined mr-3">account_circle</span> <span id="user-display">User</span>
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
@@ -70,8 +86,7 @@
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 p-8 overflow-y-auto bg-gray-50 dark:bg-gray-900">
-        
-        <!-- Header Section -->
+        <!-- (Giữ nguyên phần Header & Content Sections) -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-8">
             <div class="p-6">
                 <div class="mb-6">
@@ -97,10 +112,7 @@
             </div>
         </div>
 
-        <!-- Content Sections -->
-        <!-- Content Sections -->
         <div class="space-y-8">
-            
             <!-- 1. Bảng giá -->
             <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-white dark:bg-gray-800 shadow-sm">
                 <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-6 gap-4">
@@ -128,9 +140,8 @@
                                     <th class="px-6 py-3 text-right font-semibold">Hành động</th>
                                 </tr>
                             </thead>
-                            <!-- ID ĐỂ ĐỔ DỮ LIỆU BẢNG GIÁ -->
                             <tbody id="priceListBody" class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
-                                <!-- JS SẼ RENDER VÀO ĐÂY -->
+                                <!-- JS Render -->
                             </tbody>
                         </table>
                     </div>
@@ -168,13 +179,11 @@
                                     <th class="px-6 py-3 text-right font-semibold">Hành động</th>
                                 </tr>
                             </thead>
-                            <!-- ID ĐỂ ĐỔ DỮ LIỆU KHUYẾN MÃI -->
                             <tbody id="promoBody" class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
-                                <!-- JS SẼ RENDER VÀO ĐÂY -->
+                                <!-- JS Render -->
                             </tbody>
                         </table>
                     </div>
-                    
                     <div class="flex-none flex items-center justify-between px-6 py-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-500 dark:text-gray-400">
                         <div id="promoCount">Đang tải...</div>
                     </div>
@@ -184,8 +193,9 @@
     </main>
 </div>
 
-<!-- === MODAL BẢNG GIÁ === -->
+<!-- Modal Price (Giữ nguyên) -->
 <div id="modalPrice" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50">
+     <!-- Form content (Keep as is) -->
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6">
         <div class="flex justify-between items-center mb-4 border-b pb-2 dark:border-gray-700">
             <h3 id="titlePrice" class="text-xl font-bold text-gray-900 dark:text-white">Thêm bảng giá</h3>
@@ -227,8 +237,9 @@
     </div>
 </div>
 
-<!-- === MODAL KHUYẾN MÃI === -->
+<!-- Modal Promo (Giữ nguyên) -->
 <div id="modalPromo" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50">
+     <!-- Form content (Keep as is) -->
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-lg p-6">
         <div class="flex justify-between items-center mb-4 border-b pb-2 dark:border-gray-700">
             <h3 id="titlePromo" class="text-xl font-bold text-gray-900 dark:text-white">Tạo chương trình</h3>
@@ -288,11 +299,44 @@
     const API_MARKETING = '/api/marketing';
     let currentPriceLists = [];
     let currentPromos = [];
+    
+    // Lấy Token
+    const token = localStorage.getItem('token');
+
+    // Cập nhật User Info & Logout
+    document.addEventListener('DOMContentLoaded', () => {
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            document.getElementById('user-display').innerText = user.HoTen || user.TenDangNhap;
+        }
+        
+        document.getElementById('btn-logout').addEventListener('click', () => {
+             localStorage.clear();
+             window.location.href = '/PTTKHT/QTHT/DN/code.html';
+        });
+
+        loadPriceLists();
+        loadPromotions();
+    });
+
+    // --- HELPER AUTH FETCH ---
+    async function authFetch(url, options = {}) {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+        };
+        const config = { ...options, headers: { ...headers, ...options.headers } };
+        return fetch(url, config);
+    }
 
     // --- 1. QUẢN LÝ BẢNG GIÁ ---
     async function loadPriceLists() {
         try {
-            const res = await fetch(`${API_MARKETING}/price-lists`);
+            const res = await authFetch(`${API_MARKETING}/price-lists`);
+            // Nếu bị chặn quyền (đề phòng)
+            if (res.status === 403) return;
+
             const json = await res.json();
             const tbody = document.getElementById('priceListBody');
             tbody.innerHTML = '';
@@ -361,9 +405,8 @@
         const url = id ? `${API_MARKETING}/price-lists/${id}` : `${API_MARKETING}/price-lists`;
 
         try {
-            const res = await fetch(url, {
+            const res = await authFetch(url, {
                 method: method,
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
             const json = await res.json();
@@ -378,7 +421,7 @@
     async function deletePriceList(id) {
         if (!confirm('Bạn có chắc muốn xóa bảng giá này?')) return;
         try {
-            const res = await fetch(`${API_MARKETING}/price-lists/${id}`, { method: 'DELETE' });
+            const res = await authFetch(`${API_MARKETING}/price-lists/${id}`, { method: 'DELETE' });
             if ((await res.json()).success) { alert('Đã xóa'); loadPriceLists(); }
         } catch (e) { alert('Lỗi kết nối'); }
     }
@@ -387,7 +430,10 @@
     // --- 2. QUẢN LÝ KHUYẾN MÃI ---
     async function loadPromotions() {
         try {
-            const res = await fetch(`${API_MARKETING}/promotions`);
+            const res = await authFetch(`${API_MARKETING}/promotions`);
+            // Nếu bị chặn quyền
+            if (res.status === 403) return;
+
             const json = await res.json();
             const tbody = document.getElementById('promoBody');
             tbody.innerHTML = '';
@@ -474,9 +520,8 @@
         const url = id ? `${API_MARKETING}/promotions/${id}` : `${API_MARKETING}/promotions`;
 
         try {
-            const res = await fetch(url, {
+            const res = await authFetch(url, {
                 method: method,
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
             if ((await res.json()).success) {
@@ -490,7 +535,7 @@
     async function deletePromo(id) {
         if (!confirm('Xóa chương trình này?')) return;
         try {
-            const res = await fetch(`${API_MARKETING}/promotions/${id}`, { method: 'DELETE' });
+            const res = await authFetch(`${API_MARKETING}/promotions/${id}`, { method: 'DELETE' });
             if ((await res.json()).success) { alert('Đã xóa'); loadPromotions(); }
         } catch (e) { alert('Lỗi kết nối'); }
     }
@@ -498,12 +543,6 @@
     function closeModal(id) {
         document.getElementById(id).classList.add('hidden');
     }
-
-    // Chạy khi tải trang
-    document.addEventListener('DOMContentLoaded', () => {
-        loadPriceLists();
-        loadPromotions();
-    });
 </script>
 </body>
 </html>

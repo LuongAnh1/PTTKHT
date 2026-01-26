@@ -19,16 +19,16 @@ INSERT INTO LOAI_HANG (TenLoai, MoTa, NhomCha, Tags, TrangThai) VALUES
 -- 2. DỮ LIỆU TAI_KHOAN
 -- ============================================
 INSERT INTO TAI_KHOAN (TenDangNhap, MatKhau, HoTen, Email, QuyenHan, TrangThai) VALUES 
-('admin', '21232f297a57a5a743894a0e4a801fc3', 'Nguyễn Văn Quản Lý', 'admin@gmail.com', 0, 1), -- Pass: admin
-('nhanvien1', 'e10adc3949ba59abbe56e057f20f883e', 'Trần Thị Bán Hàng', 'nhanvien1@gmail.com', 1, 1), -- Pass: 123456
-('nhanvien2', 'e10adc3949ba59abbe56e057f20f883e', 'Lê Văn C', 'nhanvien2@gmail.com', 1, 1),
-('kho1', 'e10adc3949ba59abbe56e057f20f883e', 'Phạm Thị Kho', 'kho1@gmail.com', 1, 1),
-('sale01', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàng Văn D', 'sale01@gmail.com', 1, 1),
-('sale02', 'e10adc3949ba59abbe56e057f20f883e', 'Ngô Thị E', 'sale02@gmail.com', 1, 1),
-('quanly2', 'e10adc3949ba59abbe56e057f20f883e', 'Đỗ Văn F', 'quanly2@gmail.com', 0, 1),
-('nhanvien3', 'e10adc3949ba59abbe56e057f20f883e', 'Bùi Thị G', 'nhanvien3@gmail.com', 1, 1),
-('nhanvien4', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn H', 'nhanvien4@gmail.com', 1, 1),
-('nhanvien5', 'e10adc3949ba59abbe56e057f20f883e', 'Đinh Thị K', 'nhanvien5@gmail.com', 1, 1);
+('admin', '21232f297a57a5a743894a0e4a801fc3', 'Nguyễn Văn Quản Lý', 'admin@gmail.com', 1, 1),
+('quanly2', 'e10adc3949ba59abbe56e057f20f883e', 'Đỗ Văn Phó GĐ', 'quanly2@gmail.com', 1, 1),
+('sale01', 'e10adc3949ba59abbe56e057f20f883e', 'Trần Thị Sale', 'sale01@gmail.com', 2, 1),
+('sale02', 'e10adc3949ba59abbe56e057f20f883e', 'Ngô Thị E', 'sale02@gmail.com', 2, 1),
+('nhanvien1', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàng Văn D', 'nhanvien1@gmail.com', 2, 1),
+('nhanvien4', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn H', 'nhanvien4@gmail.com', 2, 1),
+('kho1', 'e10adc3949ba59abbe56e057f20f883e', 'Phạm Thị Kho', 'kho1@gmail.com', 3, 1),
+('nhanvien2', 'e10adc3949ba59abbe56e057f20f883e', 'Lê Văn C', 'nhanvien2@gmail.com', 3, 1),
+('nhanvien3', 'e10adc3949ba59abbe56e057f20f883e', 'Bùi Thị G', 'nhanvien3@gmail.com', 3, 1),
+('nhanvien5', 'e10adc3949ba59abbe56e057f20f883e', 'Đinh Thị K', 'nhanvien5@gmail.com', 3, 1);
 
 -- ============================================
 -- 3. DỮ LIỆU NHA_CUNG_CAP

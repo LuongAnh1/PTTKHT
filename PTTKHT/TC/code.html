@@ -35,6 +35,32 @@
             'opsz' 24
         }
     </style>
+
+    <!-- CHÈN VÀO ĐẦU THẺ BODY HOẶC TRONG HEAD -->
+    <script>
+        (function() {
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            // 1. Chưa đăng nhập -> Đuổi về trang Login
+            if (!token || !userJson) {
+                alert("Vui lòng đăng nhập!");
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            // 2. Nếu đã đăng nhập, cập nhật tên hiển thị khi trang load xong
+            document.addEventListener('DOMContentLoaded', () => {
+                const user = JSON.parse(userJson);
+                
+                // Tìm chỗ hiển thị tên user ở sidebar (đang là 'admin')
+                // Bạn cần sửa HTML bên dưới thêm id="user-display-name" vào thẻ <a> chứa tên
+                const userDisplay = document.getElementById('user-display-name'); 
+                if(userDisplay) userDisplay.innerHTML = `<span class="material-symbols-outlined mr-3">account_circle</span> ${user.HoTen || user.TenDangNhap}`;
+            });
+        })();
+    </script>
+
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="flex h-screen">
@@ -72,11 +98,15 @@
                 <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo & Thống kê
             </a>
         </nav>
+        <!-- Tìm đoạn này trong Sidebar và sửa lại -->
         <div class="p-4 border-t border-gray-700">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
+            <!-- Thêm id="user-display-name" vào đây -->
+            <a id="user-display-name" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined mr-3">account_circle</span> Đang tải...
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/DN/code.html">
+            
+            <!-- Sửa nút đăng xuất để có id xử lý -->
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-red-600/20 hover:text-red-400 transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
@@ -275,17 +305,49 @@
 </div>
 
 <!-- SCRIPT KẾT NỐI API -->
+<!-- SCRIPT KẾT NỐI API (ĐÃ SỬA LỖI TOKEN) -->
 <script>
-    // Hàm định dạng tiền tệ
+    // --- HÀM TIỆN ÍCH ---
+    const getToken = () => localStorage.getItem('token');
+
+    // Hàm gọi API chung để đỡ phải viết lại headers nhiều lần
+    async function authFetch(url) {
+        const token = getToken();
+        if (!token) {
+            window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            throw new Error("No token");
+        }
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // QUAN TRỌNG NHẤT
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            alert("Phiên đăng nhập hết hạn!");
+            localStorage.clear();
+            window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            throw new Error("Unauthorized");
+        }
+
+        return response.json();
+    }
+
+    // --- CÁC HÀM FORMAT ---
     function formatCurrency(number) {
-        if (!number) return '0 đ';
+        if (!number && number !== 0) return '0 đ';
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
     }
     function formatTime(dateString) {
+        if (!dateString) return '';
         const date = new Date(dateString);
         return date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
     }
     function formatDate(dateString) {
+        if (!dateString) return '';
         const date = new Date(dateString);
         return date.toLocaleDateString('vi-VN');
     }
@@ -295,31 +357,21 @@
         return document.getElementById('filter-date').value;
     }
 
-    // 1. Thống kê chung (Có lọc ngày cho Nhập/Xuất)
-    // Thay thế hàm loadThongKeChung cũ bằng hàm này
+    // 1. Thống kê chung
     async function loadThongKeChung() {
-        const dateStr = getSelectedDate(); // Lấy ngày từ ô input (dạng yyyy-mm-dd)
-
-        // --- ĐOẠN MỚI: Cập nhật nhãn thời gian ---
+        const dateStr = getSelectedDate();
+        
+        // Cập nhật Label ngày
         if (dateStr) {
-            // Cắt chuỗi để lấy ngày, tháng, năm
             const [year, month, day] = dateStr.split('-');
-            
-            // Kiểm tra xem có phải là ngày hôm nay không
             const today = new Date().toISOString().split('T')[0];
-            
-            if (dateStr === today) {
-                document.getElementById('label-ngay-nhap-xuat').innerText = "Hôm nay";
-            } else {
-                // Nếu là ngày khác, hiển thị ngày/tháng/năm
-                document.getElementById('label-ngay-nhap-xuat').innerText = `${day}/${month}/${year}`;
-            }
+            document.getElementById('label-ngay-nhap-xuat').innerText = (dateStr === today) ? "Hôm nay" : `${day}/${month}/${year}`;
         }
-        // -----------------------------------------
 
         try {
-            const res = await fetch(`/api/trang-chu/thong-ke-chung?date=${dateStr}`);
-            const result = await res.json();
+            // SỬ DỤNG authFetch thay cho fetch thường
+            const result = await authFetch(`/api/trang-chu/thong-ke-chung?date=${dateStr}`);
+            
             if (result.success) {
                 const data = result.data;
                 document.getElementById('stat-tong-ton-kho').innerText = formatCurrency(data.tongTonKho).replace('₫', '') + ' VNĐ';
@@ -333,15 +385,14 @@
                     statKho.className = "font-bold text-green-600";
                 }
             }
-        } catch (err) { console.error(err); }
+        } catch (err) { console.error("Lỗi Thống kê chung:", err); }
     }
 
-    // 2. Top Bán Chạy (Có lọc ngày)
+    // 2. Top Bán Chạy
     async function loadTopBanChay() {
         const date = getSelectedDate();
         try {
-            const res = await fetch(`/api/trang-chu/top-ban-chay?date=${date}`);
-            const result = await res.json();
+            const result = await authFetch(`/api/trang-chu/top-ban-chay?date=${date}`);
             const container = document.getElementById('list-top-san-pham');
             
             if (result.success && result.data.length > 0) {
@@ -359,20 +410,19 @@
             } else {
                 container.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500 italic">Không có dữ liệu bán hàng ngày này</td></tr>';
             }
-        } catch (err) { console.error(err); }
+        } catch (err) { console.error("Lỗi Top SP:", err); }
     }
 
-    // 3. Hoạt Động Gần Đây (Có lọc ngày)
+    // 3. Hoạt Động Gần Đây
     async function loadHoatDong() {
         const date = getSelectedDate();
         try {
-            const res = await fetch(`/api/trang-chu/hoat-dong-gan-day?date=${date}`);
-            const result = await res.json();
+            const result = await authFetch(`/api/trang-chu/hoat-dong-gan-day?date=${date}`);
             const container = document.getElementById('list-hoat-dong');
 
             if (result.success && result.data.length > 0) {
                 container.innerHTML = result.data.map(item => {
-                    const isNhap = item.LoaiHD === 0;
+                    const isNhap = item.LoaiHD === 0; // Giả sử 0 là nhập, 1 là xuất
                     const icon = isNhap ? 'add_shopping_cart' : 'shopping_bag';
                     const bgClass = isNhap ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600';
                     const title = isNhap ? 'Nhập kho thành công' : 'Xuất kho bán hàng';
@@ -398,15 +448,13 @@
             } else {
                 container.innerHTML = '<p class="text-center text-gray-500 italic">Không có hoạt động nào trong ngày này.</p>';
             }
-        } catch (err) { console.error(err); }
+        } catch (err) { console.error("Lỗi Hoạt động:", err); }
     }
 
-    // Các hàm này giữ nguyên (Dữ liệu Tĩnh/Hiện tại)
+    // 4. Cảnh báo tồn kho
     async function loadCanhBao() {
-        // (Giữ nguyên code cũ của bạn - không cần lọc ngày)
         try {
-            const res = await fetch('/api/trang-chu/canh-bao');
-            const result = await res.json();
+            const result = await authFetch('/api/trang-chu/canh-bao');
             const container = document.getElementById('list-canh-bao');
             if (result.success && result.data.length > 0) {
                 container.innerHTML = result.data.map(item => `
@@ -422,14 +470,13 @@
                     </div>
                 `).join('');
             } else { container.innerHTML = '<p class="p-4 text-center text-sm text-green-600">Kho ổn định.</p>'; }
-        } catch (err) {}
+        } catch (err) { console.error(err); }
     }
 
+    // 5. Công nợ
     async function loadCongNo() {
-        // (Giữ nguyên code cũ của bạn - không cần lọc ngày)
         try {
-            const res = await fetch('/api/trang-chu/cong-no-ncc');
-            const result = await res.json();
+            const result = await authFetch('/api/trang-chu/cong-no-ncc');
             const container = document.getElementById('list-cong-no');
             if (result.success && result.data.length > 0) {
                 container.innerHTML = result.data.map(item => `
@@ -445,24 +492,36 @@
                     </div>
                 `).join('');
             } else { container.innerHTML = '<p class="text-center text-sm text-gray-500">Không có công nợ.</p>'; }
-        } catch (err) {}
+        } catch (err) { console.error(err); }
     }
 
-    // --- HÀM CHẠY KHI BẤM NÚT LỌC ---
+    // --- SỰ KIỆN NÚT LỌC ---
     function filterData() {
         loadThongKeChung();
         loadTopBanChay();
         loadHoatDong();
-        // Cảnh báo và Công nợ không cần load lại vì nó là hiện tại
     }
 
-    // --- CHẠY LẦN ĐẦU ---
+    // --- MAIN ---
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Set ngày mặc định là hôm nay
+        // 1. Set ngày mặc định
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('filter-date').value = today;
 
-        // 2. Load toàn bộ dữ liệu
+        // 2. Xử lý Đăng xuất
+        const btnLogout = document.getElementById('btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', (e) => {
+                e.preventDefault();
+                if(confirm('Bạn có muốn đăng xuất?')) {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                }
+            })
+        }
+
+        // 3. Load dữ liệu
         filterData();
         loadCanhBao();
         loadCongNo();
