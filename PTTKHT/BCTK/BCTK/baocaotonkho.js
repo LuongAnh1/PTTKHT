@@ -8,7 +8,18 @@ let currentData = [];  // Dữ liệu đang hiển thị (để dùng cho xuất
 async function fetchTransactions() {
     try {
         // Gọi API từ Backend
-        const response = await fetch('http://localhost:3000/api/bao-cao/ton-kho');
+        const token = localStorage.getItem('token');
+        if (!token) return; // Đã xử lý ở HTML
+
+        const response = await fetch('http://localhost:3000/api/bao-cao/ton-kho', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI] Gửi token lên server
+            }
+        });
+
+        // const response = await fetch('http://localhost:3000/api/bao-cao/ton-kho');
         
         if (!response.ok) {
             throw new Error(`Lỗi HTTP: ${response.status}`);
