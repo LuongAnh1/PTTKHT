@@ -11,7 +11,24 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. LẤY DỮ LIỆU
 async function fetchStockData() {
     try {
-        const response = await fetch('http://localhost:3000/api/bao-cao/ton-kho');
+        // [MỚI] Lấy token từ localStorage
+        const token = localStorage.getItem('token');
+        if (!token) return; // Đã xử lý ở HTML
+
+        const response = await fetch('/api/bao-cao/ton-kho', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI] Gửi token lên server
+            }
+        });
+
+        // Nếu server trả về 403 Forbidden (Không có quyền)
+        if (response.status === 403) {
+            alert("Bạn không có quyền xem dữ liệu này!");
+            return;
+        }
+
         const data = await response.json();
         
         // Sắp xếp: Mới nhất lên đầu

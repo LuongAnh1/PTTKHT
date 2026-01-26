@@ -15,20 +15,36 @@ const formatNumber = (num) => {
 // ===========================================
 async function loadDashboardData() {
     try {
-        const res = await fetch('http://localhost:3000/api/bao-cao/hieu-qua-kinh-doanh');
+        // [MỚI] Lấy token từ localStorage
+        const token = localStorage.getItem('token');
+        if (!token) return; // Đã xử lý redirect ở HTML
+
+        // Sử dụng đường dẫn tương đối để tránh lỗi CORS và đồng bộ cấu hình
+        const res = await fetch('/api/bao-cao/hieu-qua-kinh-doanh', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // [MỚI] Gửi token
+            }
+        });
+
+        // Nếu Backend trả về 403 (Forbidden)
+        if (res.status === 403) {
+            alert("Bạn không có quyền xem báo cáo này!");
+            window.location.href = '/PTTKHT/TC/code.html';
+            return;
+        }
+
         const result = await res.json();
 
         if (result.success) {
-            // 1. Vẽ Biểu đồ Top (Cột trái)
+            // 1. Vẽ Biểu đồ Top
             renderChart(result.topProducts);
-            
-            // 2. Vẽ Bảng Top (Cột phải)
+            // 2. Vẽ Bảng Top
             renderTable(result.topProducts);
-            
-            // 3. Vẽ Phần Lợi Nhuận Gộp (Góc dưới trái)
+            // 3. Vẽ Phần Lợi Nhuận Gộp
             renderProfit(result.profitByCategory);
-            
-            // 4. Vẽ Phần Đổi Trả (Góc dưới phải - Dữ liệu giả lập từ server)
+            // 4. Vẽ Phần Đổi Trả
             renderReturns(result.returnStats);
         }
     } catch (error) {

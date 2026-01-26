@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Báo cáo - Hiệu quả kinh doanh</title>
+    <title>Báo cáo</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -22,6 +22,31 @@
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
     </style>
+
+    <!-- [QUAN TRỌNG] SCRIPT CHẶN QUYỀN 3 (KHO) -->
+    <script>
+        (function() {
+            // 1. Kiểm tra đăng nhập
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            if (!token || !userJson) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            // 2. Kiểm tra quyền
+            const user = JSON.parse(userJson);
+            const role = parseInt(user.QuyenHan);
+
+            // 3. NẾU LÀ KHO (Role 3) -> CHẶN
+            if (role === 3) {
+                alert("Nhân viên Kho không có quyền xem báo cáo doanh thu/lợi nhuận!");
+                // Chuyển về trang Dashboard chính hoặc trang Kho
+                window.location.href = '/PTTKHT/TC/code.html'; 
+            }
+        })();
+    </script>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="flex h-screen">
@@ -51,9 +76,9 @@
         </nav>
         <div class="p-4">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
+                <span class="material-symbols-outlined mr-3">account_circle</span> <span id="user-display">Admin</span>
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/DN/code.html">
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
@@ -68,47 +93,44 @@
                 </div>
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav aria-label="Tabs" class="flex space-x-6">
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" 
-                           href="/PTTKHT/BCTK/BCTK/code.html">Báo cáo Tồn kho</a>
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" 
-                           href="/PTTKHT/BCTK/TK/code.html">Thẻ kho</a>
-                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" 
-                           href="#">Hiệu quả kinh doanh</a>
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="/PTTKHT/BCTK/BCTK/code.html">
+                            Báo cáo Tồn kho
+                        </a>
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="/PTTKHT/BCTK/TK/code.html">
+                            Thẻ kho
+                        </a>
+                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" href="#">
+                            Hiệu quả kinh doanh
+                        </a>
                     </nav>
                 </div>
             </div>
 
             <div class="p-6 space-y-8 flex-1">
-                
+                <!-- Top Products Section -->
                 <section>
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center gap-2">
                             <span class="material-symbols-outlined text-yellow-500">trophy</span>
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Top hàng bán chạy nhất (Best Sellers)</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Top hàng bán chạy nhất</h3>
                         </div>
                         <div class="flex items-center gap-2">
-                            <select id="time-range-select" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm focus:ring-primary focus:border-primary">
+                            <select id="time-range-select" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm">
                                 <option value="month">Tháng này</option>
                                 <option value="quarter">Quý này</option>
                                 <option value="year">Năm nay</option>
                             </select>
-                            <button class="text-sm text-primary hover:underline">Xem tất cả</button>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Chart -->
                         <div class="lg:col-span-1 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col">
-                            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Theo số lượng bán ra</h4>
+                            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Biểu đồ số lượng</h4>
                             <div class="space-y-4 flex-1" id="list-top-chart">
-                                <div class="animate-pulse flex space-x-4">
-                                    <div class="flex-1 space-y-4 py-1">
-                                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-                                        <div class="h-4 bg-gray-200 rounded"></div>
-                                        <div class="h-4 bg-gray-200 rounded w-5/6"></div>
-                                    </div>
-                                </div>
+                                <!-- JS Render -->
                             </div>
                         </div>
-
+                        <!-- Table -->
                         <div class="lg:col-span-2 overflow-hidden border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm">
                             <table class="w-full text-sm text-left">
                                 <thead class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-xs font-semibold">
@@ -121,28 +143,28 @@
                                 </tr>
                                 </thead>
                                 <tbody id="table-top-products" class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
-                                    </tbody>
+                                    <!-- JS Render -->
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </section>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Profit Section -->
                     <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
                         <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-green-600">attach_money</span>
                                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Phân tích Lợi nhuận gộp</h3>
                             </div>
-                            <select class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm">
-                                <option>Theo nhóm hàng</option>
-                            </select>
                         </div>
                         <div class="space-y-4" id="profit-analysis">
                             <p class="text-center text-gray-500 py-4">Đang tải dữ liệu...</p>
                         </div>
                     </section>
 
+                    <!-- Returns Section -->
                     <section class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
                         <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center gap-2">
@@ -161,9 +183,9 @@
                                     <p class="text-[10px] text-gray-500">Tổng tỉ lệ</p>
                                 </div>
                             </div>
-                            
                             <div id="return-reasons" class="flex-1 w-full space-y-4">
-                                </div>
+                                <!-- JS Render -->
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -172,5 +194,27 @@
     </main>
 </div>
 <script src="baocaohieuquakinhdoanh.js"></script>
+
+<!-- SCRIPT UI (HIỂN THỊ USER / LOGOUT) -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            // Hiển thị tên
+            const userDisplay = document.getElementById('user-display');
+            if(userDisplay) userDisplay.innerText = user.HoTen || user.TenDangNhap;
+        }
+
+        // Đăng xuất
+        const btnLogout = document.getElementById('btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            });
+        }
+    });
+</script>
 </body>
 </html>

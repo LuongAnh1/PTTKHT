@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Báo cáo & Thống kê - Thẻ kho</title>
+    <title>Báo cáo & Thống kê</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -26,9 +26,34 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #4b5563; }
     </style>
+
+    <!-- [QUAN TRỌNG] SCRIPT CHẶN QUYỀN (CHỈ ADMIN MỚI ĐƯỢC VÀO) -->
+    <script>
+        (function() {
+            const token = localStorage.getItem('token');
+            const userJson = localStorage.getItem('user');
+
+            // 1. Chưa đăng nhập
+            if (!token || !userJson) {
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+                return;
+            }
+
+            const user = JSON.parse(userJson);
+            const role = parseInt(user.QuyenHan);
+
+            // 2. Kiểm tra quyền: Chỉ Admin (1) được vào
+            // Sale (2) và Kho (3) đều bị chặn
+            if (role !== 1) {
+                alert("Bạn không có quyền truy cập báo cáo này! (Chỉ dành cho Admin)");
+                window.location.href = '/PTTKHT/TC/code.html'; 
+            }
+        })();
+    </script>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="flex h-screen">
+    <!-- SIDEBAR -->
     <aside class="w-64 bg-[#111827] text-gray-300 flex flex-col shrink-0">
         <div class="p-6">
             <div class="flex items-center space-x-3">
@@ -38,43 +63,34 @@
         </div>
         
         <nav class="flex-1 px-4 py-4 space-y-2 border-t border-gray-700">
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
-               href="/PTTKHT/TC/code.html">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/TC/code.html">
                 <span class="material-symbols-outlined mr-3">home</span> Trang chủ
             </a>
-
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
-               href="/PTTKHT/QTHT/QLND/code.html">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QTHT/QLND/code.html">
                 <span class="material-symbols-outlined mr-3">settings_system_daydream</span> Quản trị hệ thống
             </a>
-           
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
-               href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLTTDM/QLN_va_BST/code.html">
                 <span class="material-symbols-outlined mr-3">category</span> Quản lý thông tin danh mục
             </a>
-
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
-               href="/PTTKHT/QLK/NK/code.html">
+            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="/PTTKHT/QLK/NK/code.html">
                 <span class="material-symbols-outlined mr-3">warehouse</span> Quản lý kho
             </a>
-
-            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" 
-               href="/PTTKHT/BCTK/BCTK/code.html">
+            <a class="bg-primary text-white flex items-center px-4 py-2.5 rounded-lg font-semibold" href="/PTTKHT/BCTK/BCTK/code.html">
                 <span class="material-symbols-outlined mr-3">bar_chart</span> Báo cáo & Thống kê
             </a>
         </nav>
 
         <div class="p-4">
             <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined mr-3">account_circle</span> admin
+                <span class="material-symbols-outlined mr-3">account_circle</span> <span id="user-display">Admin</span>
             </a>
-            <a class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors" 
-               href="/PTTKHT/QTHT/DN/code.html">
+            <a id="btn-logout" class="flex items-center px-4 py-2.5 rounded-lg hover:bg-gray-700 hover:text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined mr-3">logout</span> Đăng xuất
             </a>
         </div>
     </aside>
 
+    <!-- MAIN CONTENT (Giữ nguyên) -->
     <main class="flex-1 p-8 h-screen overflow-hidden flex flex-col">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col h-full">
             <div class="p-6 pb-0 shrink-0">
@@ -84,27 +100,23 @@
                 </div>
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav aria-label="Tabs" class="flex space-x-6">
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" 
-                           href="/PTTKHT/BCTK/BCTK/code.html">
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="/PTTKHT/BCTK/BCTK/code.html">
                             Báo cáo Tồn kho
                         </a>
-
-                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" 
-                           href="#">
+                        <a aria-current="page" class="border-b-2 border-primary text-primary dark:text-blue-400 pb-3 px-1 text-sm font-semibold transition-colors whitespace-nowrap" href="#">
                             Thẻ kho
                         </a>
-
-                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" 
-                           href="/PTTKHT/BCTK/BCHQKD/code.html">
+                        <a class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 pb-3 px-1 text-sm font-medium transition-colors whitespace-nowrap" href="/PTTKHT/BCTK/BCHQKD/code.html">
                             Hiệu quả kinh doanh
                         </a>
                     </nav>
                 </div>
             </div>
 
+            <!-- Content Area (Giữ nguyên các filter và table) -->
             <div class="p-6 flex-1 bg-gray-50/30 dark:bg-gray-800/30 overflow-hidden flex flex-col">
                 <div class="space-y-6 h-full flex flex-col">
-                    
+                    <!-- Filters -->
                     <div class="flex flex-wrap items-end justify-between gap-4 shrink-0 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
                         <div class="flex items-center gap-3 flex-wrap flex-1">
                             <div class="w-full sm:w-auto">
@@ -114,7 +126,7 @@
                                     <input id="search-input" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Tìm theo SKU, tên SP..." type="text"/>
                                 </div>
                             </div>
-                            
+                            <!-- Các select filter giữ nguyên -->
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Kho hàng</label>
                                 <select id="warehouse-filter" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-40">
@@ -124,7 +136,6 @@
                                     <option value="Kho Đà Nẵng">Kho Đà Nẵng</option>
                                 </select>
                             </div>
-
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Loại giao dịch</label>
                                 <select id="type-filter" class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-3 pr-8 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-40">
@@ -134,7 +145,6 @@
                                     <option value="Điều chuyển">Điều chuyển</option>
                                 </select>
                             </div>
-
                             <div class="w-full sm:w-auto">
                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-400 mb-1">Khoảng thời gian</label>
                                 <div class="flex items-center bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-2">
@@ -147,7 +157,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div>
                             <button onclick="exportToCSV()" class="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm">
                                 <span class="material-symbols-outlined text-lg">download</span> Xuất Excel
@@ -155,25 +164,25 @@
                         </div>
                     </div>
 
+                    <!-- Table -->
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex-1 flex flex-col overflow-hidden">
                         <div class="overflow-y-auto custom-scrollbar flex-1">
                             <table class="w-full text-sm text-left">
                                 <thead class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-xs font-semibold sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
                                     <tr>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Mã SKU</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Tên sản phẩm</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Màu sắc</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Kích thước</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Ngày giao dịch</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Loại giao dịch</th>
-                                        <th class="px-4 py-3 text-right whitespace-nowrap" scope="col">Số lượng</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Kho liên quan</th>
-                                        <th class="px-4 py-3 text-right whitespace-nowrap" scope="col">Tồn cuối</th>
-                                        <th class="px-4 py-3 whitespace-nowrap" scope="col">Ghi chú</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Mã SKU</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Tên sản phẩm</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Màu sắc</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Kích thước</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Ngày giao dịch</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Loại giao dịch</th>
+                                        <th class="px-4 py-3 text-right whitespace-nowrap">Số lượng</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Kho liên quan</th>
+                                        <th class="px-4 py-3 text-right whitespace-nowrap">Tồn cuối</th>
+                                        <th class="px-4 py-3 whitespace-nowrap">Ghi chú</th>
                                     </tr>
                                 </thead>
-                                <tbody id="transaction-table-body" class="divide-y divide-gray-200 dark:divide-gray-700">
-                                </tbody>
+                                <tbody id="transaction-table-body" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody>
                             </table>
                         </div>
                         <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shrink-0">
@@ -188,5 +197,27 @@
     </main>
 </div>
 <script src="thekho.js"></script>
+
+<!-- SCRIPT XỬ LÝ USER DISPLAY & LOGOUT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            // Hiển thị tên user
+            const userDisplay = document.getElementById('user-display');
+            if(userDisplay) userDisplay.innerText = user.HoTen || user.TenDangNhap;
+        }
+
+        // Xử lý nút đăng xuất
+        const btnLogout = document.getElementById('btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.href = '/PTTKHT/QTHT/DN/code.html';
+            });
+        }
+    });
+</script>
 </body>
 </html>
