@@ -146,8 +146,12 @@
                             const data = await response.json();
 
                             if (data.success) {
-                                // Save user info
+                                // 1. Lưu User Info
                                 localStorage.setItem('user', JSON.stringify(data.user));
+                                
+                                // 2. [MỚI] Lưu Token vào localStorage
+                                localStorage.setItem('token', data.token); 
+                                
                                 alert('Đăng nhập thành công! Xin chào ' + data.user.HoTen); // Sửa fullName thành HoTen cho khớp DB
                                 // Redirect to dashboard
                                 window.location.href = '../../TC/code.html';
